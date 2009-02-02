@@ -9,12 +9,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090202144937) do
+ActiveRecord::Schema.define(:version => 20090202150832) do
 
   create_table "currencies", :force => true do |t|
     t.string   "full_name"
     t.string   "iso_code"
     t.string   "symbol"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vendors", :force => true do |t|
+    t.string   "full_name"
+    t.string   "abbr_name"
+    t.integer  "currency_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

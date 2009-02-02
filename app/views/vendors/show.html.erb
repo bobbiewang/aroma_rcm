@@ -1,0 +1,18 @@
+<p>
+  <b>Full name:</b>
+  <%=h @vendor.full_name %>
+</p>
+
+<p>
+  <b>Abbr name:</b>
+  <%=h @vendor.abbr_name %>
+</p>
+
+<p>
+  <b>Currency:</b>
+  <%=h @vendor.currency_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_vendor_path(@vendor) %> |
+<%= link_to 'Back', vendors_path %>
