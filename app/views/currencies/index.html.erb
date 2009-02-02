@@ -1,0 +1,26 @@
+<h1>Listing currencies</h1>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Full Name</th>
+    <th>ISO Code</th>
+    <th>Symbol</th>
+  </tr>
+
+<% for currency in @currencies %>
+  <tr>
+    <td><%=h currency.id %></td>
+    <td><%=h currency.full_name %></td>
+    <td><%=h currency.iso_code %></td>
+    <td><%=h currency.symbol %></td>
+    <td><%= link_to 'Show', currency %></td>
+    <td><%= link_to 'Edit', edit_currency_path(currency) %></td>
+    <td><%= link_to 'Destroy', currency, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New currency', new_currency_path %>
