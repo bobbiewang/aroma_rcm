@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class CreateVendors < ActiveRecord::Migration
   def self.up
     create_table :vendors do |t|
@@ -8,8 +9,8 @@ class CreateVendors < ActiveRecord::Migration
       t.timestamps
     end
 
-    Vendor.create(:full_name => "香提",
-                  :abbr_name => "XT",
+    Vendor.create(:full_name => "欧芳（天津）日化有限公司",
+                  :abbr_name => "OF",
                   :currency_id => 1)
     Vendor.create(:full_name => "Shirley Price",
                   :abbr_name => "SP",

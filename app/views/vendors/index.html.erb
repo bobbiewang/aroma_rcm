@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>ID</th>
     <th>Full Name</th>
     <th>Abbr Name</th>
     <th>Currency</th>
@@ -9,6 +10,7 @@
 
 <% for vendor in @vendors %>
   <tr>
+    <td><%=h vendor.id %></td>
     <td><%=h vendor.full_name %></td>
     <td><%=h vendor.abbr_name %></td>
     <td><%=h vendor.currency.full_name %> (<%=h vendor.currency.symbol %>)</td>

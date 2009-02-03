@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :vendor_products
+
   map.resources :vendors
 
   map.resources :currencies
