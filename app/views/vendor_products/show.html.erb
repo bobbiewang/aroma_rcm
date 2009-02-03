@@ -1,0 +1,23 @@
+<p>
+  <b>Title:</b>
+  <%=h @vendor_product.title %>
+</p>
+
+<p>
+  <b>Vendor:</b>
+  <%=h @vendor_product.vendor_id %>
+</p>
+
+<p>
+  <b>Capacity:</b>
+  <%=h @vendor_product.capacity %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @vendor_product.price %>
+</p>
+
+
+<%= link_to 'Edit', edit_vendor_product_path(@vendor_product) %> |
+<%= link_to 'Back', vendor_products_path %>

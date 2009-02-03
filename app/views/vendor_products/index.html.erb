@@ -1,0 +1,26 @@
+<h1>Listing vendor_products</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Vendor</th>
+    <th>Capacity</th>
+    <th>Price</th>
+  </tr>
+
+<% for vendor_product in @vendor_products %>
+  <tr>
+    <td><%=h vendor_product.title %></td>
+    <td><%=h vendor_product.vendor_id %></td>
+    <td><%=h vendor_product.capacity %></td>
+    <td><%=h vendor_product.price %></td>
+    <td><%= link_to 'Show', vendor_product %></td>
+    <td><%= link_to 'Edit', edit_vendor_product_path(vendor_product) %></td>
+    <td><%= link_to 'Destroy', vendor_product, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New vendor_product', new_vendor_product_path %>
