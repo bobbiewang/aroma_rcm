@@ -4,8 +4,7 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :vendor_id %><br />
-    <%= f.text_field :vendor_id %>
+    <%= f.label :vendor_id %>: <%= @purchase_order.vendor.full_name %><br />
   </p>
   <p>
     <%= f.label :purchase_date %><br />
@@ -23,9 +22,17 @@
     <%= f.label :total_cost %><br />
     <%= f.text_field :total_cost %>
   </p>
+
+  <ul>
+  <% @vendor_products.each do | vendor_product, quantity | %>
+    <li><%=h vendor_product.title %>: <%= quantity %>
+  <% end %>
+  </ul>
+
   <p>
     <%= f.submit "Create" %>
   </p>
+
 <% end %>
 
 <%= link_to 'Back', purchase_orders_path %>

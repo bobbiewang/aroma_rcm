@@ -3,7 +3,7 @@
 <% for vendor in @vendors %>
 
 <h2><%= vendor.full_name %></h2>
-<% form_tag :action => 'generate_order' do %>
+<% form_tag :action => "new", :controller => "purchase_orders" do %>
 <%= hidden_field_tag :vendor_id, vendor.id %>
 
 <table>
@@ -15,14 +15,16 @@
 
 <% for vendor_product in vendor.vendor_products %>
 
+  <tr>
     <td><%=h vendor_product.title %></td>
     <td><%=h vendor_product.capacity %></td>
     <td><%=h vendor_product.price %></td>
-    <td><%= text_field_tag :quantity, '0', :size => 1 %></td>
+    <td><%= text_field_tag "vendor_products[#{vendor_product.id}]", '0', :size => 1 %></td>
     <td><%= link_to 'Show', vendor_product %></td>
     <td><%= link_to 'Edit', edit_vendor_product_path(vendor_product) %></td>
     <td><%= link_to 'Destroy', vendor_product, :confirm => 'Are you sure?',
                                                :method => :delete %></td>
+  </tr>
 
 <% end %>
 <% end %>
