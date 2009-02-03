@@ -2,6 +2,7 @@ class VendorProductsController < ApplicationController
   # GET /vendor_products
   # GET /vendor_products.xml
   def index
+    @vendors = Vendor.find(:all)
     @vendor_products = VendorProduct.find(:all)
 
     respond_to do |format|

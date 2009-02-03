@@ -1,25 +1,36 @@
-<h1>Listing vendor_products</h1>
+<h1>Listing Vendor Products</h1>
+
+<% for vendor in @vendors %>
+
+<h2><%= vendor.full_name %></h2>
+<% form_tag :action => 'generate_order' do %>
+<%= hidden_field_tag :vendor_id, vendor.id %>
 
 <table>
   <tr>
     <th>Title</th>
-    <th>Vendor</th>
     <th>Capacity</th>
     <th>Price</th>
   </tr>
 
-<% for vendor_product in @vendor_products %>
-  <tr>
+<% for vendor_product in vendor.vendor_products %>
+
     <td><%=h vendor_product.title %></td>
-    <td><%=h vendor_product.vendor_id %></td>
     <td><%=h vendor_product.capacity %></td>
     <td><%=h vendor_product.price %></td>
+    <td><%= text_field_tag :quantity, '0', :size => 1 %></td>
     <td><%= link_to 'Show', vendor_product %></td>
     <td><%= link_to 'Edit', edit_vendor_product_path(vendor_product) %></td>
-    <td><%= link_to 'Destroy', vendor_product, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+    <td><%= link_to 'Destroy', vendor_product, :confirm => 'Are you sure?',
+                                               :method => :delete %></td>
+
 <% end %>
+<% end %>
+
 </table>
+
+<%= submit_tag "Generate Order" %>
+<% end %>
 
 <br />
 

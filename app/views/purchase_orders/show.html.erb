@@ -1,0 +1,28 @@
+<p>
+  <b>Vendor:</b>
+  <%=h @purchase_order.vendor_id %>
+</p>
+
+<p>
+  <b>Purchase date:</b>
+  <%=h @purchase_order.purchase_date %>
+</p>
+
+<p>
+  <b>Arrival date:</b>
+  <%=h @purchase_order.arrival_date %>
+</p>
+
+<p>
+  <b>Postage:</b>
+  <%=h @purchase_order.postage %>
+</p>
+
+<p>
+  <b>Total cost:</b>
+  <%=h @purchase_order.total_cost %>
+</p>
+
+
+<%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
+<%= link_to 'Back', purchase_orders_path %>

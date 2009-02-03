@@ -1,0 +1,28 @@
+<h1>Listing store_items</h1>
+
+<table>
+  <tr>
+    <th>Purchase order</th>
+    <th>Buying price</th>
+    <th>Cost</th>
+    <th>Cost per ml</th>
+    <th>Cost per drop</th>
+  </tr>
+
+<% for store_item in @store_items %>
+  <tr>
+    <td><%=h store_item.purchase_order_id %></td>
+    <td><%=h store_item.buying_price %></td>
+    <td><%=h store_item.cost %></td>
+    <td><%=h store_item.cost_per_ml %></td>
+    <td><%=h store_item.cost_per_drop %></td>
+    <td><%= link_to 'Show', store_item %></td>
+    <td><%= link_to 'Edit', edit_store_item_path(store_item) %></td>
+    <td><%= link_to 'Destroy', store_item, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New store_item', new_store_item_path %>

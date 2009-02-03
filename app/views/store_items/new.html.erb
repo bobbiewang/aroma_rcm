@@ -1,0 +1,31 @@
+<h1>New store_item</h1>
+
+<% form_for(@store_item) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :purchase_order_id %><br />
+    <%= f.text_field :purchase_order_id %>
+  </p>
+  <p>
+    <%= f.label :buying_price %><br />
+    <%= f.text_field :buying_price %>
+  </p>
+  <p>
+    <%= f.label :cost %><br />
+    <%= f.text_field :cost %>
+  </p>
+  <p>
+    <%= f.label :cost_per_ml %><br />
+    <%= f.text_field :cost_per_ml %>
+  </p>
+  <p>
+    <%= f.label :cost_per_drop %><br />
+    <%= f.text_field :cost_per_drop %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', store_items_path %>

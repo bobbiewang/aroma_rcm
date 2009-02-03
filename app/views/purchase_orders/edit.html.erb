@@ -1,0 +1,32 @@
+<h1>Editing purchase_order</h1>
+
+<% form_for(@purchase_order) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :vendor_id %><br />
+    <%= f.text_field :vendor_id %>
+  </p>
+  <p>
+    <%= f.label :purchase_date %><br />
+    <%= f.date_select :purchase_date %>
+  </p>
+  <p>
+    <%= f.label :arrival_date %><br />
+    <%= f.date_select :arrival_date %>
+  </p>
+  <p>
+    <%= f.label :postage %><br />
+    <%= f.text_field :postage %>
+  </p>
+  <p>
+    <%= f.label :total_cost %><br />
+    <%= f.text_field :total_cost %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @purchase_order %> |
+<%= link_to 'Back', purchase_orders_path %>

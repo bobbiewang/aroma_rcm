@@ -1,0 +1,28 @@
+<h1>Listing purchase_orders</h1>
+
+<table>
+  <tr>
+    <th>Vendor</th>
+    <th>Purchase date</th>
+    <th>Arrival date</th>
+    <th>Postage</th>
+    <th>Total cost</th>
+  </tr>
+
+<% for purchase_order in @purchase_orders %>
+  <tr>
+    <td><%=h purchase_order.vendor_id %></td>
+    <td><%=h purchase_order.purchase_date %></td>
+    <td><%=h purchase_order.arrival_date %></td>
+    <td><%=h purchase_order.postage %></td>
+    <td><%=h purchase_order.total_cost %></td>
+    <td><%= link_to 'Show', purchase_order %></td>
+    <td><%= link_to 'Edit', edit_purchase_order_path(purchase_order) %></td>
+    <td><%= link_to 'Destroy', purchase_order, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New purchase_order', new_purchase_order_path %>

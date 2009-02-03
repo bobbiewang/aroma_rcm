@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  vendor_id: 1
+  purchase_date: 2009-02-03
+  arrival_date: 2009-02-03
+  postage: 9.99
+  total_cost: 9.99
+
+two:
+  vendor_id: 1
+  purchase_date: 2009-02-03
+  arrival_date: 2009-02-03
+  postage: 9.99
+  total_cost: 9.99
