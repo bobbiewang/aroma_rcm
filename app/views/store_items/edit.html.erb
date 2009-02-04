@@ -1,0 +1,52 @@
+<h1>Editing store_item</h1>
+
+<% form_for(@store_item) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :purchase_order_id %><br />
+    <%= f.text_field :purchase_order_id %>
+  </p>
+  <p>
+    <%= f.label :vendor_product_id %><br />
+    <%= f.text_field :vendor_product_id %>
+  </p>
+  <p>
+    <%= f.label :cost_per_unit %><br />
+    <%= f.text_field :cost_per_unit %>
+  </p>
+  <p>
+    <%= f.label :cost_per_ml %><br />
+    <%= f.text_field :cost_per_ml %>
+  </p>
+  <p>
+    <%= f.label :cost_per_drop %><br />
+    <%= f.text_field :cost_per_drop %>
+  </p>
+  <p>
+    <%= f.label :sale_quantity %><br />
+    <%= f.text_field :sale_quantity %>
+  </p>
+  <p>
+    <%= f.label :use_quantity %><br />
+    <%= f.text_field :use_quantity %>
+  </p>
+  <p>
+    <%= f.label :saled_quantity %><br />
+    <%= f.text_field :saled_quantity %>
+  </p>
+  <p>
+    <%= f.label :used_quantity %><br />
+    <%= f.text_field :used_quantity %>
+  </p>
+  <p>
+    <%= f.label :archived_quantity %><br />
+    <%= f.text_field :archived_quantity %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @store_item %> |
+<%= link_to 'Back', store_items_path %>
