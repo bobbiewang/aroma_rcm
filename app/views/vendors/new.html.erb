@@ -13,7 +13,7 @@
   </p>
   <p>
     <%= f.label :currency_id %><br />
-    <%= f.text_field :currency_id %>
+    <%= f.collection_select :currency_id, @currencies, :id, :full_name %>
   </p>
   <p>
     <%= f.label :active %><br />

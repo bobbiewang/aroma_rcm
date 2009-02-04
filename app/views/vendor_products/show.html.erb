@@ -5,17 +5,21 @@
 
 <p>
   <b>Vendor:</b>
-  <%=h @vendor_product.vendor_id %>
+  <%=h @vendor_product.vendor.full_name %>
 </p>
 
 <p>
   <b>Capacity:</b>
-  <%=h @vendor_product.capacity %>
+  <% if @vendor_product.capacity.nil? %>
+    <%=h "NA" %>
+  <% else %>
+    <%=h "#{@vendor_product.capacity} ml" %>
+  <% end %>
 </p>
 
 <p>
   <b>Price:</b>
-  <%=h @vendor_product.price %>
+  <%=h @vendor_product.price %> <%=h @vendor_product.vendor.currency.symbol %>
 </p>
 
 

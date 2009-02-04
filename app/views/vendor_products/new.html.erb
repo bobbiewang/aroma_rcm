@@ -9,7 +9,7 @@
   </p>
   <p>
     <%= f.label :vendor_id %><br />
-    <%= f.text_field :vendor_id %>
+    <%= f.collection_select :vendor_id, @vendors, :id, :full_name %>
   </p>
   <p>
     <%= f.label :capacity %><br />

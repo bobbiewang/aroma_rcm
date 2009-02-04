@@ -9,15 +9,15 @@
   </p>
   <p>
     <%= f.label :vendor_id %><br />
-    <%= f.text_field :vendor_id %>
+    <%= f.collection_select :vendor_id, @vendors, :id, :full_name %>
   </p>
   <p>
     <%= f.label :capacity %><br />
-    <%= f.text_field :capacity %>
+    <%= f.text_field :capacity %> ml
   </p>
   <p>
     <%= f.label :price %><br />
-    <%= f.text_field :price %>
+    <%= f.text_field :price %> <%=h @vendor_product.vendor.currency.symbol %>
   </p>
   <p>
     <%= f.submit "Update" %>

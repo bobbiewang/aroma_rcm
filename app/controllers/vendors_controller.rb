@@ -25,6 +25,7 @@ class VendorsController < ApplicationController
   # GET /vendors/new.xml
   def new
     @vendor = Vendor.new
+    @currencies = Currency.find(:all, :order => :full_name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +36,7 @@ class VendorsController < ApplicationController
   # GET /vendors/1/edit
   def edit
     @vendor = Vendor.find(params[:id])
+    @currencies = Currency.find(:all, :order => :full_name)
   end
 
   # POST /vendors

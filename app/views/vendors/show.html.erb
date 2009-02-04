@@ -1,21 +1,21 @@
 <p>
-  <b>Full name:</b>
+  <b>Vendor Name:</b>
   <%=h @vendor.full_name %>
 </p>
 
 <p>
-  <b>Abbr name:</b>
+  <b>Abbreviation:</b>
   <%=h @vendor.abbr_name %>
 </p>
 
 <p>
   <b>Currency:</b>
-  <%=h @vendor.currency_id %>
+  <%=h @vendor.currency.full_name %> (<%=h @vendor.currency.symbol %>)
 </p>
 
 <p>
   <b>Active:</b>
-  <%=h @vendor.active %>
+  <%=h @vendor.active? ? "YES" : "NO" %>
 </p>
 
 

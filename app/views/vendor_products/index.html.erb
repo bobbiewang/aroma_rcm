@@ -18,7 +18,7 @@
   <tr>
     <td><%=h vendor_product.title %></td>
     <td><%=h vendor_product.capacity %></td>
-    <td><%=h vendor_product.price %></td>
+    <td><%=h vendor_product.price %> <%=h vendor_product.vendor.currency.symbol %></td>
     <td><%= text_field_tag "vendor_products[#{vendor_product.id}]", '0', :size => 1 %></td>
     <td><%= link_to 'Show', vendor_product %></td>
     <td><%= link_to 'Edit', edit_vendor_product_path(vendor_product) %></td>
