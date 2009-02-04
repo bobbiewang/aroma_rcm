@@ -5,7 +5,8 @@
 
   <p>
     <%= f.label :vendor_id %><br />
-    <%= f.text_field :vendor_id %><br />
+    <% @vendors = Vendor.find(:all, :order => :full_name) %>
+    <%= f.collection_select :vendor_id, @vendors, :id, :full_name %><br />
   </p>
   <p>
     <%= f.label :purchase_date %><br />
