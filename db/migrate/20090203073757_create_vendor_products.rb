@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 class CreateVendorProducts < ActiveRecord::Migration
   def self.up
     create_table :vendor_products do |t|
-      t.string :title
-      t.integer :vendor_id
+      t.string  :title, :null => false
+      t.integer :vendor_id, :null => false
       t.integer :capacity
-      t.decimal :price
+      t.decimal :price, :null => false, :precision => 8, :scale => 2
 
       t.timestamps
     end
