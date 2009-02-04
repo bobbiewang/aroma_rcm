@@ -23,6 +23,13 @@
   <%=h @purchase_order.total_cost %>
 </p>
 
+<ul>
+<% for store_item in @purchase_order.store_items %>
+  <li>
+    <%=h store_item.vendor_product.title %>
+  </li>
+<% end %>
+</ul>
 
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
 <%= link_to 'Back', purchase_orders_path %>

@@ -4,7 +4,8 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :vendor_id %>: <%= @purchase_order.vendor.full_name %><br />
+    <%= f.label :vendor_id %><br />
+    <%= f.text_field :vendor_id %><br />
   </p>
   <p>
     <%= f.label :purchase_date %><br />
@@ -23,11 +24,14 @@
     <%= f.text_field :total_cost %>
   </p>
 
-  <ul>
-  <% @vendor_products.each do | vendor_product, quantity | %>
-    <li><%=h vendor_product.title %>: <%= quantity %>
-  <% end %>
-  </ul>
+  <div id="store_items">
+    <% render :partial => "purchase_order_store_item", :collection => @purchase_order.store_items,
+              :locals => { :purchase_order => @purchase_order, :vendor_products => @vendor_products } %>
+  </div>
+
+  <p>
+    <%= add_store_item_link "Add a product" %>
+  </p>
 
   <p>
     <%= f.submit "Create" %>

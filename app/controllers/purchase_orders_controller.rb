@@ -24,19 +24,15 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/new
   # GET /purchase_orders/new.xml
   def new
-    if request.post?
-      @vendor_products = { }
-      params[:vendor_products].each do |id, quantity|
-        @vendor_products[VendorProduct.find(id)] = quantity
-      end
-      @purchase_order = PurchaseOrder.new(:vendor_id => params[:vendor_id])
-      respond_to do |format|
-        format.html # new.html.erb
-        format.xml  { render :xml => @purchase_order }
-      end
-    else
-      flash[:notice] = 'Please select...'
-      redirect_to(purchase_orders_url)
+    @purchase_order = PurchaseOrder.new
+    @purchase_order.store_items.build
+
+    @vendors = Vendor.find(:all, :order => :full_name)
+    @vendor_products = VendorProduct.find(:all)
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @purchase_order }
     end
   end
 
