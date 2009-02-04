@@ -13,6 +13,11 @@
   <%=h @vendor.currency_id %>
 </p>
 
+<p>
+  <b>Active:</b>
+  <%=h @vendor.active %>
+</p>
+
 
 <%= link_to 'Edit', edit_vendor_path(@vendor) %> |
 <%= link_to 'Back', vendors_path %>

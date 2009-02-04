@@ -6,6 +6,7 @@
     <th>Full Name</th>
     <th>Abbr Name</th>
     <th>Currency</th>
+    <th>Active</th>
   </tr>
 
 <% for vendor in @vendors %>
@@ -14,6 +15,7 @@
     <td><%=h vendor.full_name %></td>
     <td><%=h vendor.abbr_name %></td>
     <td><%=h vendor.currency.full_name %> (<%=h vendor.currency.symbol %>)</td>
+    <td><%=h vendor.active %></td>
     <td><%= link_to 'Show', vendor %></td>
     <td><%= link_to 'Edit', edit_vendor_path(vendor) %></td>
     <td><%= link_to 'Destroy', vendor, :confirm => 'Are you sure?', :method => :delete %></td>
