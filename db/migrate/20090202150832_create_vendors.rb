@@ -15,11 +15,11 @@ class CreateVendors < ActiveRecord::Migration
                   :currency_id => 1,
                   :active      => false)
     Vendor.create(:full_name   => "Shirley Price",
-                  :abbr_name   => "SP",
+                  :abbr_name   => "SPA",
                   :currency_id => 2,
                   :active      => true)
     Vendor.create(:full_name   => "Penny Price",
-                  :abbr_name   => "PP",
+                  :abbr_name   => "PPA",
                   :currency_id => 2,
                   :active      => true)
   end
