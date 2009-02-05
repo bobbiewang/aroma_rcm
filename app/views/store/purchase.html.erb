@@ -1,0 +1,30 @@
+<h1>Purchase Vendor Products</h1>
+
+<% for vendor in @vendors %>
+
+<h2><%= vendor.full_name %></h2>
+<% form_tag :action => "new", :controller => "purchase_orders" do %>
+<%= hidden_field_tag :vendor_id, vendor.id %>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Price</th>
+  </tr>
+
+<% for vendor_product in vendor.vendor_products %>
+
+  <tr>
+    <td><%=h vendor_product.title %></td>
+    <td><%=h vendor_product.price %> <%=h vendor_product.vendor.currency.symbol %></td>
+  </tr>
+
+<% end %>
+<% end %>
+
+</table>
+
+<%= submit_tag "Generate Order" %>
+<% end %>
+
+<br />
