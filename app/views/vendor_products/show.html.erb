@@ -22,6 +22,10 @@
   <%=h @vendor_product.price %> <%=h @vendor_product.vendor.currency.symbol %>
 </p>
 
+<p>
+  <b>Active:</b>
+  <%=h @vendor_product.active? ? "YES" : "NO" %>
+</p>
 
 <%= link_to 'Edit', edit_vendor_product_path(@vendor_product) %> |
 <%= link_to 'Back', vendor_products_path %>

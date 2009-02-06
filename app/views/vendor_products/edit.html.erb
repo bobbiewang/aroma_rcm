@@ -20,6 +20,9 @@
     <%= f.text_field :price %> <%=h @vendor_product.vendor.currency.symbol %>
   </p>
   <p>
+    <%= f.check_box :active %><%= f.label :active, "The product is active" %>
+  </p>
+  <p>
     <%= f.submit "Update" %>
   </p>
 <% end %>
