@@ -8,6 +8,7 @@
 
 <table>
   <tr>
+    <th></th>
     <th>Title</th>
     <th>Price</th>
   </tr>
@@ -15,6 +16,7 @@
 <% for vendor_product in vendor.vendor_products %>
 
   <tr>
+    <td><%= check_box_tag "vendor_products[#{vendor_product.id}]" %></td>
     <td><%=h vendor_product.title %></td>
     <td><%=h vendor_product.price %> <%=h vendor_product.vendor.currency.symbol %></td>
   </tr>
@@ -24,7 +26,9 @@
 
 </table>
 
-<%= submit_tag "Generate Order" %>
+<br />
+
+<%= submit_tag "Generate #{vendor.abbr_name} Order" %>
 <% end %>
 
 <br />

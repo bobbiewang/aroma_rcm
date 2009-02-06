@@ -11,7 +11,7 @@ class CreateVendors < ActiveRecord::Migration
     end
 
     Vendor.create(:full_name   => "欧芳（天津）日化有限公司",
-                  :abbr_name   => "OF",
+                  :abbr_name   => "OFRH",
                   :currency_id => 1,
                   :active      => false)
     Vendor.create(:full_name   => "Shirley Price",

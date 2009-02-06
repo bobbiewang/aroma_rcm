@@ -5,8 +5,8 @@
 
   <p>
     <%= f.label :vendor_id %><br />
-    <% @vendors = Vendor.find(:all, :order => :full_name) %>
-    <%= f.collection_select :vendor_id, @vendors, :id, :full_name %><br />
+    <%= @purchase_order.vendor.full_name %><br />
+    <%= f.hidden_field :vendor %>
   </p>
   <p>
     <%= f.label :purchase_date %><br />
@@ -26,8 +26,7 @@
   </p>
 
   <div id="store_items">
-    <% render :partial => "purchase_order_store_item", :collection => @purchase_order.store_items,
-              :locals => { :purchase_order => @purchase_order, :vendor_products => @vendor_products } %>
+    <% render :partial => "purchase_order_store_item", :collection => @purchase_order.store_items %>
   </div>
 
   <p>
