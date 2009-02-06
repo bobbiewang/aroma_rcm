@@ -24,17 +24,25 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/new
   # GET /purchase_orders/new.xml
   def new
-    @vendor = Vendor.find(params[:vendor_id])
+    if request.post?
+      @vendor = Vendor.find(params[:vendor_id])
+      @vendor_products = @vendor.vendor_products
 
-    @purchase_order = PurchaseOrder.new(:vendor_id => @vendor.id)
-    vendor_product_ids = params[:vendor_products] || { }
-    vendor_product_ids.each_key do |id|
-      @purchase_order.store_items << StoreItem.new(:vendor_product_id => id, :sale_quantity => 1)
-    end
+      @purchase_order = PurchaseOrder.new(:vendor_id => @vendor.id)
+      vendor_product_ids = params[:vendor_products] || { }
+      vendor_product_ids.each_key do |id|
+        @purchase_order.store_items << StoreItem.new(:vendor_product_id => id, :quantity => 1)
+      end
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @purchase_order }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.xml  { render :xml => @purchase_order }
+      end
+    else
+      respond_to do |format|
+        flash[:notice] = 'Please select some products to create a purchase order.'
+        format.html { redirect_to :controller => :store, :action => :purchase }
+      end
     end
   end
 

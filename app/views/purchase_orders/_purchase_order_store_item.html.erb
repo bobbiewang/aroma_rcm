@@ -4,10 +4,9 @@
   <% fields_for prefix, purchase_order_store_item do |store_item_form| -%>
 
     <p>
-      <% @vendor_products = VendorProduct.find(:all) %>
-      <%= store_item_form.collection_select :vendor_product_id, @vendor_products, :id, :title  %>
-      <%= store_item_form.label :sale_quantity, "Quantity" %>
-      <%= store_item_form.text_field :sale_quantity, :size => "1" %>
+      <%= store_item_form.collection_select :vendor_product_id, vendor_products, :id, :title  %>
+      <%= store_item_form.label :quantity, "Quantity" %>
+      <%= store_item_form.text_field :quantity, :size => "1" %>
       <%= link_to_function "remove" , "$(this).up('.store_item').remove()" %>
     </p>
 

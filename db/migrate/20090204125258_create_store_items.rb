@@ -6,6 +6,7 @@ class CreateStoreItems < ActiveRecord::Migration
       t.decimal :cost_per_unit, :precision => 8, :scale => 2
       t.decimal :cost_per_ml, :precision => 8, :scale => 2
       t.decimal :cost_per_drop, :precision => 8, :scale => 2
+      t.integer :quantity
       t.integer :sale_quantity
       t.integer :use_quantity
       t.integer :saled_quantity

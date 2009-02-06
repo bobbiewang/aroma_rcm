@@ -5,8 +5,8 @@
 
   <p>
     <%= f.label :vendor_id %><br />
-    <%= @purchase_order.vendor.full_name %><br />
-    <%= f.hidden_field :vendor %>
+    <%= @vendor.full_name %><br />
+    <%= f.hidden_field :vendor_id %>
   </p>
   <p>
     <%= f.label :purchase_date %><br />
@@ -26,15 +26,17 @@
   </p>
 
   <div id="store_items">
-    <% render :partial => "purchase_order_store_item", :collection => @purchase_order.store_items %>
+    <%= render :partial => "purchase_order_store_item",
+               :collection => @purchase_order.store_items,
+               :locals => { :vendor_products => @vendor_products } %>
   </div>
 
   <p>
-    <%= add_store_item_link "Add a product" %>
+    <%= add_store_item_link "Add a product", @vendor_products %>
   </p>
 
   <p>
-    <%= f.submit "Create" %>
+    <%= f.submit "Create a Purchase Order" %>
   </p>
 
 <% end %>
