@@ -4,4 +4,8 @@ class PurchaseOrderItem < ActiveRecord::Base
 
   belongs_to :purchase_order
   belongs_to :vendor_product
+
+  def total_price
+    unit_price * quantity
+  end
 end

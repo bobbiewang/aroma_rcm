@@ -4,8 +4,8 @@ class CreatePurchaseOrders < ActiveRecord::Migration
       t.integer :vendor_id, :null => false
       t.date :purchase_date
       t.date :arrival_date
-      t.decimal :postage, :precision => 8, :scale => 2
-      t.decimal :total_cost, :precision => 11, :scale => 2
+      t.decimal :postage, :precision => 10, :scale => 4, :default => 0.0
+      t.decimal :total_cost, :precision => 13, :scale => 4
 
       t.timestamps
     end
