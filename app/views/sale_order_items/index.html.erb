@@ -1,0 +1,26 @@
+<h1>Listing sale_order_items</h1>
+
+<table>
+  <tr>
+    <th>Sale order</th>
+    <th>Vendor product</th>
+    <th>Cost</th>
+    <th>Price</th>
+  </tr>
+
+<% for sale_order_item in @sale_order_items %>
+  <tr>
+    <td><%=h sale_order_item.sale_order_id %></td>
+    <td><%=h sale_order_item.vendor_product_id %></td>
+    <td><%=h sale_order_item.cost %></td>
+    <td><%=h sale_order_item.price %></td>
+    <td><%= link_to 'Show', sale_order_item %></td>
+    <td><%= link_to 'Edit', edit_sale_order_item_path(sale_order_item) %></td>
+    <td><%= link_to 'Destroy', sale_order_item, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New sale_order_item', new_sale_order_item_path %>

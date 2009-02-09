@@ -1,0 +1,23 @@
+<p>
+  <b>Sale order:</b>
+  <%=h @sale_order_item.sale_order_id %>
+</p>
+
+<p>
+  <b>Vendor product:</b>
+  <%=h @sale_order_item.vendor_product_id %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%=h @sale_order_item.cost %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @sale_order_item.price %>
+</p>
+
+
+<%= link_to 'Edit', edit_sale_order_item_path(@sale_order_item) %> |
+<%= link_to 'Back', sale_order_items_path %>
