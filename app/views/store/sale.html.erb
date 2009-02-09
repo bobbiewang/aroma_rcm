@@ -1,0 +1,31 @@
+<h1>Products on Sale</h1>
+
+
+<% form_tag :action => "new", :controller => "sale_orders" do %>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Title</th>
+    <th>Cost</th>
+    <th>#AVL</th>
+  </tr>
+
+<% for item in @items %>
+
+  <tr>
+    <td><%= check_box_tag "purchase_order_items[#{item.id}]" %></td>
+    <td><%=h item.vendor_product.title %></td>
+    <td><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
+    <td><%=h item.avail_quantity %></td>
+  </tr>
+
+<% end %>
+
+</table>
+
+<br />
+
+<%= submit_tag "Generate an Order" %>
+
+<% end %>

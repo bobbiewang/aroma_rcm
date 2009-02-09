@@ -8,4 +8,8 @@ class PurchaseOrderItem < ActiveRecord::Base
   def total_price
     unit_price * quantity
   end
+
+  def avail_quantity
+    quantity
+  end
 end

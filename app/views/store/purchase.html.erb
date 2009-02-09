@@ -18,7 +18,9 @@
   <tr>
     <td><%= check_box_tag "vendor_products[#{vendor_product.id}]" %></td>
     <td><%=h vendor_product.title %></td>
-    <td><%=h vendor_product.price %> <%=h vendor_product.vendor.currency.symbol %></td>
+    <td><%=h number_to_currency(vendor_product.price,
+                                :unit =>vendor_product.vendor.currency.symbol) %>
+    </td>
   </tr>
 
 <% end %>
