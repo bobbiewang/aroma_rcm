@@ -1,11 +1,16 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  full_name: MyString
-  iso_code: MyString
-  symbol: MyString
+cny:
+  full_name: Chinese Yuan Renminbi
+  iso_code: CNY
+  symbol: ￥
 
-two:
-  full_name: MyString
-  iso_code: MyString
-  symbol: MyString
+gbp:
+  full_name: Pound Sterling
+  iso_code: GBP
+  symbol: £
+
+usd:
+  full_name: US Dollar
+  iso_code: USD
+  symbol: $
