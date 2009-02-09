@@ -6,6 +6,7 @@ class CreatePurchaseOrders < ActiveRecord::Migration
       t.date :arrival_date
       t.decimal :postage, :precision => 10, :scale => 4, :default => 0.0
       t.decimal :total_cost, :precision => 13, :scale => 4
+      t.text :comments
 
       t.timestamps
     end

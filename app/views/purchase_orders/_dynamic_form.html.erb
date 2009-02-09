@@ -1,0 +1,42 @@
+<% form_for(@purchase_order) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :vendor_id %>: <%= @vendor.full_name %><br />
+    <%= f.hidden_field :vendor_id %>
+  </p>
+  <p>
+    <%= f.label :purchase_date %><br />
+    <%= f.date_select :purchase_date %>
+  </p>
+  <p>
+    <%= f.label :arrival_date %><br />
+    <%= f.date_select :arrival_date %>
+  </p>
+  <p>
+    <%= f.label :postage %><br />
+    <%= f.text_field :postage %>
+  </p>
+  <p>
+    <%= f.label :total_cost %><br />
+    <%= f.text_field :total_cost %>
+  </p>
+
+  <div id="purchase_order_items">
+    <%= render :partial => "purchase_order_item",
+               :collection => @purchase_order.purchase_order_items,
+               :locals => { :vendor_products => @vendor_products } %>
+  </div>
+
+  <p>
+    <%= add_store_item_link "Add a product", @vendor_products %>
+  </p>
+
+  <p>
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  <p>
+    <%= f.submit "Create a Purchase Order" %>
+  </p>
+
+<% end %>

@@ -31,5 +31,10 @@
 <% end %>
 </ul>
 
+<p>
+  <b>Comments:</b>
+  <%=h @purchase_order.comments %>
+</p>
+
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
 <%= link_to 'Back', purchase_orders_path %>
