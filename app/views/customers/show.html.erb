@@ -1,0 +1,43 @@
+<p>
+  <b>Name:</b>
+  <%=h @customer.name %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%=h @customer.gender %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%=h @customer.address %>
+</p>
+
+<p>
+  <b>Post code:</b>
+  <%=h @customer.post_code %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%=h @customer.telephone %>
+</p>
+
+<p>
+  <b>Mobilephone:</b>
+  <%=h @customer.mobilephone %>
+</p>
+
+<p>
+  <b>Birthday:</b>
+  <%=h @customer.birthday %>
+</p>
+
+<p>
+  <b>Details:</b>
+  <%=h @customer.details %>
+</p>
+
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>
