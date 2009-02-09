@@ -4,13 +4,13 @@
   <tr>
     <th>Purchase order</th>
     <th>Vendor product</th>
-    <th>Cost per unit</th>
+    <th>Unit Price</th>
+    <th>Cost per Unit</th>
     <th>Cost per ml</th>
     <th>Cost per drop</th>
     <th>Quantity</th>
-    <th>Sale quantity</th>
-    <th>Use quantity</th>
-    <th>Saled quantity</th>
+    <th>Use Quantity</th>
+    <th>Saled Quantity</th>
     <th>Used quantity</th>
     <th>Archived quantity</th>
   </tr>
@@ -19,13 +19,13 @@
   <tr>
     <td><%=h store_item.purchase_order_id %></td>
     <td><%=h store_item.vendor_product_id %></td>
+    <td><%=h store_item.unit_price %></td>
     <td><%=h store_item.cost_per_unit %></td>
     <td><%=h store_item.cost_per_ml %></td>
     <td><%=h store_item.cost_per_drop %></td>
     <td><%=h store_item.quantity %></td>
-    <td><%=h store_item.sale_quantity %></td>
-    <td><%=h store_item.use_quantity %></td>
     <td><%=h store_item.saled_quantity %></td>
+    <td><%=h store_item.use_quantity %></td>
     <td><%=h store_item.used_quantity %></td>
     <td><%=h store_item.archived_quantity %></td>
     <td><%= link_to 'Show', store_item %></td>

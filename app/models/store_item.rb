@@ -6,4 +6,8 @@ class StoreItem < ActiveRecord::Base
                         :message => "Missing purchase_order_id"
   validates_presence_of :vendor_product_id,
                         :message => "Missing vendor_product_id"
+
+  def saled_quantity
+    0
+  end
 end
