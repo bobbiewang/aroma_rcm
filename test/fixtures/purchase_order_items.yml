@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  purchase_order_id: 1
+  vendor_product_id: 1
+  unit_price: 9.99
+  unit_cost: 9.99
+  ml_cost: 9.99
+  drop_cost: 9.99
+  quantity: 1
+
+two:
+  purchase_order_id: 1
+  vendor_product_id: 1
+  unit_price: 9.99
+  unit_cost: 9.99
+  ml_cost: 9.99
+  drop_cost: 9.99
+  quantity: 1

@@ -31,7 +31,11 @@ class PurchaseOrdersController < ApplicationController
       @purchase_order = PurchaseOrder.new(:vendor_id => @vendor.id)
       vendor_product_ids = params[:vendor_products] || { }
       vendor_product_ids.each_key do |id|
-        @purchase_order.store_items << StoreItem.new(:vendor_product_id => id, :quantity => 1)
+        vendor_product = VendorProduct.find(id)
+        @purchase_order.purchase_order_items <<
+          PurchaseOrderItem.new(:vendor_product_id => id,
+                                :unit_price => vendor_product.price,
+                                :quantity => 1)
       end
 
       respond_to do |format|
@@ -58,11 +62,12 @@ class PurchaseOrdersController < ApplicationController
 
     respond_to do |format|
       if @purchase_order.save
-        flash[:notice] = 'PurchaseOrder was successfully created.'
+        flash[:notice] = 'The purchase order was successfully created.'
         format.html { redirect_to(@purchase_order) }
         format.xml  { render :xml => @purchase_order, :status => :created, :location => @purchase_order }
       else
-        format.html { render :action => "new" }
+        flash[:notice] = "Failed to generate the purchase order."
+        format.html { redirect_to :controller => "store", :action => "purchase" }
         format.xml  { render :xml => @purchase_order.errors, :status => :unprocessable_entity }
       end
     end

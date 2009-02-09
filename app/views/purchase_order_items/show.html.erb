@@ -1,0 +1,38 @@
+<p>
+  <b>Purchase order:</b>
+  <%=h @purchase_order_item.purchase_order_id %>
+</p>
+
+<p>
+  <b>Vendor product:</b>
+  <%=h @purchase_order_item.vendor_product_id %>
+</p>
+
+<p>
+  <b>Unit price:</b>
+  <%=h @purchase_order_item.unit_price %>
+</p>
+
+<p>
+  <b>Unit cost:</b>
+  <%=h @purchase_order_item.unit_cost %>
+</p>
+
+<p>
+  <b>Ml cost:</b>
+  <%=h @purchase_order_item.ml_cost %>
+</p>
+
+<p>
+  <b>Drop cost:</b>
+  <%=h @purchase_order_item.drop_cost %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%=h @purchase_order_item.quantity %>
+</p>
+
+
+<%= link_to 'Edit', edit_purchase_order_item_path(@purchase_order_item) %> |
+<%= link_to 'Back', purchase_order_items_path %>

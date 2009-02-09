@@ -24,9 +24,9 @@
 </p>
 
 <ul>
-<% for store_item in @purchase_order.store_items %>
+<% for item in @purchase_order.purchase_order_items %>
   <li>
-    <%=h store_item.vendor_product.title %>
+    <%=h item.vendor_product.title %>
   </li>
 <% end %>
 </ul>

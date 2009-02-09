@@ -4,8 +4,7 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :vendor_id %><br />
-    <%= @vendor.full_name %><br />
+    <%= f.label :vendor_id %>: <%= @vendor.full_name %><br />
     <%= f.hidden_field :vendor_id %>
   </p>
   <p>
@@ -25,9 +24,9 @@
     <%= f.text_field :total_cost %>
   </p>
 
-  <div id="store_items">
-    <%= render :partial => "purchase_order_store_item",
-               :collection => @purchase_order.store_items,
+  <div id="purchase_order_items">
+    <%= render :partial => "purchase_order_item",
+               :collection => @purchase_order.purchase_order_items,
                :locals => { :vendor_products => @vendor_products } %>
   </div>
 
