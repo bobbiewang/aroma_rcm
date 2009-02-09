@@ -3,7 +3,7 @@
 
   <p>
     <%= f.label :customer_id %><br />
-    <%= f.text_field :customer_id %>
+    <%= f.collection_select :customer_id, @customers, :id, :name %>
   </p>
   <p>
     <%= f.label :sale_date %><br />
@@ -13,6 +13,50 @@
     <%= f.label :postage %><br />
     <%= f.text_field :postage %>
   </p>
+
+  Products<br />
+  <div id="sale_order_items">
+    <table>
+      <tr>
+        <th>Vendor</th>
+        <th>Product</th>
+        <th>Cost</th>
+        <th>Price</th>
+        <th>QTY</th>
+      </tr>
+<% for item in @sale_order.sale_order_items %>
+  <% new_or_existing = item.new_record? ? 'new' : 'existing' %>
+  <% prefix = "sale_order[#{new_or_existing}_sale_order_item_attributes][]" %>
+  <% fields_for prefix, item do |sale_order_item_form| -%>
+      <tr>
+        <td>
+          <%= sale_order_item_form.label :vendor,
+                                         item.purchase_order_item.vendor_product.vendor.abbr_name %>
+        </td>
+        <td>
+           <%= sale_order_item_form.label :title,
+                                          item.purchase_order_item.vendor_product.title %>
+           <%= sale_order_item_form.hidden_field :purchase_order_item_id %>
+        </td>
+        <!-- Unit cost 可以为空，注意如何处理 -->
+        <td>
+          <%= sale_order_item_form.text_field :unit_cost, :size => "4" %>/
+          <%=h number_to_currency(item.purchase_order_item.unit_cost,
+                                  :unit => "￥") %>
+        </td>
+        <td>
+          <%= sale_order_item_form.text_field :unit_price, :size => "4" %>
+        </td>
+        <td>
+          <%= sale_order_item_form.text_field :quantity, :size => "1" %> /
+          <%=h item.purchase_order_item.avail_quantity %>
+        </td>
+      </tr>
+  <% end %>
+<% end %>
+    </table>
+  </div>
+
   <p>
     <%= f.label :comments %><br />
     <%= f.text_area :comments %>

@@ -3,17 +3,18 @@
 <table>
   <tr>
     <th>Sale order</th>
-    <th>Vendor product</th>
+    <th>Purchase order item</th>
     <th>Cost</th>
     <th>Price</th>
+    <th colspan="3">Operations</th>
   </tr>
 
 <% for sale_order_item in @sale_order_items %>
   <tr>
     <td><%=h sale_order_item.sale_order_id %></td>
-    <td><%=h sale_order_item.vendor_product_id %></td>
-    <td><%=h sale_order_item.cost %></td>
-    <td><%=h sale_order_item.price %></td>
+    <td><%=h sale_order_item.purchase_order_item_id %></td>
+    <td><%=h sale_order_item.unit_cost %></td>
+    <td><%=h sale_order_item.unit_price %></td>
     <td><%= link_to 'Show', sale_order_item %></td>
     <td><%= link_to 'Edit', edit_sale_order_item_path(sale_order_item) %></td>
     <td><%= link_to 'Destroy', sale_order_item, :confirm => 'Are you sure?', :method => :delete %></td>

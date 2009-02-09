@@ -24,11 +24,26 @@ class SaleOrdersController < ApplicationController
   # GET /sale_orders/new
   # GET /sale_orders/new.xml
   def new
-    @sale_order = SaleOrder.new
+    if request.post?
+      @customers = Customer.find(:all)
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @sale_order }
+      @sale_order = SaleOrder.new
+      purchase_order_items =params[:purchase_order_items] || { }
+      purchase_order_items.each_key do |id|
+        @sale_order.sale_order_items <<
+          SaleOrderItem.new(:purchase_order_item_id => id,
+                            :quantity => 1)
+      end
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.xml  { render :xml => @sale_order }
+      end
+    else
+      respond_to do |format|
+        flash[:notice] = 'Please select some products to create a sale order.'
+        format.html { redirect_to :controller => :store, :action => :sale }
+      end
     end
   end
 

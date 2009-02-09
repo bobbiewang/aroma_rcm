@@ -7,10 +7,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :purchase_order_items
 
-  map.resources :store_items
-
-  map.resources :store_items
-
   map.resources :purchase_orders
 
   map.resources :vendor_products
