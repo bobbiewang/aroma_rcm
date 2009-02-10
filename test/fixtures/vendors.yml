@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  full_name: MyString
-  abbr_name: MyString
-  currency_id: 1
+ppa:
+  full_name: Penny Price
+  abbr_name: PPA
+  currency_id: 2
 
-two:
-  full_name: MyString
-  abbr_name: MyString
-  currency_id: 1
+spa:
+  full_name: Shirley Price
+  abbr_name: SPA
+  currency_id: 2

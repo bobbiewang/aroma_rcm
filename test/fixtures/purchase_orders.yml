@@ -1,13 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+from_ppa:
+  id: 1
   vendor_id: 1
   purchased_at: 2009-02-03
   arrived_at: 2009-02-03
-  postage: 9.99
-  total_cost: 9.99
+  postage: 10.0
+  total_cost: 200.0
 
 two:
+  id: 2
   vendor_id: 1
   purchased_at: 2009-02-03
   arrived_at: 2009-02-03

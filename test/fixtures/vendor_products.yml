@@ -1,17 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
+oil:
+  id: 1
+  title: 3ml Chamomile
   vendor_id: 1
-  capacity: 1
-  price: 9.99
+  capacity: 10
+  price: 5.0
   active: true
-  description: MyText
+  description: 洋甘菊
 
-two:
-  title: MyString
+hydrolat:
+  id: 2
+  title: 500ml Neroli
   vendor_id: 1
-  capacity: 1
-  price: 9.99
+  capacity: 500
+  price: 10.0
   active: true
-  description: MyText
+  description: 橙花油

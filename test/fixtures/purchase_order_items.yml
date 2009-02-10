@@ -1,18 +1,20 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+2_ppa_oil:
+  id: 1
   purchase_order_id: 1
   vendor_product_id: 1
-  unit_price: 9.99
+  unit_price: 5.0
   unit_cost: 9.99
   ml_cost: 9.99
   drop_cost: 9.99
-  quantity: 1
+  quantity: 2
 
-two:
+1_ppa_hydrolat:
+  id: 2
   purchase_order_id: 1
-  vendor_product_id: 1
-  unit_price: 9.99
+  vendor_product_id: 2
+  unit_price: 10.0
   unit_cost: 9.99
   ml_cost: 9.99
   drop_cost: 9.99
