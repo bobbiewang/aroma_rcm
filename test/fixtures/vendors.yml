@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 ppa:
+  id: 1
   full_name: Penny Price
   abbr_name: PPA
   currency_id: 2
 
 spa:
+  id: 2
   full_name: Shirley Price
   abbr_name: SPA
   currency_id: 2

@@ -1,16 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 cny:
+  id: 1
   full_name: Chinese Yuan Renminbi
   iso_code: CNY
   symbol: ￥
 
 gbp:
+  id: 2
   full_name: Pound Sterling
   iso_code: GBP
   symbol: £
 
 usd:
+  id: 3
   full_name: US Dollar
   iso_code: USD
   symbol: $

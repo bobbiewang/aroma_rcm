@@ -7,9 +7,11 @@ class PurchaseOrdersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:purchase_orders)
   end
 
-  def test_should_get_new
+  def test_get_new_should_redirect
     get :new
-    assert_response :success
+    assert_redirected_to :controller => "store", :action => "purchase"
+    assert_equal "Please select some products to create a purchase order.",
+                 flash[:notice]
   end
 
   def test_should_create_purchase_order

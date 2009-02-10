@@ -3,7 +3,7 @@ class CreateSaleOrders < ActiveRecord::Migration
     create_table :sale_orders do |t|
       t.integer :customer_id, :null => false
       t.date :saled_at, :null => false
-      t.decimal :postage, :null => false, :precision => 10, :scale => 4
+      t.decimal :postage, :null => false, :precision => 10, :scale => 4, :default => 0.0
       t.text :comments
 
       t.timestamps

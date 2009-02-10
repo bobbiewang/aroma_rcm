@@ -1,8 +1,13 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class StoreControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_should_get_purchase
+    get :purchase
+    assert_response :success
+  end
+
+  def test_should_get_sale
+    get :sale
+    assert_response :success
   end
 end

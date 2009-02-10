@@ -49,6 +49,7 @@ class SaleOrdersController < ApplicationController
 
   # GET /sale_orders/1/edit
   def edit
+    @customers = Customer.find(:all)
     @sale_order = SaleOrder.find(params[:id])
   end
 

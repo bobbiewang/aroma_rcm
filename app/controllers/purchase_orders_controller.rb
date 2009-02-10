@@ -53,6 +53,8 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/1/edit
   def edit
     @purchase_order = PurchaseOrder.find(params[:id])
+    @vendor = @purchase_order.vendor
+    @vendor_products = @vendor.vendor_products
   end
 
   # POST /purchase_orders
