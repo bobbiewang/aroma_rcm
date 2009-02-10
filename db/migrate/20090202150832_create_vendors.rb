@@ -3,7 +3,7 @@ class CreateVendors < ActiveRecord::Migration
   def self.up
     create_table :vendors do |t|
       t.string  :full_name, :null => false
-      t.string  :abbr_name, :limit => 32
+      t.string  :abbr_name, :null => false, :limit => 32
       t.integer :currency_id, :null => false
       t.boolean :active, :null => false, :default => true
 
@@ -11,7 +11,7 @@ class CreateVendors < ActiveRecord::Migration
     end
 
     Vendor.create(:full_name   => "欧芳（天津）日化有限公司",
-                  :abbr_name   => "OFRH",
+                  :abbr_name   => "欧芳",
                   :currency_id => 1,
                   :active      => false)
     Vendor.create(:full_name   => "Shirley Price",

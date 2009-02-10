@@ -5,7 +5,7 @@ class CreateVendorProducts < ActiveRecord::Migration
       t.string  :title, :null => false
       t.integer :vendor_id, :null => false
       t.integer :capacity
-      t.decimal :price, :null => false, :precision => 10, :scale => 4
+      t.decimal :price, :precision => 10, :scale => 4
       t.boolean :active, :null => false, :default => true
       t.text :description
 
