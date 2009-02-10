@@ -17,3 +17,12 @@ hydrolat:
   price: 10.0
   active: true
   description: 橙花油
+
+box:
+  id: 3
+  title: Wooden Box
+  vendor_id: 1
+  capacity:
+  price: 50.0
+  active: true
+  description: 木盒

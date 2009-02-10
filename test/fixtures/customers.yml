@@ -1,6 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-Mike:
+mike:
   id: 1
   name: Mike
   gender: MyString
@@ -15,7 +15,7 @@ Mike:
   birthday: 2009-02-09
   details: MyText
 
-Tom:
+tom:
   id: 2
   name: MyString
   gender: MyString

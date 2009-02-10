@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class CustomersControllerTest < ActionController::TestCase
   def test_should_get_index
@@ -14,30 +14,30 @@ class CustomersControllerTest < ActionController::TestCase
 
   def test_should_create_customer
     assert_difference('Customer.count') do
-      post :create, :customer => { }
+      post :create, :customer => { :name => "test" }
     end
 
     assert_redirected_to customer_path(assigns(:customer))
   end
 
   def test_should_show_customer
-    get :show, :id => customers(:one).id
+    get :show, :id => customers(:mike).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => customers(:one).id
+    get :edit, :id => customers(:mike).id
     assert_response :success
   end
 
   def test_should_update_customer
-    put :update, :id => customers(:one).id, :customer => { }
+    put :update, :id => customers(:mike).id, :customer => { }
     assert_redirected_to customer_path(assigns(:customer))
   end
 
   def test_should_destroy_customer
     assert_difference('Customer.count', -1) do
-      delete :destroy, :id => customers(:one).id
+      delete :destroy, :id => customers(:mike).id
     end
 
     assert_redirected_to customers_path

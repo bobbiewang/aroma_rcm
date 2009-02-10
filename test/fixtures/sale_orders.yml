@@ -7,9 +7,9 @@ mike_order:
   postage: 10
   comments: MyText
 
-two:
+tom_order:
   id: 2
-  customer_id: 1
+  customer_id: 2
   saled_at: 2009-02-09
   postage: 9.99
   comments: MyText
