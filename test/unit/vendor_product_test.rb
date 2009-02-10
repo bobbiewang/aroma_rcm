@@ -61,8 +61,7 @@ class VendorProductTest < ActiveSupport::TestCase
     # nil，比如某些自制产品，在制作（销售）前不能确定成本
     vp = VendorProduct.new(:title => "test",
                            :vendor_id => 1,
-                           :capacity => 10,
-                           :active => true)
+                           :capacity => 10)
     assert vp.valid?, vp.errors.full_messages
   end
 end

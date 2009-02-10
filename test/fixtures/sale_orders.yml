@@ -1,12 +1,14 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+mike_order:
+  id: 1
   customer_id: 1
   saled_at: 2009-02-09
-  postage: 9.99
+  postage: 10
   comments: MyText
 
 two:
+  id: 2
   customer_id: 1
   saled_at: 2009-02-09
   postage: 9.99
