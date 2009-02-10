@@ -1,31 +1,6 @@
 <h1>Editing vendor_product</h1>
 
-<% form_for(@vendor_product) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :vendor_id %><br />
-    <%= f.collection_select :vendor_id, @vendors, :id, :full_name %>
-  </p>
-  <p>
-    <%= f.label :capacity %><br />
-    <%= f.text_field :capacity %> ml
-  </p>
-  <p>
-    <%= f.label :price %><br />
-    <%= f.text_field :price %> <%=h @vendor_product.vendor.currency.symbol %>
-  </p>
-  <p>
-    <%= f.check_box :active %><%= f.label :active, "The product is active" %>
-  </p>
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+<%= render :partial => 'form' %>
 
 <%= link_to 'Show', @vendor_product %> |
 <%= link_to 'Back', vendor_products_path %>

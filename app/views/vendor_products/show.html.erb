@@ -27,5 +27,10 @@
   <%=h @vendor_product.active? ? "YES" : "NO" %>
 </p>
 
+<p>
+  <b>Description:</b>
+  <%=h @vendor_product.description %>
+</p>
+
 <%= link_to 'Edit', edit_vendor_product_path(@vendor_product) %> |
 <%= link_to 'Back', vendor_products_path %>

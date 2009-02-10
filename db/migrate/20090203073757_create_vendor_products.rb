@@ -7,6 +7,7 @@ class CreateVendorProducts < ActiveRecord::Migration
       t.integer :capacity
       t.decimal :price, :null => false, :precision => 10, :scale => 4
       t.boolean :active, :null => false, :default => true
+      t.text :description
 
       t.timestamps
     end

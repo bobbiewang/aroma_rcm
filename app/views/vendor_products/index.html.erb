@@ -9,6 +9,7 @@
     <th>Capacity</th>
     <th>Price</th>
     <th>Active</th>
+    <th>Description</th>
     <th colspan=3>Operations</th>
   </tr>
 
@@ -18,6 +19,7 @@
     <td><%=h vendor_product.capacity %></td>
     <td><%=h number_to_currency(vendor_product.price, :unit => vendor_product.vendor.currency.symbol) %></td>
     <td><%=h vendor_product.active? ? "YES" : "NO" %></td>
+    <td><%=h vendor_product.description %></td>
     <td><%= link_to 'Show', vendor_product %></td>
     <td><%= link_to 'Edit', edit_vendor_product_path(vendor_product) %></td>
     <td><%= link_to 'Destroy', vendor_product, :confirm => 'Are you sure?',
