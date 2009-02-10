@@ -16,7 +16,7 @@
   <tr>
     <td><%=h vendor_product.title %></td>
     <td><%=h vendor_product.capacity %></td>
-    <td><%=h vendor_product.price %> <%=h vendor_product.vendor.currency.symbol %></td>
+    <td><%=h number_to_currency(vendor_product.price, :unit => vendor_product.vendor.currency.symbol) %></td>
     <td><%=h vendor_product.active? ? "YES" : "NO" %></td>
     <td><%= link_to 'Show', vendor_product %></td>
     <td><%= link_to 'Edit', edit_vendor_product_path(vendor_product) %></td>

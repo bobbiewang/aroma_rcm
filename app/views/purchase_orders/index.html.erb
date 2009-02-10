@@ -13,8 +13,8 @@
 <% for purchase_order in @purchase_orders %>
   <tr>
     <td><%=h purchase_order.vendor_id %></td>
-    <td><%=h purchase_order.purchase_date %></td>
-    <td><%=h purchase_order.arrival_date %></td>
+    <td><%=h purchase_order.purchased_at %></td>
+    <td><%=h purchase_order.arrived_at %></td>
     <td><%=h purchase_order.postage %></td>
     <td><%=h purchase_order.total_cost %></td>
     <td><%= link_to 'Show', purchase_order %></td>
