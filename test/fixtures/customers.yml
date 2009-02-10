@@ -7,6 +7,10 @@ one:
   post_code: MyString
   telephone: MyString
   mobilephone: MyString
+  email: MyString
+  wangwang: MyString
+  qq: MyString
+  msn: MyString
   birthday: 2009-02-09
   details: MyText
 
@@ -17,5 +21,9 @@ two:
   post_code: MyString
   telephone: MyString
   mobilephone: MyString
+  email: MyString
+  wangwang: MyString
+  qq: MyString
+  msn: MyString
   birthday: 2009-02-09
   details: MyText

@@ -2,12 +2,12 @@
 
 one:
   customer_id: 1
-  sale_date: 2009-02-09
+  saled_at: 2009-02-09
   postage: 9.99
   comments: MyText
 
 two:
   customer_id: 1
-  sale_date: 2009-02-09
+  saled_at: 2009-02-09
   postage: 9.99
   comments: MyText
