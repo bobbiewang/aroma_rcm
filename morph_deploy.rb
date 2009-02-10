@@ -8,7 +8,7 @@ load 'deploy'
 # The svn repository is used to export the code into the temporary directory before 
 # uploading code into the Morph control panel. Currently only svn is supported, 
 # but you could change it to fit your need by changing the get_code task
-set :repository, '' # Set here your repository! Example: 'https://www.myrepo.com/myapp/trunk'
+set :repository, 'git://github.com/firebird/aroma_rcm.git' # Set here your repository! Example: 'https://www.myrepo.com/myapp/trunk'
 set :repo_line_number, __LINE__ - 1 # Needed to report missing repository later on
 
 # The version name to set in the control panel. Defaults to date and time, but can be altered by passing it
@@ -18,8 +18,8 @@ set :version_name, Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
 # If you want to use a different scm or use a different export method, you can change it here
 # Please note that the export to directory is removed before the checkout starts. If
 # You want it to work differently, change the code in the get_code task 
-set :deploy_via, :export
-set :scm, :subversion
+set :deploy_via, :checkout
+set :scm, :git
 
 # MORPH SETTINGS, please do not change
 set :morph_host, "panel.mor.ph"
