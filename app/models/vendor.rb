@@ -3,5 +3,5 @@ class Vendor < ActiveRecord::Base
   validates_uniqueness_of :full_name, :abbr_name
 
   belongs_to :currency
-  has_many :vendor_products
+  has_many :vendor_products, :order => "title"
 end
