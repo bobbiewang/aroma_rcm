@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class VendorProductTest < ActiveSupport::TestCase
   def test_capacity_should_be_number_or_nil
@@ -49,7 +49,7 @@ class VendorProductTest < ActiveSupport::TestCase
     end
 
     # 非法数字
-    bad.each do |price|
+    nans.each do |price|
       vp = VendorProduct.new(:title => "test",
                              :vendor_id => 1,
                              :capacity => 1.1,
