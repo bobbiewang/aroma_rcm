@@ -1,8 +1,4 @@
 class StoreController < ApplicationController
-  def index
-    render :text => "Welcome #{User.find(session[:user_id]).name}."
-  end
-
   def login
     session[:user_id] = nil
     if request.post?
