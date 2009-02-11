@@ -11,7 +11,7 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     # 查看 Order 信息
     assert_equal 3,    items.size
     # oil, 10ml
-    assert_equal 5.0,  items[0].unit_price
+    assert_equal 5.0,  purchase_order_items(:purchase_4_ppa_oil).unit_price
     assert_equal 4,    items[0].quantity
     assert_equal 10,   items[0].vendor_product.capacity
     # hydrolat, 500ml
@@ -49,9 +49,12 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_equal 200.0, items[2].unit_cost
     assert_nil          items[2].ml_cost
     assert_nil          items[2].drop_cost
+
+    # 确认 purchase_order_items 对应的 sale_order_items 的 cost 也更新了
+    assert_equal 20.0, items[0].sale_order_items[0].unit_cost
   end
 
-  def test_order_with_no_price_items
+  def test_should_not_update_item_cost_without_price
     po = purchase_orders(:from_qing)
     po.save
     items = po.purchase_order_items
@@ -79,7 +82,7 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_nil items[0].drop_cost
   end
 
-  def test_order_with_0_price_items
+  def test_should_set_item_cost_to_0_whose_price_is_0
     po = purchase_orders(:from_ppa)
     items = po.purchase_order_items
     items.each do |item|
