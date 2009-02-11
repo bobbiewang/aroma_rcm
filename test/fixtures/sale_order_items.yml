@@ -13,3 +13,10 @@ mike_buy_hydrolat:
   unit_cost: 100.0
   unit_price: 200.0
   quantity: 1
+
+tom_buy_cream:
+  sale_order_id: 2
+  purchase_order_item_id: 4
+  unit_cost: 100.0
+  unit_price: 200.0
+  quantity: 1
