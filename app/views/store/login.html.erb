@@ -1,0 +1,19 @@
+<h1>Login</h1>
+
+<fieldset>Please Log In
+
+<% form_tag do %>
+  <p>
+    <%= label_tag :name %><br />
+    <%= text_field_tag :name, params[:name] %>
+  </p>
+  <p>
+    <%= label_tag :password %><br />
+    <%= password_field_tag :password, params[:password] %>
+  </p>
+  <p>
+    <%= submit_tag "Submit" %>
+  </p>
+<% end %>
+
+</fieldset>

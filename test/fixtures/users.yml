@@ -1,11 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: MyString
-  hashed_password: MyString
-  salt: MyString
-
-two:
-  name: MyString
-  hashed_password: MyString
-  salt: MyString
+admin:
+  name: admin
+  hashed_password: 988bb1980cbf7a39f196463c2833351dbd66b96e
+  salt: -6124667180.567904954503507

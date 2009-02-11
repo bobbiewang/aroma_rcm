@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   def test_should_get_index
@@ -14,30 +14,32 @@ class UsersControllerTest < ActionController::TestCase
 
   def test_should_create_user
     assert_difference('User.count') do
-      post :create, :user => { }
+      post :create, :user => { :name => "test",
+                               :password => "test",
+                               :password_confirmation => "test"}
     end
 
     assert_redirected_to user_path(assigns(:user))
   end
 
   def test_should_show_user
-    get :show, :id => users(:one).id
+    get :show, :id => users(:lq).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => users(:one).id
+    get :edit, :id => users(:lq).id
     assert_response :success
   end
 
   def test_should_update_user
-    put :update, :id => users(:one).id, :user => { }
+    put :update, :id => users(:lq).id, :user => { }
     assert_redirected_to user_path(assigns(:user))
   end
 
   def test_should_destroy_user
     assert_difference('User.count', -1) do
-      delete :destroy, :id => users(:one).id
+      delete :destroy, :id => users(:lq).id
     end
 
     assert_redirected_to users_path
