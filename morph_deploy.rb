@@ -5,8 +5,8 @@ require 'yaml'
 require 'highline/import'
 load 'deploy'
 
-# The svn repository is used to export the code into the temporary directory before 
-# uploading code into the Morph control panel. Currently only svn is supported, 
+# The svn repository is used to export the code into the temporary directory before
+# uploading code into the Morph control panel. Currently only svn is supported,
 # but you could change it to fit your need by changing the get_code task
 set :repository, 'git://github.com/firebird/aroma_rcm.git' # Set here your repository! Example: 'https://www.myrepo.com/myapp/trunk'
 set :repo_line_number, __LINE__ - 1 # Needed to report missing repository later on
@@ -17,7 +17,7 @@ set :version_name, Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
 
 # If you want to use a different scm or use a different export method, you can change it here
 # Please note that the export to directory is removed before the checkout starts. If
-# You want it to work differently, change the code in the get_code task 
+# You want it to work differently, change the code in the get_code task
 set :deploy_via, :checkout
 set :scm, :git
 
@@ -28,7 +28,7 @@ set :morph_tmp_dir, 'morph_tmp'
 set :mex_key, "91c62c77a55ba872b729fd645d2d07bf1fe3f30c"
 set :mv_cmd, PLATFORM.include?('mswin') ? 'ren' : 'mv'
 set :morph_tmp_dir, 'morph_tmp'
-set :release_path, morph_tmp_dir # needed in order to generate the correct scm command 
+set :release_path, morph_tmp_dir # needed in order to generate the correct scm command
 set :get_code_using, :get_code
 set :req_retries, 3
 
@@ -38,12 +38,12 @@ namespace :morph do
   abort('*** ERROR: You need a MeX key!') if !exists?(:mex_key) || mex_key.nil?
 
   # This is the entry point task. It gets the new code, then upload it into S3
-  # to a special folder used later for deployment. Finally it mark the version 
+  # to a special folder used later for deployment. Finally it mark the version
   # Uploaded to be deployed
   task :deploy do
     transaction do
       set :mex_key, mex_app_key if exists?(:mex_app_key)
-      abort('*** ERROR: You need a MeX key!') if !exists?(:mex_key) || mex_key.nil?                
+      abort('*** ERROR: You need a MeX key!') if !exists?(:mex_key) || mex_key.nil?
       update_code
       send_request(true, 'Post', morph_host, morph_port, '/api/deploy/deploy', {}, nil, "*** ERROR: Could not deploy the application!")
       say("Deployment queued.")
@@ -62,20 +62,20 @@ namespace :morph do
 
   # Specialized command to deploy from a packaged gem
   task :deploy_from_gem do
-    set :get_code_using, :get_code_from_gem 
+    set :get_code_using, :get_code_from_gem
     deploy
   end
 
-  # This task calls the get_code helper, then upload the code into S3 
+  # This task calls the get_code helper, then upload the code into S3
   task :update_code do
     transaction do
       s3_obj_name = upload_code_to_s3
       say("Creating new appspace version...")
-      
+
       #create a version in CP
       req_flds = { 'morph-version-name' => version_name, 'morph-version-s3-object' => s3_obj_name }
-      send_request(true, 'Post', morph_host, morph_port, '/versions/create2', req_flds, nil, "*** ERROR: Could not create a new version!") 
-      say("Code Upload Done.")  
+      send_request(true, 'Post', morph_host, morph_port, '/versions/create2', req_flds, nil, "*** ERROR: Could not create a new version!")
+      say("Code Upload Done.")
     end
   end
 
@@ -85,52 +85,52 @@ namespace :morph do
   # you can customize this file to work with it. The requirement is that
   # It will export the whole structure into the temp directory as set in
   # morph_tmp_dir.
-  # 
-  # You can choose to release a different version than head by setting the 
+  #
+  # You can choose to release a different version than head by setting the
   # Environment variable 'REL_VER' to the version to use.
   task :get_code do
-    on_rollback do      
-      
+    on_rollback do
+
       remove_files([morph_tmp_dir, 'code_update.tar.gz'])
-      
+
     end
-      
+
     # Make sure we have a repo to work from!
     abort("***ERROR: Must specify the repository to check out from! See line #{repo_line_number} in #{__FILE__}.") if !repository
 
     transaction do
-      # Clean up previous deploys   
-      
-        remove_files([morph_tmp_dir, 'code_update.tar.gz'])
-      
+      # Clean up previous deploys
 
-     
-      
-      
-         #get latest code from from the repository 
-        
+        remove_files([morph_tmp_dir, 'code_update.tar.gz'])
+
+
+
+
+
+         #get latest code from from the repository
+
         say("Downloading the code from the repository...")
         system(strategy.send(:command))
-        
+
         abort('*** ERROR: Export from repository failed! Please check the repository setting at the start of the file') if $?.to_i != 0
 
-        # Verify that we have the expected rails structure 
-	    ['/app', '/public', '/config/environment.rb', '/lib'].each do |e| 
+        # Verify that we have the expected rails structure
+	    ['/app', '/public', '/config/environment.rb', '/lib'].each do |e|
 	       abort "*** ERROR: Rails directories are missing. Please make sure your set :repository is correct!" if !File.exist?("#{morph_tmp_dir}#{e}")
 	    end
-      
+
 
       #create archive
-      
+
         system("tar -C #{morph_tmp_dir} -czf code_update.tar.gz --exclude='./.*' .")
-      
+
       abort('*** ERROR: Failed to tar the file for upload.') if $?.to_i != 0
-      
+
       # Verify that we have the expected rails structure in the archive
-      
+
       flist = `tar tzf code_update.tar.gz`
       all_in = flist.include?('lib/') && flist.include?('app/') && flist.include?('config/environment.rb')
-      
+
       abort "***ERROR: code archive is missing the rails directories. Please check your checkout and tar" if !all_in
 
       remove_files([morph_tmp_dir])
@@ -142,7 +142,7 @@ namespace :morph do
   task :get_code_from_gem do
     # Make sure we have the gem defined and that we have the gem file
     if !exists?(:gem_file) || gem_file.nil?
-      abort("***ERROR: The gem file must be provided on the command line using -s.\n          For example: cap -f morph_deploy.rb -s gem_file=/home/morph/my_app.gem morph:deploy_from_gem") 
+      abort("***ERROR: The gem file must be provided on the command line using -s.\n          For example: cap -f morph_deploy.rb -s gem_file=/home/morph/my_app.gem morph:deploy_from_gem")
     end
 
     abort("***ERROR: gem file not found! Please check the file location and try again") if !File.exists?(gem_file)
@@ -161,7 +161,7 @@ namespace :morph do
   # A task to get the S3 connection info and upload code_update.tar.gz
   # Assumes another task prepared the tar.gz file
   task :upload_code_to_s3 do
-      
+
     self.send get_code_using
 
     abort "*** ERROR: Could not find archive to upload." unless File.exist?('code_update.tar.gz')
@@ -175,7 +175,7 @@ namespace :morph do
     if !s3_data.empty?
       say('Uploading code to S3...')
       File.open('code_update.tar.gz', 'rb') do |up_file|
-        send_request(false, 'Put', s3_data[:host], morph_port, s3_data[:path], s3_data[:header], up_file, "*** ERROR: Could not upload the code!") 
+        send_request(false, 'Put', s3_data[:host], morph_port, s3_data[:path], s3_data[:header], up_file, "*** ERROR: Could not upload the code!")
       end
     end
 
@@ -208,9 +208,9 @@ namespace :morph do
         request = Module.module_eval("Net::HTTP::#{req_type}").new(url)
         add_mex_fields(request) if is_mex
         fields_hash.each_pair{|n,v| request[n] = v} # Add user defined header fields
-        # If a file is passed we upload it. 
+        # If a file is passed we upload it.
         if up_file
-          request.content_length = up_file.lstat.size   
+          request.content_length = up_file.lstat.size
           request.body_stream = up_file  # For uploads using streaming
         else
           request.content_length = 0
@@ -237,7 +237,7 @@ namespace :morph do
     end
   end
 
-  
+
   # Helper to create a connection with all the needed setting
   # And yeals to the block
   def conn_start host = morph_host, port = morph_port
@@ -274,7 +274,7 @@ namespace :morph do
         end
         res = :failure
       end
-    end  
+    end
     return res
   end
 
@@ -295,6 +295,6 @@ namespace :morph do
   def remove_files(lists)
     FileUtils.cd(FileUtils.pwd)
     FileUtils.rm_r(lists, :force => true) rescue ''
-  end  
+  end
 
 end
