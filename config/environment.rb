@@ -48,7 +48,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_aroma_ess_session',
+    :session_key => '_aroma_rcm_session',
     :secret      => 'b5027724f0a21cda2efc6e615cc6dd2ccb40a948443d2dd998646a26e7a57e522e86cdd69da118bc486e6cc99a49ebaa5600a1563391a189dc75bd1857e1af83'
   }
 
