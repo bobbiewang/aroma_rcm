@@ -2,7 +2,7 @@
 
 oil:
   id: 1
-  title: 3ml Chamomile
+  title: 10ml Chamomile
   vendor_id: 1
   capacity: 10
   price: 5.0
@@ -26,3 +26,12 @@ box:
   price: 50.0
   active: true
   description: 木盒
+
+cream:
+  id: 4
+  title: Customized Cream
+  vendor_id: 3
+  capacity: 30
+  price:
+  active: true
+  description: 自定义面霜

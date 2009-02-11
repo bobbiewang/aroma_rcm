@@ -6,12 +6,12 @@ from_ppa:
   purchased_at: 2009-02-03
   arrived_at: 2009-02-03
   postage: 10.0
-  total_cost: 200.0
+  total_cost:
 
-from_spa:
+from_qing:
   id: 2
   vendor_id: 2
   purchased_at: 2009-02-03
   arrived_at: 2009-02-03
   postage: 9.99
-  total_cost: 9.99
+  total_cost:

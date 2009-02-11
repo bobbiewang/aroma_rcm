@@ -29,3 +29,13 @@ purchase_2_ppa_box:
   ml_cost:
   drop_cost:
   quantity: 2
+
+purchase_1_cream:
+  id: 4
+  purchase_order_id: 2
+  vendor_product_id: 4
+  unit_price:
+  unit_cost:
+  ml_cost:
+  drop_cost:
+  quantity: 1

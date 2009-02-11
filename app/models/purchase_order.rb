@@ -25,10 +25,20 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def calculate_purchase_order_item_costs
-    return if total_cost.nil? or purchase_order_items.size == 0
+    return if total_cost.nil? or purchase_order_items.size == 0 or items_total_price.nil?
 
     purchase_order_items.each do |item|
-      item.unit_cost = total_cost / items_total_price * item.unit_price
+      # 没有 price 就没有 cost
+      next if item.unit_price.nil?
+
+      if items_total_price == 0.0
+        # 处理所有 item 的 price 为 0 的特殊情况
+        item.unit_cost = 0.0
+      else
+        item.unit_cost = total_cost / items_total_price * item.unit_price
+      end
+
+      # 根据 unit_cost 计算 ml_cost 和 drop_cost
       unless item.vendor_product.capacity.nil?
         item.ml_cost = item.unit_cost / item.vendor_product.capacity
         item.drop_cost = item.ml_cost / 20.0
@@ -38,6 +48,15 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def items_total_price
-    purchase_order_items.inject(0.0) { |sum, item| sum + item.total_price }
+    items = purchase_order_items.select { |item| item.unit_price }
+
+    if items.empty?
+      # 如果所有 purchase_order_items 的 price 都没有，返回 nil
+      return nil
+    else
+      # 只要 purchase_order_items 中有 price，就求和
+      # 一个特殊情况是所有 price 为 0，从而和为 0
+      items.inject(0.0) { |sum, item| sum + item.total_price }
+    end
   end
 end

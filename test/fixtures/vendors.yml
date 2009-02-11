@@ -11,3 +11,9 @@ spa:
   full_name: Shirley Price
   abbr_name: SPA
   currency_id: 2
+
+qing:
+  id: 3
+  full_name: Qing
+  abbr_name: QING
+  currency_id: 1
