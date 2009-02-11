@@ -78,4 +78,25 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_nil items[0].ml_cost
     assert_nil items[0].drop_cost
   end
+
+  def test_order_with_0_price_items
+    po = purchase_orders(:from_ppa)
+    items = po.purchase_order_items
+    items.each do |item|
+      item.unit_price = 0.0
+    end
+
+    po.total_cost = 0.0
+    po.save
+
+    assert_equal 0.0, items[0].unit_cost
+    assert_equal 0.0, items[0].ml_cost
+    assert_equal 0.0, items[0].drop_cost
+    assert_equal 0.0, items[1].unit_cost
+    assert_equal 0.0, items[1].ml_cost
+    assert_equal 0.0, items[1].drop_cost
+    assert_equal 0.0, items[2].unit_cost
+    assert_nil        items[2].ml_cost
+    assert_nil        items[2].drop_cost
+  end
 end
