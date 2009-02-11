@@ -1,6 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  def setup
+    get :index, { }, { :user_id => users(:admin).id }
+  end
+
   def test_should_get_index
     get :index
     assert_response :success
@@ -23,23 +27,23 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   def test_should_show_user
-    get :show, :id => users(:lq).id
+    get :show, :id => users(:admin).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => users(:lq).id
+    get :edit, :id => users(:admin).id
     assert_response :success
   end
 
   def test_should_update_user
-    put :update, :id => users(:lq).id, :user => { }
+    put :update, :id => users(:admin).id, :user => { }
     assert_redirected_to user_path(assigns(:user))
   end
 
   def test_should_destroy_user
     assert_difference('User.count', -1) do
-      delete :destroy, :id => users(:lq).id
+      delete :destroy, :id => users(:admin).id
     end
 
     assert_redirected_to users_path

@@ -1,6 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 admin:
+  id: 1
   name: admin
+  hashed_password: 988bb1980cbf7a39f196463c2833351dbd66b96e
+  salt: -6124667180.567904954503507
+
+user:
+  id: 2
+  name: user
   hashed_password: 988bb1980cbf7a39f196463c2833351dbd66b96e
   salt: -6124667180.567904954503507

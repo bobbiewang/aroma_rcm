@@ -20,6 +20,7 @@ class StoreController < ApplicationController
 
   def logout
     session[:user_id] = nil
+    redirect_to :action => "login"
   end
 
   def purchase
@@ -28,6 +29,5 @@ class StoreController < ApplicationController
 
   def sale
     @items = PurchaseOrderItem.find(:all)
-    redirect_to :action => "login"
   end
 end
