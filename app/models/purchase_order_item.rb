@@ -31,6 +31,13 @@ class PurchaseOrderItem < ActiveRecord::Base
     unit_price * quantity
   end
 
+  def total_cost
+    # 如果 unit_cost 无效或者 quantity 为无穷，返回 nil；否则正常计算
+    return nil if unit_price.nil? or quantity == -1
+
+    unit_cost * quantity
+  end
+
   def on_sale_cost
     return 0.0 if avail_quantity == -1 or unit_cost.nil?
 
@@ -38,7 +45,7 @@ class PurchaseOrderItem < ActiveRecord::Base
   end
 
   def profit
-    sale_order_items.inject(0.0) { |sum, item| sum += item.profit }
+    sale_order_items.inject(0.0) { |sum, item| sum += item.total_profit }
   end
 
   def saled_quantity

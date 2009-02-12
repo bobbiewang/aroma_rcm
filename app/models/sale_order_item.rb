@@ -12,7 +12,19 @@ class SaleOrderItem < ActiveRecord::Base
     end
   end
 
-  def profit
+  def total_cost
+    quantity * unit_cost
+  end
+
+  def total_price
+    quantity * unit_price
+  end
+
+  def unit_profit
+    unit_price - unit_cost
+  end
+
+  def total_profit
     quantity * (unit_price - unit_cost)
   end
 end

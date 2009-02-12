@@ -1,23 +1,4 @@
-<p>
-  <b>Customer:</b>
-  <%=h @sale_order.customer_id %>
-</p>
-
-<p>
-  <b>Sale date:</b>
-  <%=h @sale_order.saled_at %>
-</p>
-
-<p>
-  <b>Postage:</b>
-  <%=h @sale_order.postage %>
-</p>
-
-<p>
-  <b>Comments:</b>
-  <%=h @sale_order.comments %>
-</p>
-
+<%= render :partial => "sale_order" %>
 
 <%= link_to 'Edit', edit_sale_order_path(@sale_order) %> |
 <%= link_to 'Back', sale_orders_path %>

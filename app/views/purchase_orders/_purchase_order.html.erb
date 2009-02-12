@@ -1,0 +1,50 @@
+<fieldset>
+  <legend>
+    <%=h purchase_order.vendor.full_name %>
+    <small><%=h purchase_order.purchased_at %></small> -
+    <small><%=h purchase_order.arrived_at %></small>
+  </legend>
+  <br />
+  <% price_symbol = purchase_order.vendor.currency.symbol %>
+  <table>
+    <% for item in purchase_order.purchase_order_items %>
+      <tr>
+        <td><%=h item.quantity %>&times;</td>
+        <td><%=h item.vendor_product.title %></td>
+        <td class="item-price"><%=h number_to_currency(item.unit_price, :unit => price_symbol) %></td>
+        <td class="item-price"><%=h number_to_currency(item.total_price, :unit => price_symbol) %></td>
+        <td class="item-price"><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
+        <td class="item-price"><%=h number_to_currency(item.total_cost, :unit => "￥") %></td>
+        <td class="item-price"><%=h number_to_per_unit(item.ml_cost, "￥", "ml") %></td>
+        <td class="item-price"><%=h number_to_per_unit(item.drop_cost, "￥", "drop") %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <td>1&times;</td>
+        <td>Postage</td>
+        <td class="item-price"><%=h number_to_currency(purchase_order.postage, :unit => price_symbol) %></td>
+        <td class="item-price"><%=h number_to_currency(purchase_order.postage, :unit => price_symbol) %></td>
+        <td class="item-price"></td>
+        <td class="item-price"></td>
+        <td class="item-price"></td>
+        <td class="item-price"></td>
+      </tr>
+      <tr class="total-line">
+        <td colspan="2" class="total-cell">Total</td>
+        <td colspan="2" class="total-cell">
+          <%= number_to_currency(purchase_order.total_price_with_postage, :unit => price_symbol) %>
+        </td>
+        <td colspan="2" class="important-cell">
+          <%= number_to_currency(purchase_order.total_cost, :unit => "￥") %>
+        </td>
+        <td class="item-price"></td>
+        <td class="item-price"></td>
+      </tr>
+    </table>
+  <p>
+  <p>
+    <b>Comments</b>
+    <%=h purchase_order.comments %>
+  </p>
+</fieldset>
+<br />

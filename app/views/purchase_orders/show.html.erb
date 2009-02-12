@@ -1,40 +1,4 @@
-<p>
-  <b>Vendor:</b>
-  <%=h @purchase_order.vendor_id %>
-</p>
-
-<p>
-  <b>Purchase date:</b>
-  <%=h @purchase_order.purchased_at %>
-</p>
-
-<p>
-  <b>Arrival date:</b>
-  <%=h @purchase_order.arrived_at %>
-</p>
-
-<p>
-  <b>Postage:</b>
-  <%=h @purchase_order.postage %>
-</p>
-
-<p>
-  <b>Total cost:</b>
-  <%=h @purchase_order.total_cost %>
-</p>
-
-<ul>
-<% for item in @purchase_order.purchase_order_items %>
-  <li>
-    <%=h item.vendor_product.title %>
-  </li>
-<% end %>
-</ul>
-
-<p>
-  <b>Comments:</b>
-  <%=h @purchase_order.comments %>
-</p>
+<%= render :partial => "purchase_order" %>
 
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
 <%= link_to 'Back', purchase_orders_path %>

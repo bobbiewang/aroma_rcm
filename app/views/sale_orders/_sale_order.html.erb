@@ -1,0 +1,49 @@
+<fieldset>
+  <legend>
+    <%=h sale_order.customer.name %>
+    <small><%=h sale_order.saled_at %></small>
+  </legend>
+  <br />
+  <table>
+    <% for item in sale_order.sale_order_items %>
+      <tr>
+        <td><%=h item.quantity %>&times;</td>
+        <td><%=h item.purchase_order_item.vendor_product.title %></td>
+        <td class="item-price"><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
+        <td class="item-price"><%=h number_to_currency(item.total_cost, :unit => "￥") %></td>
+        <td class="item-price"><%=h number_to_currency(item.unit_price, :unit => "￥") %></td>
+        <td class="item-price"><%=h number_to_currency(item.total_price, :unit => "￥") %></td>
+        <td class="item-price"><%=h number_to_currency(item.unit_profit, :unit => "￥") %></td>
+        <td class="item-price"><%=h number_to_currency(item.total_profit, :unit => "￥") %></td>
+      </tr>
+    <% end %>
+      <tr>
+        <td>1&times;</td>
+        <td>Postage</td>
+        <td class="item-price"><%=h number_to_currency(sale_order.postage, :unit => "￥") %></td>
+        <td class="item-price"><%=h number_to_currency(sale_order.postage, :unit => "￥") %></td>
+        <td class="item-price"></td>
+        <td class="item-price"></td>
+        <td class="item-price"></td>
+        <td class="item-price"></td>
+      </tr>
+      <tr class="total-line">
+        <td colspan="2" class="total-cell">Total</td>
+        <td colspan="2" class="total-cell">
+          <%= number_to_currency(sale_order.total_cost_with_postage, :unit => "￥") %>
+        </td>
+        <td colspan="2" class="total-cell">
+          <%= number_to_currency(sale_order.total_price, :unit => "￥") %>
+        </td>
+        <td colspan="2" class="important-cell">
+          <%= number_to_currency(sale_order.total_profit, :unit => "￥") %>
+        </td>
+      </tr>
+    </table>
+  <p>
+  <p>
+    <b>Comments</b>
+    <%=h sale_order.comments %>
+  </p>
+</fieldset>
+<br />

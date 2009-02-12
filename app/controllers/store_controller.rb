@@ -28,7 +28,15 @@ class StoreController < ApplicationController
     @vendors = Vendor.find(:all, :conditions => ["active = ?", true])
   end
 
+  def purchase_history
+    @purchase_orders = PurchaseOrder.find(:all, :order => "purchased_at DESC")
+  end
+
   def sale
     @items = PurchaseOrderItem.avail_items
+  end
+
+  def sale_history
+    @sale_orders = SaleOrder.find(:all, :order => "saled_at")
   end
 end

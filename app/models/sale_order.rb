@@ -24,6 +24,22 @@ class SaleOrder < ActiveRecord::Base
     end
   end
 
+  def total_cost
+    sale_order_items.inject(0.0) { |sum, item| sum + item.total_cost }
+  end
+
+  def total_cost_with_postage
+    sale_order_items.inject(0.0) { |sum, item| sum + item.total_cost } + postage
+  end
+
+  def total_price
+    sale_order_items.inject(0.0) { |sum, item| sum + item.total_price }
+  end
+
+  def total_profit
+    sale_order_items.inject(0.0) { |sum, item| sum + item.total_profit } - postage
+  end
+
   protected
 
   def sale_order_items_must_be_valid

@@ -10,6 +10,11 @@ class StoreControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  def test_logout_should_redirect
+    get :logout
+    assert_redirected_to :action => "login"
+  end
+
   def test_index_without_user
     get :logout
     get :index
@@ -17,8 +22,18 @@ class StoreControllerTest < ActionController::TestCase
     assert_equal "Please log in", flash[:notice]
   end
 
+  def test_index_with_user
+    get :index
+    assert_response :success
+  end
+
   def test_should_get_purchase
     get :purchase
+    assert_response :success
+  end
+
+  def test_should_get_purchase_history
+    get :purchase_history
     assert_response :success
   end
 
