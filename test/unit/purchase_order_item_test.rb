@@ -10,6 +10,30 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
     assert_valid(purchase_order_item)
   end
 
+  def test_saled_quantity
+    poi = purchase_order_items(:purchase_4_ppa_oil)
+    assert_equal 1, poi.sale_order_items.size
+    assert_equal 1, poi.sale_order_items[0].quantity
+
+    assert_equal 1, poi.saled_quantity
+  end
+
+  def test_used_quantity
+    # TODO
+  end
+
+  def test_archived_quantity
+    # TODO
+  end
+
+  def test_avail_quantity
+    poi = purchase_order_items(:purchase_4_ppa_oil)
+    assert_equal 4, poi.quantity
+    assert_equal 1, poi.saled_quantity
+
+    assert_equal 3, poi.avail_quantity
+  end
+
   def test_should_update_sale_order_items
     poi = purchase_order_items(:purchase_4_ppa_oil)
     sois = poi.sale_order_items

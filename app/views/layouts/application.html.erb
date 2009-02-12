@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>iStore: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'istore' %>
+  <%= stylesheet_link_tag 'menu' %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'adxmenu' %>
+</head>
+
+<body>
+
+  <div id="banner">
+    <p id="logo">iStore&trade;</p>
+    <p id="slogan">Qing's Online Aromatherapy Clinic</p>
+  </div>
+
+  <div id="menu">
+    <ul id="menuList" class="adxm">
+      <li><a href="/store/index" class="top">Welcome</a></li>
+
+      <li class="submenu"><a href="/store/purchase" class="top">Purchase</a>
+        <ul id="purchase_list">
+          <li><a href="/store/purchase">Purchase from Vendors</a></li>
+          <li><a href="/purchase_orders">Purchase History</a></li>
+        </ul>
+      </li>
+
+      <li class="submenu"><a href="/store/sale" class="top">Sale</a>
+        <ul id="sale_list">
+          <li><a href="/store/sale">Sale to Customers</a></li>
+          <li><a href="/sale_orders">Sale History</a></li>
+        </ul>
+      </li>
+
+      <li class="submenu"><a href="/store/" class="top">Depot</a>
+        <ul id="depot_list">
+          <li><a href="/">On Sale Items</a></li>
+          <li><a href="/">In Use Items</a></li>
+          <li><a href="/">Used Items</a></li>
+        </ul>
+      </li>
+
+      <li class="submenu"><a href="/store/" class="top">Report</a>
+        <ul id="report_list">
+          <li><a href="/">Month Reports</a></li>
+        </ul>
+      </li>
+
+      <li class="submenu"><a href="/store/" class="top">Advanced</a>
+        <ul id="advanced_list">
+          <li><a href="/users">Manage Users</a></li>
+          <li><a href="/currencies">Manage Currencies</a></li>
+          <li><a href="/customers">Manage Customers</a></li>
+          <li><a href="/vendors">Manage Vendors</a></li>
+          <li><a href="/vendor_products">Manage Vendor Products</a></li>
+          <li><a href="/purchase_orders">Manage Purchase Orders</a></li>
+          <li><a href="/purchase_order_items">Manage Purchase Order Items</a></li>
+          <li><a href="/sale_orders">Manage Sale Orders</a></li>
+          <li><a href="/sale_order_items">Manage Sale Order Items</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/store/logout" class="top">Logout</a></li>
+    </ul>
+  </div>
+
+<p style="color: green"><%= flash[:notice] %></p>
+
+<%= yield  %>
+
+</body>
+</html>

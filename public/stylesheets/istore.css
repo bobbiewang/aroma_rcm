@@ -1,13 +1,19 @@
-h1 {
-    font:  200% sans-serif;
-    color: #226;
-    border-bottom: 3px dotted #77d;
+#logo {
+  font-size: 250%;
 }
 
-h2 {
-    font:  150% sans-serif;
-    color: #226;
-    border-bottom: 1px dotted #77d;
+#slogan {
+  position: relative;
+  font-size: 70%;
+  margin: 0px;
+  line-height: 0px;
+  top: -10px;
+  left: 80px;
+}
+
+#footer {
+  width: 100%;
+  text-align: center;
 }
 
 table {
@@ -22,7 +28,7 @@ th, td {
 }
 
 th {
-    background-color: #99CCFF;
+    background-color: #dfd;
 }
 
 fieldset {

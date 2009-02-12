@@ -1,8 +1,7 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class SaleOrderTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
+  def test_sale_order_items_should_not_exceed_available_quantity
     assert true
   end
 end

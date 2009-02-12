@@ -17,7 +17,11 @@ class PurchaseOrderItem < ActiveRecord::Base
   end
 
   def avail_quantity
-    quantity
+    quantity - saled_quantity
+  end
+
+  def saled_quantity
+    sale_order_items.inject(0) { |sum, item| sum += item.quantity }
   end
 
   protected
