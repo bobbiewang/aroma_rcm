@@ -33,12 +33,12 @@ class SaleOrderItemTest < ActiveSupport::TestCase
                             :unit_cost => 5.0,
                             :unit_price => 10.0,
                             :quantity => 1)
-    assert_equal 5, soi.profit
+    assert_equal 5, soi.total_profit
 
     soi.quantity = 2
-    assert_equal 10, soi.profit
+    assert_equal 10, soi.total_profit
 
     soi.unit_price = 1
-    assert_equal -8, soi.profit
+    assert_equal -8, soi.total_profit
   end
 end
