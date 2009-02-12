@@ -29,6 +29,6 @@ class StoreController < ApplicationController
   end
 
   def sale
-    @items = PurchaseOrderItem.find(:all)
+    @items = PurchaseOrderItem.avail_items
   end
 end

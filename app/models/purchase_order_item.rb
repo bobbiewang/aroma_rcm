@@ -20,6 +20,10 @@ class PurchaseOrderItem < ActiveRecord::Base
     PurchaseOrderItem.find(:all).inject(0.0) { |sum, item| sum += item.profit }
   end
 
+  def self.avail_items
+    PurchaseOrderItem.find(:all).select { |item| item.avail? }
+  end
+
   def total_price
     # 如果 unit_price 无效或者 quantity 为无穷，返回 nil；否则正常计算
     return nil if unit_price.nil? or quantity == -1
@@ -47,6 +51,10 @@ class PurchaseOrderItem < ActiveRecord::Base
     left = quantity - saled_quantity
     left = -2 if left == -1
     left
+  end
+
+  def avail?
+    avail_quantity > 0 or avail_quantity == -1
   end
 
   protected
