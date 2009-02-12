@@ -11,4 +11,8 @@ class SaleOrderItem < ActiveRecord::Base
       errors.add(:quantity, "exceeds available amount.")
     end
   end
+
+  def profit
+    quantity * (unit_price - unit_cost)
+  end
 end

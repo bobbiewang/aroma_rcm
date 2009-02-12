@@ -1,6 +1,9 @@
 <fieldset>
   <legend>Overview</legend>
   <p>
-    On sale:
+    Profit: <%= number_to_currency(@total_profit, :unit => "￥") %>
+  </p>
+  <p>
+    On sale: <%= number_to_currency(@total_on_sale_cost, :unit => "￥") %>
   </p>
 </fieldset>

@@ -12,11 +12,33 @@ class PurchaseOrderItem < ActiveRecord::Base
 
   after_update :update_sale_order_item_costs
 
+  def self.total_on_sale_cost
+    PurchaseOrderItem.find(:all).inject(0.0) { |sum, item| sum += item.on_sale_cost }
+  end
+
+  def self.total_profit
+    PurchaseOrderItem.find(:all).inject(0.0) { |sum, item| sum += item.profit }
+  end
+
   def total_price
     # 如果 unit_price 无效或者 quantity 为无穷，返回 nil；否则正常计算
     return nil if unit_price.nil? or quantity == -1
 
     unit_price * quantity
+  end
+
+  def on_sale_cost
+    return 0.0 if avail_quantity == -1 or unit_cost.nil?
+
+    unit_cost * avail_quantity
+  end
+
+  def profit
+    sale_order_items.inject(0.0) { |sum, item| sum += item.profit }
+  end
+
+  def saled_quantity
+    sale_order_items.inject(0) { |sum, item| sum += item.quantity }
   end
 
   def avail_quantity
@@ -25,10 +47,6 @@ class PurchaseOrderItem < ActiveRecord::Base
     left = quantity - saled_quantity
     left = -2 if left == -1
     left
-  end
-
-  def saled_quantity
-    sale_order_items.inject(0) { |sum, item| sum += item.quantity }
   end
 
   protected

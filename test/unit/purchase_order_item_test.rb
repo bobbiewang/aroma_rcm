@@ -29,6 +29,20 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
     assert_equal "should be positive number or -1.", poi.errors.on(:quantity)
   end
 
+  def test_on_sale_cost_and_profit
+    po = purchase_orders(:purchase_from_ppa)
+    po.total_cost = 600
+    po.save
+
+    # 购买 4 个，销售 1 个，单位成本 20.0，售价 100.0
+    assert_equal 100.0, sale_order_items(:sale_1_oil_to_mike).unit_price
+
+    # 在售 20.0 * 3 = 60.0，利润 100.0 - 20.0 = 80.0
+    poi = purchase_order_items(:purchase_4_ppa_oil)
+    assert_equal 60.0, poi.on_sale_cost
+    assert_equal 80.0, poi.profit
+  end
+
   def test_saled_quantity
     poi = purchase_order_items(:purchase_4_ppa_oil)
     assert_equal 1, poi.sale_order_items.size

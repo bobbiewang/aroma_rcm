@@ -26,4 +26,19 @@ class SaleOrderItemTest < ActiveSupport::TestCase
                             :quantity => 999)
     assert soi.valid?, soi.errors.full_messages
   end
+
+  def test_profit
+    soi = SaleOrderItem.new(:sale_order_id => 1,
+                            :purchase_order_item_id => 1,
+                            :unit_cost => 5.0,
+                            :unit_price => 10.0,
+                            :quantity => 1)
+    assert_equal 5, soi.profit
+
+    soi.quantity = 2
+    assert_equal 10, soi.profit
+
+    soi.unit_price = 1
+    assert_equal -8, soi.profit
+  end
 end
