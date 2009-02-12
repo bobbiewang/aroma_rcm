@@ -1,6 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-from_ppa:
+purchase_from_ppa:
   id: 1
   vendor_id: 1
   purchased_at: 2009-02-03
@@ -8,7 +8,7 @@ from_ppa:
   postage: 10.0
   total_cost:
 
-from_qing:
+purchase_from_qing:
   id: 2
   vendor_id: 2
   purchased_at: 2009-02-03

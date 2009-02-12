@@ -1,22 +1,22 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-mike_buy_oil:
+sale_oil_to_mike:
   sale_order_id: 1
   purchase_order_item_id: 1
   unit_cost: 50.0
   unit_price: 100.0
   quantity: 1
 
-mike_buy_hydrolat:
+sale_hydrolat_to_mike:
   sale_order_id: 1
   purchase_order_item_id: 2
   unit_cost: 100.0
   unit_price: 200.0
   quantity: 1
 
-tom_buy_cream:
+sale_cream_to_tom:
   sale_order_id: 2
   purchase_order_item_id: 4
   unit_cost: 100.0
   unit_price: 200.0
-  quantity: 1
+  quantity: -1

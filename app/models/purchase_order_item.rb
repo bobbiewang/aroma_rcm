@@ -4,6 +4,8 @@ class PurchaseOrderItem < ActiveRecord::Base
   validates_numericality_of :purchase_order_id, :vendor_product_id
   validates_numericality_of :unit_price, :allow_nil => true
 
+  validate :quantity_should_be_positive_or_minus_one
+
   belongs_to :purchase_order
   belongs_to :vendor_product
   has_many :sale_order_items
@@ -25,6 +27,12 @@ class PurchaseOrderItem < ActiveRecord::Base
   end
 
   protected
+  def quantity_should_be_positive_or_minus_one
+    unless quantity > 0 or quantity == -1
+      errors.add(:quantity, "should be positive number or -1.")
+    end
+  end
+
   def update_sale_order_item_costs
     return unless unit_cost
 

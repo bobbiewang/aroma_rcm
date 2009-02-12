@@ -30,23 +30,23 @@ class SaleOrdersControllerTest < ActionController::TestCase
   end
 
   def test_should_show_sale_order
-    get :show, :id => sale_orders(:mike_order).id
+    get :show, :id => sale_orders(:sale_to_mike).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => sale_orders(:mike_order).id
+    get :edit, :id => sale_orders(:sale_to_mike).id
     assert_response :success
   end
 
   def test_should_update_sale_order
-    put :update, :id => sale_orders(:mike_order).id, :sale_order => { }
+    put :update, :id => sale_orders(:sale_to_mike).id, :sale_order => { }
     assert_redirected_to sale_order_path(assigns(:sale_order))
   end
 
   def test_should_destroy_sale_order
     assert_difference('SaleOrder.count', -1) do
-      delete :destroy, :id => sale_orders(:mike_order).id
+      delete :destroy, :id => sale_orders(:sale_to_mike).id
     end
 
     assert_redirected_to sale_orders_path

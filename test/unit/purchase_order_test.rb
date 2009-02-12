@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PurchaseOrderTest < ActiveSupport::TestCase
 
   def test_calculate_cost_of_items
-    po = purchase_orders(:from_ppa)
+    po = purchase_orders(:purchase_from_ppa)
     po.save
     items = po.purchase_order_items
 
@@ -55,7 +55,7 @@ class PurchaseOrderTest < ActiveSupport::TestCase
   end
 
   def test_should_not_update_item_cost_without_price
-    po = purchase_orders(:from_qing)
+    po = purchase_orders(:purchase_from_qing)
     po.save
     items = po.purchase_order_items
 
@@ -63,7 +63,7 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_equal 1,  items.size
     # cream
     assert_nil       items[0].unit_price
-    assert_equal 1,  items[0].quantity
+    assert_equal -1, items[0].quantity
     assert_equal 30, items[0].vendor_product.capacity
 
     # 确认现在的 item 还没有 cost
@@ -83,7 +83,7 @@ class PurchaseOrderTest < ActiveSupport::TestCase
   end
 
   def test_should_set_item_cost_to_0_whose_price_is_0
-    po = purchase_orders(:from_ppa)
+    po = purchase_orders(:purchase_from_ppa)
     items = po.purchase_order_items
     items.each do |item|
       item.unit_price = 0.0

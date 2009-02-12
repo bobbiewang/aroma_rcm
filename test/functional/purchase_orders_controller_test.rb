@@ -28,23 +28,23 @@ class PurchaseOrdersControllerTest < ActionController::TestCase
   end
 
   def test_should_show_purchase_order
-    get :show, :id => purchase_orders(:from_ppa).id
+    get :show, :id => purchase_orders(:purchase_from_ppa).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => purchase_orders(:from_ppa).id
+    get :edit, :id => purchase_orders(:purchase_from_ppa).id
     assert_response :success
   end
 
   def test_should_update_purchase_order
-    put :update, :id => purchase_orders(:from_ppa).id, :purchase_order => { }
+    put :update, :id => purchase_orders(:purchase_from_ppa).id, :purchase_order => { }
     assert_redirected_to purchase_order_path(assigns(:purchase_order))
   end
 
   def test_should_destroy_purchase_order
     assert_difference('PurchaseOrder.count', -1) do
-      delete :destroy, :id => purchase_orders(:from_ppa).id
+      delete :destroy, :id => purchase_orders(:purchase_from_ppa).id
     end
 
     assert_redirected_to purchase_orders_path

@@ -1,13 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-mike_order:
+sale_to_mike:
   id: 1
   customer_id: 1
   saled_at: 2009-02-09
   postage: 10
   comments: MyText
 
-tom_order:
+sale_to_tom:
   id: 2
   customer_id: 2
   saled_at: 2009-02-09

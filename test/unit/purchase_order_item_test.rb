@@ -3,11 +3,30 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PurchaseOrderItemTest < ActiveSupport::TestCase
   def test_valid_purchase_order_items
-    purchase_order_item = PurchaseOrderItem.new(:purchase_order_id => 1,
-                                                :vendor_product_id => 1,
-                                                :unit_price => 1.1,
-                                                :quantity => 1)
-    assert_valid(purchase_order_item)
+    poi = PurchaseOrderItem.new(:purchase_order_id => 1,
+                                :vendor_product_id => 1,
+                                :unit_price => 1.1,
+                                :quantity => 1)
+    assert_valid(poi)
+  end
+
+  def test_purchase_quantity_should_be_positive_or_minus_one
+    poi = PurchaseOrderItem.new(:purchase_order_id => 1,
+                                :vendor_product_id => 1,
+                                :unit_price => 1.1,
+                                :quantity => 1)
+    assert poi.valid?
+
+    poi.quantity = 0
+    assert !poi.valid?, "Invalid quantity: 0."
+    assert_equal "should be positive number or -1.", poi.errors.on(:quantity)
+
+    poi.quantity = -1
+    assert poi.valid?, poi.errors.full_messages
+
+    poi.quantity = -2
+    assert !poi.valid?, "Invalid quantity: 0."
+    assert_equal "should be positive number or -1.", poi.errors.on(:quantity)
   end
 
   def test_saled_quantity
@@ -49,7 +68,7 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
 
   def test_should_not_update_sale_order_items
     # 如果 PurchaseOrderItem.unit_cost 为空，不更新其 SaleOrderItem.uni_cost
-    poi = purchase_order_items(:purchase_1_cream)
+    poi = purchase_order_items(:purchase_cream)
     sois = poi.sale_order_items
 
     sois[0].unit_cost = 199.9
