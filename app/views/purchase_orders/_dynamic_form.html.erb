@@ -22,6 +22,9 @@
     <%= f.text_field :total_cost %>
   </p>
 
+  <fieldset>
+  <legend>Products</legend>
+
   <div id="purchase_order_items">
     <%= render :partial => "purchase_order_item",
                :collection => @purchase_order.purchase_order_items,
@@ -31,6 +34,8 @@
   <p>
     <%= add_store_item_link "Add a product", @vendor_products %>
   </p>
+
+  </fieldset>
 
   <p>
     <%= f.label :comments %><br />

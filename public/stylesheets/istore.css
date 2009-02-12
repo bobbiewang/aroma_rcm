@@ -1,3 +1,15 @@
+h1 {
+    font:  200% sans-serif;
+    color: #226;
+    border-bottom: 3px dotted #77d;
+}
+
+h2 {
+    font:  150% sans-serif;
+    color: #226;
+    border-bottom: 1px dotted #77d;
+}
+
 table {
     border-collapse: collapse;
 }
@@ -11,4 +23,15 @@ th, td {
 
 th {
     background-color: #99CCFF;
+}
+
+fieldset {
+  background: #efe;
+}
+
+legend {
+  color: #dfd;
+  background: #141;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
 }
