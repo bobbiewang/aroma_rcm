@@ -1,3 +1,4 @@
+<div class="order">
 <fieldset>
   <legend>
     <%=h purchase_order.vendor.full_name %>
@@ -7,26 +8,34 @@
   <br />
   <% price_symbol = purchase_order.vendor.currency.symbol %>
   <table>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th colspan="2">Price</th>
+      <th colspan="2">Cost</th>
+      <th></th>
+      <th></th>
+    </tr>
     <% for item in purchase_order.purchase_order_items %>
       <tr>
         <td><%=h item.quantity %>&times;</td>
         <td><%=h item.vendor_product.title %></td>
-        <td class="item-price"><%=h number_to_currency(item.unit_price, :unit => price_symbol) %></td>
+        <td class="unit-column"><%=h number_to_currency(item.unit_price, :unit => price_symbol) %></td>
         <td class="item-price"><%=h number_to_currency(item.total_price, :unit => price_symbol) %></td>
-        <td class="item-price"><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
+        <td class="unit-column"><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
         <td class="item-price"><%=h number_to_currency(item.total_cost, :unit => "￥") %></td>
-        <td class="item-price"><%=h number_to_per_unit(item.ml_cost, "￥", "ml") %></td>
+        <td class="unit-column"><%=h number_to_per_unit(item.ml_cost, "￥", "ml") %></td>
         <td class="item-price"><%=h number_to_per_unit(item.drop_cost, "￥", "drop") %></td>
       </tr>
       <% end %>
       <tr>
         <td>1&times;</td>
         <td>Postage</td>
+        <td class="unit-column"><%=h number_to_currency(purchase_order.postage, :unit => price_symbol) %></td>
         <td class="item-price"><%=h number_to_currency(purchase_order.postage, :unit => price_symbol) %></td>
-        <td class="item-price"><%=h number_to_currency(purchase_order.postage, :unit => price_symbol) %></td>
+        <td class="unit-column"></td>
         <td class="item-price"></td>
-        <td class="item-price"></td>
-        <td class="item-price"></td>
+        <td class="unit-column"></td>
         <td class="item-price"></td>
       </tr>
       <tr class="total-line">
@@ -37,8 +46,8 @@
         <td colspan="2" class="important-cell">
           <%= number_to_currency(purchase_order.total_cost, :unit => "￥") %>
         </td>
-        <td class="item-price"></td>
-        <td class="item-price"></td>
+        <td class="total-cell"></td>
+        <td class="total-cell"></td>
       </tr>
     </table>
   <p>
@@ -47,4 +56,6 @@
     <%=h purchase_order.comments %>
   </p>
 </fieldset>
+</div>
+
 <br />

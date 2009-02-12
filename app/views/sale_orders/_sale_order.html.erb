@@ -1,3 +1,4 @@
+<div class="order">
 <fieldset>
   <legend>
     <%=h sale_order.customer.name %>
@@ -5,26 +6,33 @@
   </legend>
   <br />
   <table>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th colspan="2">Cost</th>
+      <th colspan="2">Price</th>
+      <th colspan="2">Profit</th>
+    </tr>
     <% for item in sale_order.sale_order_items %>
       <tr>
         <td><%=h item.quantity %>&times;</td>
         <td><%=h item.purchase_order_item.vendor_product.title %></td>
-        <td class="item-price"><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
+        <td class="unit-column"><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
         <td class="item-price"><%=h number_to_currency(item.total_cost, :unit => "￥") %></td>
-        <td class="item-price"><%=h number_to_currency(item.unit_price, :unit => "￥") %></td>
+        <td class="unit-column"><%=h number_to_currency(item.unit_price, :unit => "￥") %></td>
         <td class="item-price"><%=h number_to_currency(item.total_price, :unit => "￥") %></td>
-        <td class="item-price"><%=h number_to_currency(item.unit_profit, :unit => "￥") %></td>
+        <td class="unit-column"><%=h number_to_currency(item.unit_profit, :unit => "￥") %></td>
         <td class="item-price"><%=h number_to_currency(item.total_profit, :unit => "￥") %></td>
       </tr>
     <% end %>
       <tr>
         <td>1&times;</td>
         <td>Postage</td>
+        <td class="unit-column"><%=h number_to_currency(sale_order.postage, :unit => "￥") %></td>
         <td class="item-price"><%=h number_to_currency(sale_order.postage, :unit => "￥") %></td>
-        <td class="item-price"><%=h number_to_currency(sale_order.postage, :unit => "￥") %></td>
+        <td class="unit-column"></td>
         <td class="item-price"></td>
-        <td class="item-price"></td>
-        <td class="item-price"></td>
+        <td class="unit-column"></td>
         <td class="item-price"></td>
       </tr>
       <tr class="total-line">
@@ -46,4 +54,6 @@
     <%=h sale_order.comments %>
   </p>
 </fieldset>
+</div>
+
 <br />

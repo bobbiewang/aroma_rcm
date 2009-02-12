@@ -49,6 +49,15 @@ legend {
 
 /* START: order details */
 
+#order, th, td {
+    border-width: 0px;
+}
+
+#order, th {
+    background: #efe;
+    border-bottom: 1px solid #595;
+}
+
 .item-price, .total-line {
   text-align: right;
 }
@@ -56,6 +65,11 @@ legend {
 .total-line .total-cell {
   font-weight: bold;
   border-top: 1px solid #595;
+}
+
+.unit-column {
+  text-align: right;
+  border-left: 1px solid #595;
 }
 
 .important-cell {
