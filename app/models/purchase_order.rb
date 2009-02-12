@@ -13,8 +13,8 @@ class PurchaseOrder < ActiveRecord::Base
     items = purchase_order_items.select { |item| item.unit_price }
 
     if items.empty?
-      # 如果所有 purchase_order_items 的 price 都没有，返回 nil
-      return nil
+      # 如果所有 purchase_order_items 的 price 都没有，返回 0.0
+      return 0.0
     else
       # 只要 purchase_order_items 中有 price，就求和
       # 一个特殊情况是所有 price 为 0，从而和为 0

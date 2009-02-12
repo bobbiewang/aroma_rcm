@@ -25,15 +25,15 @@ class PurchaseOrderItem < ActiveRecord::Base
   end
 
   def total_price
-    # 如果 unit_price 无效或者 quantity 为无穷，返回 nil；否则正常计算
-    return nil if unit_price.nil? or quantity == -1
+    # 如果 unit_price 无效或者 quantity 为无穷，返回 0.0；否则正常计算
+    return 0.0 if unit_price.nil? or quantity == -1
 
     unit_price * quantity
   end
 
   def total_cost
-    # 如果 unit_cost 无效或者 quantity 为无穷，返回 nil；否则正常计算
-    return nil if unit_price.nil? or quantity == -1
+    # 如果 unit_cost 无效或者 quantity 为无穷，返回 0.0；否则正常计算
+    return 0.0 if unit_cost.nil? or quantity == -1
 
     unit_cost * quantity
   end
