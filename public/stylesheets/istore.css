@@ -1,5 +1,6 @@
 #logo {
-  font-size: 250%;
+  font-size: 300%;
+  font-weight: bold;
 }
 
 #slogan {
@@ -14,6 +15,10 @@
 #footer {
   width: 100%;
   text-align: center;
+}
+
+h1 {
+    font-weight: normal;
 }
 
 table {

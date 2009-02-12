@@ -8,8 +8,11 @@
     <th>Post code</th>
     <th>Telephone</th>
     <th>Mobilephone</th>
+    <th>Email</th>
+    <th>旺旺</th>
+    <th>QQ</th>
+    <th>MSN</th>
     <th>Birthday</th>
-    <th>Details</th>
     <th colspan="3">Operations</th>
   </tr>
 
@@ -21,8 +24,11 @@
     <td><%=h customer.post_code %></td>
     <td><%=h customer.telephone %></td>
     <td><%=h customer.mobilephone %></td>
+    <td><%=h customer.email %></td>
+    <td><%=h customer.wangwang %></td>
+    <td><%=h customer.qq %></td>
+    <td><%=h customer.msn %></td>
     <td><%=h customer.birthday %></td>
-    <td><%=h customer.details %></td>
     <td><%= link_to 'Show', customer %></td>
     <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
     <td><%= link_to 'Destroy', customer, :confirm => 'Are you sure?', :method => :delete %></td>
