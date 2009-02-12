@@ -1,4 +1,6 @@
 class SaleOrder < ActiveRecord::Base
+  validate :sale_order_items_must_be_valid
+
   has_many :sale_order_items
   belongs_to :customer
 
@@ -23,6 +25,12 @@ class SaleOrder < ActiveRecord::Base
   end
 
   protected
+
+  def sale_order_items_must_be_valid
+    sale_order_items.each do |item|
+      errors.add_to_base(item.errors.full_messages) unless item.valid?
+    end
+  end
 
   def save_sale_order_items
     sale_order_items.each { |item| item.save(false) }
