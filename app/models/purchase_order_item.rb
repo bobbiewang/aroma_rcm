@@ -13,13 +13,18 @@ class PurchaseOrderItem < ActiveRecord::Base
   after_update :update_sale_order_item_costs
 
   def total_price
-    # 如果 unit_price 是 nil，返回 nil；否则正常计算
-    return nil unless unit_price
+    # 如果 unit_price 无效或者 quantity 为无穷，返回 nil；否则正常计算
+    return nil if unit_price.nil? or quantity == -1
+
     unit_price * quantity
   end
 
   def avail_quantity
-    quantity - saled_quantity
+    return -1 if quantity == -1
+
+    left = quantity - saled_quantity
+    left = -2 if left == -1
+    left
   end
 
   def saled_quantity
@@ -30,6 +35,12 @@ class PurchaseOrderItem < ActiveRecord::Base
   def quantity_should_be_positive_or_minus_one
     unless quantity > 0 or quantity == -1
       errors.add(:quantity, "should be positive number or -1.")
+    end
+  end
+
+  def avail_quantity_should_be_positive_or_minus_one
+    unless avail_quantity > 0 or avail_quantity == -1
+      errors.add_to_base("No enough available items..")
     end
   end
 

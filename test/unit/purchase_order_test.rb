@@ -2,7 +2,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PurchaseOrderTest < ActiveSupport::TestCase
-
   def test_calculate_cost_of_items
     po = purchase_orders(:purchase_from_ppa)
     po.save

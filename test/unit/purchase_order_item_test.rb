@@ -46,11 +46,17 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
   end
 
   def test_avail_quantity
+    # 购买 4 个，销售 1 个，剩余 3 个
     poi = purchase_order_items(:purchase_4_ppa_oil)
     assert_equal 4, poi.quantity
     assert_equal 1, poi.saled_quantity
-
     assert_equal 3, poi.avail_quantity
+
+    # 购买 -1（无穷）个，销售 1 个，剩余 -1（无穷）个
+    poi = purchase_order_items(:purchase_cream)
+    assert_equal -1, poi.quantity
+    assert_equal 1,  poi.saled_quantity
+    assert_equal -1, poi.avail_quantity
   end
 
   def test_should_update_sale_order_items
