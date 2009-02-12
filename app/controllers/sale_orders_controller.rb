@@ -33,7 +33,7 @@ class SaleOrdersController < ApplicationController
         poi = PurchaseOrderItem.find(id)
         @sale_order.sale_order_items <<
           SaleOrderItem.new(:purchase_order_item_id => poi.id,
-                            :unit_cost => "%.2f" % poi.unit_cost,
+                            :unit_cost => poi.unit_cost.nil? ? nil : "%.2f" % poi.unit_cost,
                             :quantity => 1)
       end
 
