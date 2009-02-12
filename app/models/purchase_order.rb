@@ -5,6 +5,7 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :vendor
   has_many :purchase_order_items
 
+  after_update :save_purchase_order_items
   after_create :calculate_purchase_order_item_costs
   after_update :calculate_purchase_order_item_costs
 
@@ -17,11 +18,26 @@ class PurchaseOrder < ActiveRecord::Base
     end
   end
 
+  def existing_purchase_order_item_attributes=(purchase_order_item_attributes)
+    purchase_order_items.reject(&:new_record?).each do |purchase_order_item|
+      attributes = purchase_order_item_attributes[purchase_order_item.id.to_s]
+      if attributes
+        purchase_order_item.attributes = attributes
+      else
+        purchase_order_items.delete(purchase_order_item)
+      end
+    end
+  end
+
   protected
   def purchase_order_items_must_be_valid
     purchase_order_items.each do |item|
       errors.add(:purchase_order_items, item.errors.full_messages) unless item.valid?
     end
+  end
+
+  def save_purchase_order_items
+    purchase_order_items.each { |item| item.save(false) }
   end
 
   def calculate_purchase_order_item_costs
