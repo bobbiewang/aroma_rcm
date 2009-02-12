@@ -30,8 +30,10 @@ class SaleOrdersController < ApplicationController
       @sale_order = SaleOrder.new
       purchase_order_items =params[:purchase_order_items] || { }
       purchase_order_items.each_key do |id|
+        poi = PurchaseOrderItem.find(id)
         @sale_order.sale_order_items <<
-          SaleOrderItem.new(:purchase_order_item_id => id,
+          SaleOrderItem.new(:purchase_order_item_id => poi.id,
+                            :unit_cost => "%.2f" % poi.unit_cost,
                             :quantity => 1)
       end
 
@@ -57,6 +59,7 @@ class SaleOrdersController < ApplicationController
   # POST /sale_orders.xml
   def create
     @sale_order = SaleOrder.new(params[:sale_order])
+    @customers = Customer.find(:all)
 
     respond_to do |format|
       if @sale_order.save
