@@ -2,6 +2,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PurchaseOrderTest < ActiveSupport::TestCase
+  def test_total_weight
+    po = purchase_orders(:purchase_from_ppa)
+
+    # 4 oil, 3 hydrolat, 10 box
+    assert_equal 200, po.total_weight
+  end
+
   def test_calculate_cost_of_items
     po = purchase_orders(:purchase_from_ppa)
     po.save
@@ -13,13 +20,13 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_equal 5.0,  purchase_order_items(:purchase_4_ppa_oil).unit_price
     assert_equal 4,    items[0].quantity
     assert_equal 10,   items[0].vendor_product.capacity
-    # hydrolat, 500ml
+    # hydrolat, 50ml
     assert_equal 10.0, items[1].unit_price
     assert_equal 3,    items[1].quantity
-    assert_equal 500,  items[1].vendor_product.capacity
-    # box
-    assert_equal 50.0, items[2].unit_price
-    assert_equal 2,    items[2].quantity
+    assert_equal 50,   items[1].vendor_product.capacity
+    # box，虚拟为 1ml
+    assert_equal 5,    items[2].unit_price
+    assert_equal 10,   items[2].quantity
     assert_nil         items[2].vendor_product.capacity
 
     # 确认现在的 item 还没有 cost
@@ -34,23 +41,48 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_nil items[2].drop_cost
 
     # 设置 total_cost，会自动计算 items 的 cost
-    po.postage = 20
+    po.postage = 200
     po.total_cost = 600
     po.save
 
     # 确认 item 的 cost 已经计算出
-    assert_equal 20.0,  items[0].unit_cost
-    assert_equal 2.0,   items[0].ml_cost
-    assert_equal 0.1,   items[0].drop_cost
-    assert_equal 40.0,  items[1].unit_cost
-    assert_equal 0.08,  items[1].ml_cost
-    assert_equal 0.004, items[1].drop_cost
-    assert_equal 200.0, items[2].unit_cost
+    assert_equal 30.0,  items[0].unit_cost
+    assert_equal 3.0,   items[0].ml_cost
+    assert_equal 0.15,  items[0].drop_cost
+    assert_equal 120.0, items[1].unit_cost
+    assert_equal 2.4,   items[1].ml_cost
+    assert_equal 0.12 , items[1].drop_cost
+    assert_equal 12.0,  items[2].unit_cost
     assert_nil          items[2].ml_cost
     assert_nil          items[2].drop_cost
 
     # 确认 purchase_order_items 对应的 sale_order_items 的 cost 也更新了
-    assert_equal 20.0, items[0].sale_order_items[0].unit_cost
+    assert_equal 30.0, items[0].sale_order_items[0].unit_cost
+  end
+
+  def test_should_set_item_cost_to_0_whose_price_is_0
+    # 在按 price 分配邮费的时候，对于 total_price 为 0 的情况，会造成除
+    # 法错误，要特殊处理。按 weight 分配后，就没有这个问题（因为
+    # weight 最小为 1），但这个测试还是保留在这里
+
+    po = purchase_orders(:purchase_from_ppa)
+    items = po.purchase_order_items
+    items.each do |item|
+      item.unit_price = 0.0
+    end
+
+    po.total_cost = 0.0
+    po.save
+
+    assert_equal 0.0, items[0].unit_cost
+    assert_equal 0.0, items[0].ml_cost
+    assert_equal 0.0, items[0].drop_cost
+    assert_equal 0.0, items[1].unit_cost
+    assert_equal 0.0, items[1].ml_cost
+    assert_equal 0.0, items[1].drop_cost
+    assert_equal 0.0, items[2].unit_cost
+    assert_nil        items[2].ml_cost
+    assert_nil        items[2].drop_cost
   end
 
   def test_should_not_update_item_cost_without_price
@@ -79,26 +111,5 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_nil items[0].unit_cost
     assert_nil items[0].ml_cost
     assert_nil items[0].drop_cost
-  end
-
-  def test_should_set_item_cost_to_0_whose_price_is_0
-    po = purchase_orders(:purchase_from_ppa)
-    items = po.purchase_order_items
-    items.each do |item|
-      item.unit_price = 0.0
-    end
-
-    po.total_cost = 0.0
-    po.save
-
-    assert_equal 0.0, items[0].unit_cost
-    assert_equal 0.0, items[0].ml_cost
-    assert_equal 0.0, items[0].drop_cost
-    assert_equal 0.0, items[1].unit_cost
-    assert_equal 0.0, items[1].ml_cost
-    assert_equal 0.0, items[1].drop_cost
-    assert_equal 0.0, items[2].unit_cost
-    assert_nil        items[2].ml_cost
-    assert_nil        items[2].drop_cost
   end
 end

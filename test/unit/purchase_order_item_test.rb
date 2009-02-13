@@ -34,13 +34,22 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
     po.total_cost = 600
     po.save
 
-    # 购买 4 个，销售 1 个，单位成本 20.0，售价 100.0
+    # 购买 4 个，销售 1 个，单位成本 30.0，售价 100.0
     assert_equal 100.0, sale_order_items(:sale_1_oil_to_mike).unit_price
 
-    # 在售 20.0 * 3 = 60.0，利润 100.0 - 20.0 = 80.0
+    # 在售 30.0 * 3 = 90.0，利润 100.0 - 30.0 = 70.0
     poi = purchase_order_items(:purchase_4_ppa_oil)
-    assert_equal 60.0, poi.on_sale_cost
-    assert_equal 80.0, poi.profit
+    assert_equal 90.0, poi.on_sale_cost
+    assert_equal 70.0, poi.profit
+  end
+
+  def test_unit_weight
+    poi = purchase_order_items(:purchase_4_ppa_oil)
+    cap = vendor_products(:oil).capacity
+    assert_equal cap, poi.unit_weight, "Use capacity to simulate weight."
+
+    poi = purchase_order_items(:purchase_10_ppa_box)
+    assert_equal 1, poi.unit_weight, "Box has no weight.  Default is 1."
   end
 
   def test_saled_quantity
@@ -73,7 +82,7 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
     assert_equal -1, poi.avail_quantity
   end
 
-  def test_should_update_sale_order_items
+  def test_should_update_sale_order_item_costs
     poi = purchase_order_items(:purchase_4_ppa_oil)
     sois = poi.sale_order_items
 
@@ -86,7 +95,7 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
     assert_equal poi.unit_cost, sois[0].unit_cost
   end
 
-  def test_should_not_update_sale_order_items
+  def test_should_not_update_sale_order_item_costs_because_of_nil_unit_cost
     # 如果 PurchaseOrderItem.unit_cost 为空，不更新其 SaleOrderItem.uni_cost
     poi = purchase_order_items(:purchase_cream)
     sois = poi.sale_order_items

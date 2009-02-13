@@ -20,15 +20,15 @@ purchase_3_ppa_hydrolat:
   drop_cost:
   quantity: 3
 
-purchase_2_ppa_box:
+purchase_10_ppa_box:
   id: 3
   purchase_order_id: 1
   vendor_product_id: 3
-  unit_price: 50.0
+  unit_price: 5.0
   unit_cost:
   ml_cost:
   drop_cost:
-  quantity: 2
+  quantity: 10
 
 purchase_cream:
   id: 4

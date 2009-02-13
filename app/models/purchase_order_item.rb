@@ -24,6 +24,16 @@ class PurchaseOrderItem < ActiveRecord::Base
     PurchaseOrderItem.find(:all).select { |item| item.avail? }
   end
 
+  def unit_weight
+    # 目前产品没有重量的概念，用容量模拟重量。没有容量的产品算 1ml
+    capacity = vendor_product.capacity
+    capacity.nil? ? 1 : capacity
+  end
+
+  def total_weight
+    unit_weight * quantity
+  end
+
   def total_price
     # 如果 unit_price 无效或者 quantity 为无穷，返回 0.0；否则正常计算
     return 0.0 if unit_price.nil? or quantity == -1

@@ -9,6 +9,10 @@ class PurchaseOrder < ActiveRecord::Base
   after_create :calculate_purchase_order_item_costs
   after_update :calculate_purchase_order_item_costs
 
+  def total_weight
+    purchase_order_items.inject(0.0) { |sum, item| sum += item.total_weight }
+  end
+
   def total_price
     items = purchase_order_items.select { |item| item.unit_price }
 
@@ -62,15 +66,11 @@ class PurchaseOrder < ActiveRecord::Base
     return if total_cost.nil? or purchase_order_items.size == 0 or total_price.nil?
 
     purchase_order_items.each do |item|
-      # 没有 price 就没有 cost
-      next if item.unit_price.nil?
+      # 由于虚拟 weight 的存在，即使一个 item 没有 price，也会有 cost
+      unit_price = item.unit_price.nil? ? 0.0 : item.unit_price
 
-      if total_price == 0.0
-        # 处理所有 item 的 price 为 0 的特殊情况
-        item.unit_cost = 0.0
-      else
-        item.unit_cost = total_cost / total_price * item.unit_price
-      end
+      item.unit_cost = (unit_price + postage *  item.unit_weight / total_weight) *
+                       total_cost / total_price_with_postage
 
       # 根据 unit_cost 计算 ml_cost 和 drop_cost
       unless item.vendor_product.capacity.nil?

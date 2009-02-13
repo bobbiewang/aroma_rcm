@@ -17,7 +17,7 @@
     <td><%= check_box_tag "purchase_order_items[#{item.id}]" %></td>
     <td><%=h item.vendor_product.title %></td>
     <td><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
-    <td><%=h item.avail_quantity %></td>
+    <td><%=h number_to_quantity(item.avail_quantity) %></td>
   </tr>
 
 <% end %>

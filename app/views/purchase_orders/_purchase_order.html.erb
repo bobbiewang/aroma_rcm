@@ -18,7 +18,7 @@
     </tr>
     <% for item in purchase_order.purchase_order_items %>
       <tr>
-        <td><%=h item.quantity %>&times;</td>
+        <td><%=h number_to_quantity(item.quantity) %>&times;</td>
         <td><%=h item.vendor_product.title %></td>
         <td class="unit-column"><%=h number_to_currency(item.unit_price, :unit => price_symbol) %></td>
         <td class="item-price"><%=h number_to_currency(item.total_price, :unit => price_symbol) %></td>

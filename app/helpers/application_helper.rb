@@ -4,4 +4,12 @@ module ApplicationHelper
     return "" if number.blank?
     number_to_currency(number, :unit => symbol) + "/#{unit}"
   end
+
+  def number_to_quantity(number)
+    if number == -1
+      "-"
+    else
+      number
+    end
+  end
 end

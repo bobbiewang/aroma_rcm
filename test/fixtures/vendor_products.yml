@@ -11,9 +11,9 @@ oil:
 
 hydrolat:
   id: 2
-  title: 500ml Neroli
+  title: 50ml Neroli
   vendor_id: 1
-  capacity: 500
+  capacity: 50
   price: 10.0
   active: true
   description: 橙花油
@@ -23,7 +23,7 @@ box:
   title: Wooden Box
   vendor_id: 1
   capacity:
-  price: 50.0
+  price: 5.0
   active: true
   description: 木盒
 
