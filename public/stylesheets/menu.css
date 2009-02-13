@@ -8,7 +8,6 @@
 #menu {
     display: block;
     border-bottom:1px solid #fff;
-    background-image:url(images/nav_background.jpg);
     background-repeat:repeat-y;
     background-position:right;
 }
@@ -147,7 +146,6 @@ display: inline-block;
 }
 
 #menu li li.submenu {
-    background-image:url(images/arrow-w.gif);
     background-repeat:no-repeat;
     background-position:right;
 }
