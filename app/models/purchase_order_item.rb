@@ -25,7 +25,11 @@ class PurchaseOrderItem < ActiveRecord::Base
   end
 
   def unit_weight
-    # 目前产品没有重量的概念，用容量模拟重量。没有容量的产品算 1ml
+    # 目前产品没有重量的概念，用容量模拟重量。没有容量的产品算 1ml。
+    # 因为 weight 是用于分担运费计算 cost，所以如果某个产品没有
+    # unit_price，那么 weight 也算 0，从而不分担运费
+    return 0 if unit_price.nil?
+
     capacity = vendor_product.capacity
     capacity.nil? ? 1 : capacity
   end

@@ -61,9 +61,8 @@ class PurchaseOrderTest < ActiveSupport::TestCase
   end
 
   def test_should_set_item_cost_to_0_whose_price_is_0
-    # 在按 price 分配邮费的时候，对于 total_price 为 0 的情况，会造成除
-    # 法错误，要特殊处理。按 weight 分配后，就没有这个问题（因为
-    # weight 最小为 1），但这个测试还是保留在这里
+    # 如果所有 item 的 unit_price 为 0，同时 postage 也为 0，计算
+    # unit_cost 的时候，会造成除法错误，要特殊处理
 
     po = purchase_orders(:purchase_from_ppa)
     items = po.purchase_order_items
@@ -71,6 +70,7 @@ class PurchaseOrderTest < ActiveSupport::TestCase
       item.unit_price = 0.0
     end
 
+    po.postage = 0
     po.total_cost = 0.0
     po.save
 

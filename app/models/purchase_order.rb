@@ -66,11 +66,20 @@ class PurchaseOrder < ActiveRecord::Base
     return if total_cost.nil? or purchase_order_items.size == 0 or total_price.nil?
 
     purchase_order_items.each do |item|
-      # 由于虚拟 weight 的存在，即使一个 item 没有 price，也会有 cost
-      unit_price = item.unit_price.nil? ? 0.0 : item.unit_price
+      # 没有 price 就没有 cost
+      next if item.unit_price.nil?
 
-      item.unit_cost = (unit_price + postage *  item.unit_weight / total_weight) *
-                       total_cost / total_price_with_postage
+      if total_price_with_postage == 0.0
+        # total_weight 和 total_price_with_postage 在公式中作为分母
+        # 1. total_weight 不会为 0，只有所有 item 都没有 unit_price 的
+        #    情况下，total_weight 才为 0，而这种情况代码不会运行到这里
+        # 2. 如果所有 item 的 unit_price 和运费为 0（如赠
+        #    品），total_price_with_postage 为 0
+        item.unit_cost = 0.0
+      else
+        item.unit_cost = (item.unit_price + postage *  item.unit_weight / total_weight) *
+          total_cost / total_price_with_postage
+      end
 
       # 根据 unit_cost 计算 ml_cost 和 drop_cost
       unless item.vendor_product.capacity.nil?
