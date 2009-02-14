@@ -24,8 +24,8 @@ class VendorProductsController < ApplicationController
   # GET /vendor_products/new
   # GET /vendor_products/new.xml
   def new
-    @vendor_product = VendorProduct.new
     @vendors = Vendor.find(:all, :order => :full_name)
+    @vendor_product = VendorProduct.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,6 +42,7 @@ class VendorProductsController < ApplicationController
   # POST /vendor_products
   # POST /vendor_products.xml
   def create
+    @vendors = Vendor.find(:all, :order => :full_name)
     @vendor_product = VendorProduct.new(params[:vendor_product])
 
     respond_to do |format|
