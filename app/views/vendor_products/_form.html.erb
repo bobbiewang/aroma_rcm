@@ -3,7 +3,7 @@
 
   <p>
     <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :size => 75 %>
   </p>
   <p>
     <%= f.label :vendor_id %><br />
@@ -24,6 +24,6 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   <p>
-    <%= f.submit "Update" %>
+    <%= f.submit "Submit" %>
   </p>
 <% end %>
