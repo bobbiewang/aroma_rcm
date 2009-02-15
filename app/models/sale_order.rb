@@ -1,7 +1,7 @@
 class SaleOrder < ActiveRecord::Base
   validate :sale_order_items_must_be_valid
 
-  has_many :sale_order_items
+  has_many :sale_order_items, :dependent => :destroy
   belongs_to :customer
 
   after_update :save_sale_order_items
