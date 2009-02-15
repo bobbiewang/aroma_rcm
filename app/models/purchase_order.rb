@@ -3,7 +3,7 @@ class PurchaseOrder < ActiveRecord::Base
   validate :purchase_order_items_must_be_valid
 
   belongs_to :vendor
-  has_many :purchase_order_items
+  has_many :purchase_order_items, :dependent => :destroy
 
   after_update :save_purchase_order_items
   after_create :calculate_purchase_order_item_costs
@@ -28,6 +28,14 @@ class PurchaseOrder < ActiveRecord::Base
 
   def total_price_with_postage
     total_price + postage
+  end
+
+  def postage_percentage
+    if total_price == 0.0
+      0.0
+    else
+      postage / total_price
+    end
   end
 
   def cost_price_rate

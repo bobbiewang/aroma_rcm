@@ -22,8 +22,8 @@
       <%=h number_to_currency(purchase_order.postage,
                               :unit => purchase_order.vendor.currency.symbol) %>
       <span class="remark">(<%=h number_to_percentage(
-                                purchase_order.postage/purchase_order.total_price,
-                                :precision => 2) %>)</span>
+                                   purchase_order.postage_percentage * 100.0,
+                                   :precision => 0) %>)</span>
     </td>
     <td class="item-price">
       <%=h number_to_currency(purchase_order.total_cost,

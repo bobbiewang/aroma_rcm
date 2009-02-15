@@ -10,6 +10,13 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_equal 0.0, po.total_price
   end
 
+  def test_postage_percentage
+    po = purchase_orders(:purchase_from_ppa)
+
+    po.postage = 50.0
+    assert_equal 0.5, po.postage_percentage
+  end
+
   def test_cost_price_rate
     po = purchase_orders(:purchase_from_ppa)
     po.postage = 100.0
