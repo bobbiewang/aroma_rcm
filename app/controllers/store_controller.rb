@@ -63,22 +63,8 @@ class StoreController < ApplicationController
   end
 
   def dump
-    db_name, user, password = params[:db_name], params[:user], params[:password]
-    unless [db_name, user, password].any? { |item| item.nil? }
-
-      header = <<END_OF_HEADER
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-CREATE DATABASE `#{db_name}` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `#{db_name}`;
-
-END_OF_HEADER
-
-      dump_data = `mysqldump -u #{user} --password=#{password} #{db_name} 2>&1`
-      send_data(header + dump_data, :type => "plain/text",
-                :disposition => "inline",
-                :filename => Time.now.strftime("%Y-%m-%d_%H_%M_%S.sql"))
-    else
-      render :text => "mysqldump -u #{user} --password=#{password} #{db_name} 2>&1"
-    end
+    send_data(DbDumper.to_mysql, :type => "plain/text",
+              :disposition => "inline",
+              :filename => Time.now.strftime("%Y-%m-%d_%H_%M_%S.sql"))
   end
 end
