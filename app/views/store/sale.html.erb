@@ -6,8 +6,12 @@
 <table>
   <tr>
     <th></th>
+    <th>Vendor</th>
+    <th>Purchased Date</th>
     <th>Title</th>
-    <th>Cost</th>
+    <th>Unit Cost</th>
+    <th>ML Cost</th>
+    <th>Drop Cost</th>
     <th>#AVL</th>
   </tr>
 
@@ -15,8 +19,12 @@
 
   <tr>
     <td><%= check_box_tag "purchase_order_items[#{item.id}]" %></td>
+    <td><%=h item.vendor_product.vendor.abbr_name %></td>
+    <td><%=h item.purchase_order.purchased_at %></td>
     <td><%=h item.vendor_product.title %></td>
     <td><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
+    <td><%=h number_to_currency(item.ml_cost, :unit => "￥") %></td>
+    <td><%=h number_to_currency(item.drop_cost, :unit => "￥") %></td>
     <td><%=h number_to_quantity(item.avail_quantity) %></td>
   </tr>
 

@@ -21,7 +21,14 @@ class PurchaseOrderItem < ActiveRecord::Base
   end
 
   def self.avail_items
-    PurchaseOrderItem.find(:all).select { |item| item.avail? }
+    items = PurchaseOrderItem.find(:all).select { |item| item.avail? }
+    items.sort do |x, y|
+      if x.purchase_order.purchased_at != y.purchase_order.purchased_at
+        x.purchase_order.purchased_at <=> y.purchase_order.purchased_at
+      else
+        x.vendor_product.title <=> y.vendor_product.title
+      end
+    end
   end
 
   def unit_weight
