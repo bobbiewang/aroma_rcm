@@ -13,8 +13,12 @@ class PurchaseOrderTest < ActiveSupport::TestCase
   def test_cost_price_rate
     po = purchase_orders(:purchase_from_ppa)
     po.postage = 100.0
+
     po.total_cost = 1000.0
     assert_equal 5, po.cost_price_rate
+
+    po.total_cost = nil
+    assert_equal 0.0, po.cost_price_rate
   end
 
   def test_total_weight

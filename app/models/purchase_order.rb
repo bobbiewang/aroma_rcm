@@ -31,7 +31,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def cost_price_rate
-    if total_price_with_postage == 0.0
+    if total_price_with_postage == 0.0 or total_cost.nil?
       0.0
     else
       total_cost / total_price_with_postage
