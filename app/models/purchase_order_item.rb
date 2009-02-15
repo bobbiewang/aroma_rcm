@@ -65,7 +65,7 @@ class PurchaseOrderItem < ActiveRecord::Base
     unit_cost * avail_quantity
   end
 
-  def profit
+  def total_profit
     sale_order_items.inject(0.0) { |sum, item| sum += item.total_profit }
   end
 

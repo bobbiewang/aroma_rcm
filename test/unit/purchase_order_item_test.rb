@@ -40,7 +40,7 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
     # 在售 30.0 * 3 = 90.0，利润 100.0 - 30.0 = 70.0
     poi = purchase_order_items(:purchase_4_ppa_oil)
     assert_equal 90.0, poi.on_sale_cost
-    assert_equal 70.0, poi.profit
+    assert_equal 70.0, poi.total_profit
   end
 
   def test_unit_weight
