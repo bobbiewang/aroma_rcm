@@ -13,6 +13,8 @@
 ** DONE 在创建 SaleOrderItem 的页面缺少 quantity 的输入框
    CLOSED: [2009-02-15 Sun 21:42]
 ** UTIL 使用 Expect 脚本部署程序
+** DEFECT Welcome 页面的总利润和 SaleOrder 的利润不一致
+** ENHANCE 在 store/sale 页面显示已经卖出的数量
 
 #+STARTUP: content hidestars lognotedone
 #+SEQ_TODO: DEFECT ENHANCE UTIL | DONE(d) CANCELLED(c@/!)
