@@ -46,7 +46,7 @@
         </td>
         <td>
           <%= sale_order_item_form.text_field :quantity,
-              :size => "1" %>/<%=h item.purchase_order_item.avail_quantity %>
+              :size => "1" %>/<%=h number_to_quantity(item.purchase_order_item.avail_quantity) %>
         </td>
       </tr>
   <% end %>
