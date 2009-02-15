@@ -44,7 +44,9 @@ class StoreController < ApplicationController
     @info_properties = []
 
     # Rails 信息
-    @info_properties += Rails::Info.properties
+    if defined? Rails::Info
+      @info_properties += Rails::Info.properties
+    end
 
     # Ruby Gems 信息
     # @info_properties << ['Loaded Gems', $".join("; ")]
