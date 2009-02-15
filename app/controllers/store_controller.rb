@@ -40,6 +40,26 @@ class StoreController < ApplicationController
     @sale_orders = SaleOrder.find(:all, :order => "saled_at")
   end
 
+  def sys_info
+    @info_properties = []
+
+    # Rails 信息
+    @info_properties += Rails::Info.properties
+
+    # Ruby Gems 信息
+    # @info_properties << ['Loaded Gems', $".join("; ")]
+
+    # MySQL 配置信息
+    find_data = `find /etc -name "my.cnf"`
+    unless find_data.blank?
+      @info_properties << ['MySQL Configuration File', find_data.strip]
+      if File.exist? find_data.strip
+        socket_file = File.open(find_data.strip).grep /^socket.*=/
+        @info_properties << ['MySQL Socket File', socket_file]
+      end
+    end
+  end
+
   def dump
     db_name, user, password = params[:db_name], params[:user], params[:password]
     unless [db_name, user, password].any? { |item| item.nil? }
