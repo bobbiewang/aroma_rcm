@@ -6,18 +6,20 @@
    Morph 不能使用 mysqldump，完全自写代码实现 dump 功能
 ** DONE 实现 brief purchase history 页面
    CLOSED: [2009-02-15 Sun 19:38]
-* 1.3 初步完善出货功能 [50%]
+* TODO 1.3 初步完善出货功能 [50%]
 ** DONE 显示 Sale 页面时，按照进货的顺序排序，先售出旧货
    CLOSED: [2009-02-15 Sun 21:54]
 ** ENHANCE 实现 brief sale history 页面
 ** DONE 在创建 SaleOrderItem 的页面缺少 quantity 的输入框
    CLOSED: [2009-02-15 Sun 21:42]
 ** UTIL 使用 Expect 脚本部署程序
-** DEFECT Welcome 页面的总利润和 SaleOrder 的利润不一致
+** DONE store/index 页面的总利润和 SaleOrder 的利润不一致
+   CLOSED: [2009-02-15 Sun 22:52]
+   Welcome 页面原来通过 PurchaseOrderItem 计算利润，没有考虑销售运费
 ** ENHANCE 在 store/sale 页面显示已经卖出的数量
 
 #+STARTUP: content hidestars lognotedone
-#+SEQ_TODO: DEFECT ENHANCE UTIL | DONE(d) CANCELLED(c@/!)
+#+SEQ_TODO: TODO DEFECT ENHANCE UTIL | DONE(d) CANCELLED(c@/!)
 
 # Local Variables:
 # mode: org

@@ -6,6 +6,10 @@ class SaleOrder < ActiveRecord::Base
 
   after_update :save_sale_order_items
 
+  def self.total_profit
+    SaleOrder.find(:all).inject(0.0) { |sum, item| sum += item.total_profit }
+  end
+
   def new_sale_order_item_attributes=(sale_order_item_attributes)
     sale_order_item_attributes.each do |attributes|
       attributes[:sale_order_id] = 0

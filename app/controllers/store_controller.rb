@@ -1,7 +1,7 @@
 class StoreController < ApplicationController
   def index
     @total_on_sale_cost = PurchaseOrderItem.total_on_sale_cost
-    @total_profit = PurchaseOrderItem.total_profit
+    @total_profit = SaleOrder.total_profit
   end
 
   def login
