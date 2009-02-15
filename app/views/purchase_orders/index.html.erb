@@ -12,7 +12,7 @@
 
 <% for purchase_order in @purchase_orders %>
   <tr>
-    <td><%=h purchase_order.vendor_id %></td>
+    <td><%=h purchase_order.vendor.full_name %></td>
     <td><%=h purchase_order.purchased_at %></td>
     <td><%=h purchase_order.arrived_at %></td>
     <td><%=h purchase_order.postage %></td>
