@@ -2,20 +2,33 @@ require 'erb'
 
 module DbDumper
   def self.to_mysql
-    dump_database + dump_currencies + dump_customers + dump_purchase_order_items +
-      dump_purchase_order + dump_sale_order_items + dump_sale_order + dump_users +
-      dump_vendor_products + dump_vendors
+    dump_header + dump_currencies + dump_customers + dump_purchase_order_items +
+      dump_purchase_order + dump_sale_order_items + dump_sale_order +
+      dump_sessions + dump_users + dump_vendor_products + dump_vendors +
+      dump_tailer
   end
 
-  def self.dump_database
+  def self.dump_header
     template = <<END_OF_TEMPLATE
 --
 -- Database:
 --
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-CREATE DATABASE `iclinic_development` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- CREATE DATABASE `iclinic_development` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE 'iclinic_development';
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
 END_OF_TEMPLATE
 
     template
@@ -48,11 +61,16 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
 (<%= r.id %>, '<%= r.full_name %>', '<%= r.iso_code %>', '<%= r.symbol %>', '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "currencies"
@@ -95,11 +113,16 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
 (<%= r.id %>, '<%= r.name %>', '<%= r.gender %>', '<%= r.address %>', '<%= r.post_code %>', '<%= r.telephone %>', '<%= r.mobilephone %>', '<%= r.email %>', '<%= r.wangwang %>', '<%= r.qq %>', '<%= r.msn %>', '<%= r.birthday %>', <%= r.details.inspect %>, '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "customers"
@@ -137,11 +160,16 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
 (<%= r.id %>, '<%= r.purchase_order_id %>', '<%= r.vendor_product_id %>', '<%= r.unit_price %>', '<%= r.unit_cost %>', '<%= r.ml_cost %>', '<%= r.drop_cost %>', <%= r.quantity %>, '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "purchase_order_items"
@@ -179,14 +207,16 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
-
--- FIXME
 (<%= r.id %>, '<%= r.vendor_id %>', '<%= r.purchased_at %>', '<%= r.arrived_at %>', '<%= r.postage %>', '<%= r.total_cost %>', <%= r.comments.inspect %>, '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
-
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "purchase_orders"
@@ -222,14 +252,16 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
-
--- FIXME
 (<%= r.id %>, '<%= r.sale_order_id %>', '<%= r.purchase_order_item_id %>', '<%= r.unit_cost %>', '<%= r.unit_price %>', <%= r.quantity %>, '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
-
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "sale_order_items"
@@ -264,16 +296,55 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
 (<%= r.id %>, '<%= r.customer_id %>', '<%= r.saled_at %>', '<%= r.postage %>', <%= r.comments.inspect %>, '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
-
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "sale_orders"
     ERB.new(template, 0, "%<>").result(binding)
+  end
+
+  def self.dump_sessions
+    template = <<END_OF_TEMPLATE
+--
+-- Table structure for table `sessions`
+--
+
+DROP TABLE IF EXISTS `sessions`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `sessions` (
+  `id` int(11) NOT NULL auto_increment,
+  `session_id` varchar(255) NOT NULL,
+  `data` text,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `index_sessions_on_session_id` (`session_id`),
+  KEY `index_sessions_on_updated_at` (`updated_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping data for table `sessions`
+--
+
+LOCK TABLES `sessions` WRITE;
+/*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+END_OF_TEMPLATE
+
+    template
   end
 
   def self.dump_users
@@ -303,12 +374,16 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
 (<%= r.id %>, '<%= r.name %>', '<%= r.hashed_password %>', '<%= r.salt %>', '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
-
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "users"
@@ -345,11 +420,16 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
 (<%= r.id %>, '<%= r.title %>', <%= r.vendor_id %>, <%= r.capacity.nil? ? "NULL" : r.capacity %>, '<%= r.price %>', <%= r.active? ? 1 : 0 %>, <%= r.description.nil? ? "NULL" : r.description.inspect %>, '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "vendor_products"
@@ -384,15 +464,37 @@ SET character_set_client = @saved_cs_client;
 --
 
 LOCK TABLES `<%= table %>` WRITE;
+/*!40000 ALTER TABLE `<%= table %>` DISABLE KEYS */;
+<% if records.size > 0 %>
 INSERT INTO `<%= table %>` VALUES
 <% records.each_with_index do |r, i| %>
 (<%= r.id %>, '<%= r.full_name %>', '<%= r.abbr_name %>', <%= r.currency_id %>, <%= r.active? ? 1 : 0 %>, '<%= r.created_at %>', '<%= r.updated_at %>')<%= i == records.size - 1 ? ';' : ',' %>
 <% end %>
+<% end %>
+/*!40000 ALTER TABLE `<%= table %>` ENABLE KEYS */;
 UNLOCK TABLES;
+
 END_OF_TEMPLATE
 
     table = "vendors"
     ERB.new(template, 0, "%<>").result(binding)
   end
 
+  def self.dump_tailer
+    template = <<END_OF_TEMPLATE
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on <%= Time.now %>
+END_OF_TEMPLATE
+
+    ERB.new(template, 0, "%<>").result
+  end
 end
