@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>#</th>
     <th>Purchase Order</th>
     <th>Vendor</th>
     <th>Product</th>
@@ -15,6 +16,7 @@
 
 <% for purchase_order_item in @purchase_order_items %>
   <tr>
+    <td><%=h purchase_order_item.id %></td>
     <td><%=h purchase_order_item.purchase_order_id %></td>
     <td><%=h purchase_order_item.purchase_order.vendor.abbr_name %></td>
     <td><%=h purchase_order_item.vendor_product.title %></td>
