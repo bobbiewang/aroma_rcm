@@ -2,6 +2,21 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PurchaseOrderTest < ActiveSupport::TestCase
+  def test_total_price
+    po = purchase_orders(:purchase_from_ppa)
+    assert_equal 100.0, po.total_price
+
+    po = purchase_orders(:purchase_from_qing)
+    assert_equal 0.0, po.total_price
+  end
+
+  def test_cost_price_rate
+    po = purchase_orders(:purchase_from_ppa)
+    po.postage = 100.0
+    po.total_cost = 1000.0
+    assert_equal 5, po.cost_price_rate
+  end
+
   def test_total_weight
     po = purchase_orders(:purchase_from_ppa)
 

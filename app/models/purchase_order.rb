@@ -30,6 +30,14 @@ class PurchaseOrder < ActiveRecord::Base
     total_price + postage
   end
 
+  def cost_price_rate
+    if total_price_with_postage == 0.0
+      0.0
+    else
+      total_cost / total_price_with_postage
+    end
+  end
+
   def new_purchase_order_item_attributes=(purchase_order_item_attributes)
     purchase_order_item_attributes.each do |attributes|
       # 如果不指定 :purchase_order_id，通不过 validation。这里设置一个
