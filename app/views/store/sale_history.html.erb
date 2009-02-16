@@ -1,3 +1,27 @@
 <h1>Sale History</h1>
 
-<%= render :partial => "sale_orders/sale_order", :collection => @sale_orders %>
+<table>
+  <tr>
+    <th>Sale Date</th>
+    <th>Customer</th>
+    <th>Price</th>
+    <th>Cost</th>
+    <th>Profit</th>
+    <th></th>
+  </tr>
+
+<% for sale_order in @sale_orders %>
+  <tr>
+    <td><%=h sale_order.saled_at %></td>
+    <td><%=h sale_order.customer.name %></td>
+    <td class="item-price"><%=h number_to_cny(sale_order.total_price) %></td>
+    <td class="item-price"><%=h number_to_cny(sale_order.total_cost) %></td>
+    <td class="item-price"><%=h number_to_cny(sale_order.total_profit) %>
+      <span class="remark">
+        (<%=h number_to_percentage(sale_order.profit_rate * 100.0, :precision => 0) %>)
+      </span>
+    </td>
+    <td><%= link_to 'details...', sale_order %></td>
+  </tr>
+<% end %>
+</table>

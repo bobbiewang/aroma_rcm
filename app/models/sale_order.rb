@@ -44,6 +44,10 @@ class SaleOrder < ActiveRecord::Base
     sale_order_items.inject(0.0) { |sum, item| sum + item.total_profit } - postage
   end
 
+  def profit_rate
+    total_profit / total_cost_with_postage
+  end
+
   protected
 
   def sale_order_items_must_be_valid

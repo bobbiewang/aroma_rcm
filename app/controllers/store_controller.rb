@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class StoreController < ApplicationController
   def index
     @total_on_sale_cost = PurchaseOrderItem.total_on_sale_cost
@@ -37,7 +38,7 @@ class StoreController < ApplicationController
   end
 
   def sale_history
-    @sale_orders = SaleOrder.find(:all, :order => "saled_at")
+    @sale_orders = SaleOrder.find(:all, :order => "saled_at DESC")
   end
 
   def sys_info
