@@ -98,7 +98,10 @@ class PurchaseOrder < ActiveRecord::Base
       end
 
       # 根据 unit_cost 计算 ml_cost 和 drop_cost
-      unless item.vendor_product.capacity.nil?
+      if item.vendor_product.capacity.nil?
+        item.ml_cost = nil
+        item.drop_cost = nil
+      else
         item.ml_cost = item.unit_cost / item.vendor_product.capacity
         item.drop_cost = item.ml_cost / 20.0
       end
