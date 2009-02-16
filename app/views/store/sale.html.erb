@@ -25,7 +25,9 @@
     <td><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
     <td><%=h number_to_currency(item.ml_cost, :unit => "￥") %></td>
     <td><%=h number_to_currency(item.drop_cost, :unit => "￥") %></td>
-    <td><%=h number_to_quantity(item.avail_quantity) %></td>
+    <td>
+      <%=h number_to_quantity(item.avail_quantity) %><span class="remark">/<%=h number_to_quantity(item.quantity) %></span>
+    </td>
   </tr>
 
 <% end %>
