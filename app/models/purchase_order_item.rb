@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+require 'iconv'
+
 class PurchaseOrderItem < ActiveRecord::Base
   validates_presence_of :purchase_order_id, :vendor_product_id, :quantity
   validates_numericality_of :purchase_order_id, :vendor_product_id
@@ -21,12 +24,14 @@ class PurchaseOrderItem < ActiveRecord::Base
   end
 
   def self.avail_items
+    conv = Iconv.new("GBK", "utf-8")
+
     items = PurchaseOrderItem.find(:all).select { |item| item.avail? }
     items.sort do |x, y|
       if x.purchase_order.vendor.id != y.purchase_order.vendor.id
         x.purchase_order.vendor.id <=> y.purchase_order.vendor.id
       elsif x.vendor_product.title != y.vendor_product.title
-        x.vendor_product.title <=> y.vendor_product.title
+        conv.iconv(x.vendor_product.title) <=> conv.iconv(y.vendor_product.title)
       else
         x.purchase_order.purchased_at <=> y.purchase_order.purchased_at
       end
