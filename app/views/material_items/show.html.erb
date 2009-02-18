@@ -1,33 +1,33 @@
 <p>
   <b>Purchase order:</b>
-  <%=h @material_items.purchase_order_id %>
+  <%=h @material_item.purchase_order_id %>
 </p>
 
 <p>
   <b>Vendor product:</b>
-  <%=h @material_items.vendor_product_id %>
+  <%=h @material_item.vendor_product_id %>
 </p>
 
 <p>
   <b>Item price:</b>
-  <%=h @material_items.item_price %>
+  <%=h @material_item.item_price %>
 </p>
 
 <p>
   <b>Item cost:</b>
-  <%=h @material_items.item_cost %>
+  <%=h @material_item.item_cost %>
 </p>
 
 <p>
   <b>Quantity:</b>
-  <%=h @material_items.quantity %>
+  <%=h @material_item.quantity %>
 </p>
 
 <p>
   <b>Usedup:</b>
-  <%=h @material_items.usedup %>
+  <%=h @material_item.usedup %>
 </p>
 
 
-<%= link_to 'Edit', edit_material_items_path(@material_items) %> |
+<%= link_to 'Edit', edit_material_item_path(@material_item) %> |
 <%= link_to 'Back', material_items_path %>

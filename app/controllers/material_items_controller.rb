@@ -2,7 +2,7 @@ class MaterialItemsController < ApplicationController
   # GET /material_items
   # GET /material_items.xml
   def index
-    @material_items = MaterialItems.find(:all)
+    @material_items = MaterialItem.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,72 +10,72 @@ class MaterialItemsController < ApplicationController
     end
   end
 
-  # GET /material_items/1
-  # GET /material_items/1.xml
+  # GET /material_item/1
+  # GET /material_item/1.xml
   def show
-    @material_items = MaterialItems.find(params[:id])
+    @material_item = MaterialItem.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @material_items }
+      format.xml  { render :xml => @material_item }
     end
   end
 
-  # GET /material_items/new
-  # GET /material_items/new.xml
+  # GET /material_item/new
+  # GET /material_item/new.xml
   def new
-    @material_items = MaterialItems.new
+    @material_item = MaterialItem.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @material_items }
+      format.xml  { render :xml => @material_item }
     end
   end
 
-  # GET /material_items/1/edit
+  # GET /material_item/1/edit
   def edit
-    @material_items = MaterialItems.find(params[:id])
+    @material_item = MaterialItem.find(params[:id])
   end
 
-  # POST /material_items
-  # POST /material_items.xml
+  # POST /material_item
+  # POST /material_item.xml
   def create
-    @material_items = MaterialItems.new(params[:material_items])
+    @material_item = MaterialItem.new(params[:material_item])
 
     respond_to do |format|
-      if @material_items.save
-        flash[:notice] = 'MaterialItems was successfully created.'
-        format.html { redirect_to(@material_items) }
-        format.xml  { render :xml => @material_items, :status => :created, :location => @material_items }
+      if @material_item.save
+        flash[:notice] = 'MaterialItem was successfully created.'
+        format.html { redirect_to(@material_item) }
+        format.xml  { render :xml => @material_item, :status => :created, :location => @material_item }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @material_items.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @material_item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /material_items/1
-  # PUT /material_items/1.xml
+  # PUT /material_item/1
+  # PUT /material_item/1.xml
   def update
-    @material_items = MaterialItems.find(params[:id])
+    @material_item = MaterialItem.find(params[:id])
 
     respond_to do |format|
-      if @material_items.update_attributes(params[:material_items])
-        flash[:notice] = 'MaterialItems was successfully updated.'
-        format.html { redirect_to(@material_items) }
+      if @material_item.update_attributes(params[:material_item])
+        flash[:notice] = 'MaterialItem was successfully updated.'
+        format.html { redirect_to(@material_item) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @material_items.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @material_item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /material_items/1
-  # DELETE /material_items/1.xml
+  # DELETE /material_item/1
+  # DELETE /material_item/1.xml
   def destroy
-    @material_items = MaterialItems.find(params[:id])
-    @material_items.destroy
+    @material_item = MaterialItem.find(params[:id])
+    @material_item.destroy
 
     respond_to do |format|
       format.html { redirect_to(material_items_url) }

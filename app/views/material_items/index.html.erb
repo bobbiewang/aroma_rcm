@@ -10,21 +10,21 @@
     <th>Usedup</th>
   </tr>
 
-<% for material_items in @material_items %>
+<% for material_item in @material_items %>
   <tr>
-    <td><%=h material_items.purchase_order_id %></td>
-    <td><%=h material_items.vendor_product_id %></td>
-    <td><%=h material_items.item_price %></td>
-    <td><%=h material_items.item_cost %></td>
-    <td><%=h material_items.quantity %></td>
-    <td><%=h material_items.usedup %></td>
-    <td><%= link_to 'Show', material_items %></td>
-    <td><%= link_to 'Edit', edit_material_items_path(material_items) %></td>
-    <td><%= link_to 'Destroy', material_items, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h material_item.purchase_order_id %></td>
+    <td><%=h material_item.vendor_product_id %></td>
+    <td><%=h material_item.item_price %></td>
+    <td><%=h material_item.item_cost %></td>
+    <td><%=h material_item.quantity %></td>
+    <td><%=h material_item.usedup %></td>
+    <td><%= link_to 'Show', material_item %></td>
+    <td><%= link_to 'Edit', edit_material_item_path(material_item) %></td>
+    <td><%= link_to 'Destroy', material_item, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New material_items', new_material_items_path %>
+<%= link_to 'New Material Item', new_material_item_path %>
