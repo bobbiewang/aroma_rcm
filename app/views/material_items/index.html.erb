@@ -1,0 +1,30 @@
+<h1>Listing material_items</h1>
+
+<table>
+  <tr>
+    <th>Purchase order</th>
+    <th>Vendor product</th>
+    <th>Item price</th>
+    <th>Item cost</th>
+    <th>Quantity</th>
+    <th>Usedup</th>
+  </tr>
+
+<% for material_items in @material_items %>
+  <tr>
+    <td><%=h material_items.purchase_order_id %></td>
+    <td><%=h material_items.vendor_product_id %></td>
+    <td><%=h material_items.item_price %></td>
+    <td><%=h material_items.item_cost %></td>
+    <td><%=h material_items.quantity %></td>
+    <td><%=h material_items.usedup %></td>
+    <td><%= link_to 'Show', material_items %></td>
+    <td><%= link_to 'Edit', edit_material_items_path(material_items) %></td>
+    <td><%= link_to 'Destroy', material_items, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New material_items', new_material_items_path %>
