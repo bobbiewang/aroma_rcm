@@ -1,4 +1,4 @@
-class MaterialItems < ActiveRecord::Base
+class MaterialItem < ActiveRecord::Base
   validates_presence_of :purchase_order_id, :vendor_product_id, :quantity
   validates_numericality_of :purchase_order_id, :vendor_product_id, :quantity
   validates_numericality_of :item_price, :allow_nil => true
