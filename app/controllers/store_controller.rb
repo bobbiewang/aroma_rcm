@@ -33,21 +33,6 @@ class StoreController < ApplicationController
     @purchase_orders = PurchaseOrder.find(:all, :order => "purchased_at DESC")
   end
 
-  def items_for_materials
-    @items = PurchaseOrderItem.avail_items
-  end
-
-  def materials_new
-    if request.post?
-    else
-      flash[:notice] = 'Please select some items first.'
-      redirect_to :action => :items_for_materials }
-    end
-  end
-
-  def materials_create
-  end
-
   def sale
     @items = PurchaseOrderItem.avail_items
   end

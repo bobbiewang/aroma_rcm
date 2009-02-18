@@ -1,7 +1,7 @@
 <h1>Products on Store</h1>
 
 
-<% form_tag :action => "create_materials" do %>
+<% form_tag :action => "new" do %>
 
 <table>
   <tr>
@@ -18,7 +18,7 @@
 <% for item in @items %>
 
   <tr>
-    <td><%= check_box_tag "purchase_order_items[#{item.id}]" %></td>
+    <td><%= check_box_tag "material_items[#{item.id}]" %></td>
     <td><%=h item.vendor_product.vendor.abbr_name %></td>
     <td><%= link_to item.purchase_order.purchased_at, item.purchase_order %></td>
     <td><%=h item.vendor_product.title %></td>
