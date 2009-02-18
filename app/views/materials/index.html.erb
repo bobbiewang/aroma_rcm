@@ -1,1 +1,21 @@
-<%= debug @material_items %>
+<h1>Materials</h1>
+
+<table>
+  <tr>
+    <th>Vendor</th>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Cost</th>
+    <th>Unit Cost</th>
+  </tr>
+<% for item in @material_items %>
+  <tr>
+    <td><%=h item.vendor_product.vendor.abbr_name %></td>
+    <td><%=h item.vendor_product.title %></td>
+    <td><%=h number_to_currency(item.item_price,
+                                :unit => item.vendor_product.vendor.currency.symbol)%></td>
+    <td><%=h number_to_cny(item.item_cost) %></td>
+    <td></td>
+  </tr>
+<% end %>
+</table>
