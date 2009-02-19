@@ -3,7 +3,8 @@ class PurchaseOrder < ActiveRecord::Base
   validate :purchase_order_items_must_be_valid
 
   belongs_to :vendor
-  has_many :purchase_order_items, :dependent => :destroy
+  has_many :purchase_order_items
+  has_many :material_items
 
   after_update :save_purchase_order_items
   after_create :calculate_purchase_order_item_costs
