@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+ml:
+  full_name: milliliter
+  abbr_name: ml
+  precision: 0
+
+two:
+  full_name: drop
+  abbr_name: dp
+  precision: 0

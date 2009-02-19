@@ -1,0 +1,24 @@
+<h1>Listing measuring_units</h1>
+
+<table>
+  <tr>
+    <th>Full name</th>
+    <th>Abbr name</th>
+    <th>Precision</th>
+  </tr>
+
+<% for measuring_unit in @measuring_units %>
+  <tr>
+    <td><%=h measuring_unit.full_name %></td>
+    <td><%=h measuring_unit.abbr_name %></td>
+    <td><%=h measuring_unit.precision %></td>
+    <td><%= link_to 'Show', measuring_unit %></td>
+    <td><%= link_to 'Edit', edit_measuring_unit_path(measuring_unit) %></td>
+    <td><%= link_to 'Destroy', measuring_unit, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New measuring_unit', new_measuring_unit_path %>

@@ -1,0 +1,18 @@
+<p>
+  <b>Full name:</b>
+  <%=h @measuring_unit.full_name %>
+</p>
+
+<p>
+  <b>Abbr name:</b>
+  <%=h @measuring_unit.abbr_name %>
+</p>
+
+<p>
+  <b>Precision:</b>
+  <%=h @measuring_unit.precision %>
+</p>
+
+
+<%= link_to 'Edit', edit_measuring_unit_path(@measuring_unit) %> |
+<%= link_to 'Back', measuring_units_path %>
