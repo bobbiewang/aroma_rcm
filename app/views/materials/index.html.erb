@@ -3,19 +3,29 @@
 <table>
   <tr>
     <th>Vendor</th>
+    <th>Purchase Date</th>
     <th>Product</th>
     <th>Price</th>
     <th>Cost</th>
     <th>Unit Cost</th>
+    <th>Amount</th>
+    <th>Used Up?</th>
   </tr>
 <% for item in @material_items %>
   <tr>
     <td><%=h item.vendor_product.vendor.abbr_name %></td>
+    <td><%= link_to item.purchase_order.purchased_at, item.purchase_order %></td>
     <td><%=h item.vendor_product.title %></td>
     <td><%=h number_to_currency(item.item_price,
                                 :unit => item.vendor_product.vendor.currency.symbol)%></td>
     <td><%=h number_to_cny(item.item_cost) %></td>
-    <td></td>
+    <td><%=h number_to_cny(item.unit_cost) %>/<%= item.vendor_product.measuring_unit.abbr_name %>
+    </td>
+    <td>
+      <%=h item.total_material_amount %>
+      <%=h item.vendor_product.measuring_unit.abbr_name %>
+    </td>
+    <td><%=h item.usedup? ? 'YES' : 'NO' %></td>
   </tr>
 <% end %>
 </table>
