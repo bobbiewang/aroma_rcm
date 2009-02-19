@@ -18,6 +18,18 @@
     <%= f.text_field :price %>
   </p>
   <p>
+    <%= f.label :measuring_unit_id %><br />
+    <%= f.collection_select :measuring_unit_id, @measuring_units, :id, :full_name %>
+  </p>
+  <p>
+    <%= f.label :material_amount %><br />
+    <%= f.text_field :material_amount %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p>
     <%= f.check_box :active %><%= f.label :active, "The product is active" %>
   </p>
   <p>

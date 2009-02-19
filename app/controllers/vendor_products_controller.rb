@@ -26,6 +26,7 @@ class VendorProductsController < ApplicationController
   def new
     @vendors = Vendor.find(:all, :order => :full_name)
     @vendor_product = VendorProduct.new
+    @measuring_units = MeasuringUnit.find(:all)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +38,7 @@ class VendorProductsController < ApplicationController
   def edit
     @vendor_product = VendorProduct.find(params[:id])
     @vendors = Vendor.find(:all, :order => :full_name)
+    @measuring_units = MeasuringUnit.find(:all)
   end
 
   # POST /vendor_products

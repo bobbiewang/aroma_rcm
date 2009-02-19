@@ -23,6 +23,16 @@
 </p>
 
 <p>
+  <b>Measuring Unit:</b>
+  <%=h @vendor_product.measuring_unit.full_name %> (<%=h @vendor_product.measuring_unit.abbr_name %>)
+</p>
+
+<p>
+  <b>Material Amount/Unit:</b>
+  <%=h @vendor_product.material_amount %>
+</p>
+
+<p>
   <b>Active:</b>
   <%=h @vendor_product.active? ? "YES" : "NO" %>
 </p>

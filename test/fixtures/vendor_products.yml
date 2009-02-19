@@ -6,6 +6,8 @@ oil:
   vendor_id: 1
   capacity: 10
   price: 5.0
+  measuring_unit_id: 3
+  material_amount: 200
   active: true
   description: 洋甘菊
 
@@ -15,6 +17,8 @@ hydrolat:
   vendor_id: 1
   capacity: 50
   price: 10.0
+  measuring_unit_id: 2
+  material_amount: 500
   active: true
   description: 橙花油
 
@@ -24,6 +28,8 @@ box:
   vendor_id: 1
   capacity:
   price: 5.0
+  measuring_unit_id: 1
+  material_amount: 1
   active: true
   description: 木盒
 
@@ -33,5 +39,7 @@ cream:
   vendor_id: 3
   capacity: 30
   price:
+  measuring_unit_id: 1
+  material_amount: 1
   active: true
   description: 自定义面霜

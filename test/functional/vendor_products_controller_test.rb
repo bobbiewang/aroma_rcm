@@ -20,6 +20,8 @@ class VendorProductsControllerTest < ActionController::TestCase
     assert_difference('VendorProduct.count') do
       post :create, :vendor_product => { :title     => "test",
                                          :vendor_id => 1,
+                                         :measuring_unit_id => 1,
+                                         :material_amount => 1,
                                          :active    => true}
     end
 

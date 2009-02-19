@@ -1,11 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+unit:
+  id: 1
+  full_name: unit
+  abbr_name: u
+  precision: 0
+
 ml:
+  id: 2
   full_name: milliliter
   abbr_name: ml
   precision: 0
 
-two:
+drop:
+  id: 3
   full_name: drop
   abbr_name: dp
   precision: 0

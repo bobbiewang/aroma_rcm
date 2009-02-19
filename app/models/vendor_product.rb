@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class VendorProduct < ActiveRecord::Base
   validates_presence_of :title, :vendor_id, :active
   validates_uniqueness_of :title, :case_sensitive => false, :scope => "vendor_id"
@@ -9,4 +10,5 @@ class VendorProduct < ActiveRecord::Base
   # TODO 在 conroller 中测试 title 在 group 中的 uniqueness
 
   belongs_to :vendor
+  belongs_to :measuring_unit
 end
