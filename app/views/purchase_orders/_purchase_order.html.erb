@@ -6,53 +6,73 @@
     <small><%=h purchase_order.arrived_at %></small>
   </legend>
   <br />
+
   <% price_symbol = purchase_order.vendor.currency.symbol %>
+
   <table>
     <tr>
       <th></th>
+      <th></th>
       <th>Title</th>
       <th colspan="2">Price</th>
-      <th colspan="2">Cost</th>
-      <th></th>
-      <th></th>
+      <th colspan="3">Cost</th>
     </tr>
-    <% for item in purchase_order.purchase_order_items %>
+    <% purchase_order.purchase_order_items.each_with_index do |item, idx| %>
       <tr>
+        <td><%= "<b>Products</b>" if idx == 0 %></td>
         <td><%=h number_to_quantity(item.quantity) %>&times;</td>
         <td><%=h item.vendor_product.title %></td>
         <td class="unit-column"><%=h number_to_currency(item.unit_price, :unit => price_symbol) %></td>
         <td class="item-price"><%=h number_to_currency(item.total_price, :unit => price_symbol) %></td>
         <td class="unit-column"><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
         <td class="item-price"><%=h number_to_currency(item.total_cost, :unit => "￥") %></td>
-        <td class="unit-column"><%=h number_to_per_unit(item.ml_cost, "￥", "ml") %></td>
-        <td class="item-price"><%=h number_to_per_unit(item.drop_cost, "￥", "drop") %></td>
+        <td></td>
       </tr>
-      <% end %>
+    <% end %>
+    <% purchase_order.material_items.each_with_index do |item, idx| %>
       <tr>
-        <td>1&times;</td>
-        <td>Postage</td>
-        <td class="unit-column"><%=h number_to_currency(purchase_order.postage, :unit => price_symbol) %></td>
-        <td class="item-price"><%=h number_to_currency(purchase_order.postage, :unit => price_symbol) %></td>
-        <td class="unit-column"></td>
-        <td class="item-price"></td>
-        <td class="unit-column"></td>
-        <td class="item-price"></td>
-      </tr>
-      <tr class="total-line">
-        <td colspan="2" class="total-cell">Total</td>
-        <td colspan="2" class="total-cell">
-          <%= number_to_currency(purchase_order.total_price_with_postage, :unit => price_symbol) %>
+        <td><%= "<b>Materials</b>" if idx == 0 %></td>
+        <td><%=h number_to_quantity(item.quantity) %>&times;</td>
+        <td><%=h item.vendor_product.title %></td>
+        <td class="unit-column"><%=h number_to_currency(item.item_price, :unit => price_symbol) %></td>
+        <td class="item-price"><%=h number_to_currency(item.total_price, :unit => price_symbol) %></td>
+        <td class="unit-column"><%=h number_to_cny(item.item_cost) %></td>
+        <td class="item-price"><%=h number_to_cny(item.total_cost) %></td>
+        <td class="item-price"><%=h number_to_cny(item.unit_cost)
+                                  %>/<%=h item.vendor_product.measuring_unit.abbr_name %>
         </td>
-        <td colspan="2" class="important-cell">
-          <%= number_to_currency(purchase_order.total_cost, :unit => "￥") %>
-        </td>
-        <td class="total-cell"></td>
-        <td class="total-cell"></td>
       </tr>
-    </table>
+    <% end %>
+    <tr>
+      <td><b>Postage</b></td>
+      <td></td>
+      <td></td>
+      <td class="unit-column"></td>
+      <td class="item-price"><%=h number_to_currency(purchase_order.postage, :unit => price_symbol) %></td>
+      <td class="unit-column"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="total-line">
+      <td colspan="3" class="total-cell">Total</td>
+      <td colspan="2" class="total-cell">
+        <%= number_to_currency(purchase_order.total_price_with_postage, :unit => price_symbol) %>
+      </td>
+      <td colspan="2" class="important-cell">
+        <%= number_to_currency(purchase_order.total_cost, :unit => "￥") %>
+      </td>
+      <td class="total-cell"></td>
+    </tr>
+  </table>
   <p>
+    Product Price: <%=h purchase_order.total_product_price %>
+  </p>
   <p>
-    <b>Comments</b>
+    Material Price: <%=h purchase_order.total_material_price %>
+  </p>
+  <p>
+    <b>Comments</b><br />
     <%=h purchase_order.comments %>
   </p>
 </fieldset>

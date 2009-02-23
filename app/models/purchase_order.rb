@@ -14,7 +14,7 @@ class PurchaseOrder < ActiveRecord::Base
     purchase_order_items.inject(0.0) { |sum, item| sum += item.total_weight }
   end
 
-  def total_price
+  def total_product_price
     items = purchase_order_items.select { |item| item.unit_price }
 
     if items.empty?
@@ -25,6 +25,23 @@ class PurchaseOrder < ActiveRecord::Base
       # 一个特殊情况是所有 price 为 0，从而和为 0
       items.inject(0.0) { |sum, item| sum + item.total_price }
     end
+  end
+
+  def total_material_price
+    items = material_items.select { |item| item.item_price }
+
+    if items.empty?
+      # 如果所有 purchase_order_items 的 price 都没有，返回 0.0
+      return 0.0
+    else
+      # 只要 material_items 中有 price，就求和
+      # 一个特殊情况是所有 price 为 0，从而和为 0
+      items.inject(0.0) { |sum, item| sum + item.total_price }
+    end
+  end
+
+  def total_price
+    total_product_price + total_material_price
   end
 
   def total_price_with_postage
