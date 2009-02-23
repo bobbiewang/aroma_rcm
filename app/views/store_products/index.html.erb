@@ -1,0 +1,28 @@
+<h1>Listing store_products</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Capacity</th>
+    <th>Price</th>
+    <th>Active</th>
+    <th>Description</th>
+  </tr>
+
+<% for store_product in @store_products %>
+  <tr>
+    <td><%=h store_product.title %></td>
+    <td><%=h store_product.capacity %></td>
+    <td><%=h store_product.price %></td>
+    <td><%=h store_product.active %></td>
+    <td><%=h store_product.description %></td>
+    <td><%= link_to 'Show', store_product %></td>
+    <td><%= link_to 'Edit', edit_store_product_path(store_product) %></td>
+    <td><%= link_to 'Destroy', store_product, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New store_product', new_store_product_path %>

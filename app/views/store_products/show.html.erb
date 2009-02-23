@@ -1,0 +1,28 @@
+<p>
+  <b>Title:</b>
+  <%=h @store_product.title %>
+</p>
+
+<p>
+  <b>Capacity:</b>
+  <%=h @store_product.capacity %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @store_product.price %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @store_product.active %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @store_product.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_store_product_path(@store_product) %> |
+<%= link_to 'Back', store_products_path %>
