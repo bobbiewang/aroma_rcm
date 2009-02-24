@@ -1,4 +1,4 @@
-<h1>Listing material_items</h1>
+<h1>Listing Material Items</h1>
 
 <table>
   <tr>
@@ -8,16 +8,17 @@
     <th>Item cost</th>
     <th>Quantity</th>
     <th>Usedup</th>
+    <th colspan="3">Operations</th>
   </tr>
 
 <% for material_item in @material_items %>
   <tr>
     <td><%=h material_item.purchase_order_id %></td>
-    <td><%=h material_item.vendor_product_id %></td>
+    <td><%=h material_item.vendor_product.title %></td>
     <td><%=h material_item.item_price %></td>
-    <td><%=h material_item.item_cost %></td>
+    <td><%=h number_to_cny(material_item.item_cost) %></td>
     <td><%=h material_item.quantity %></td>
-    <td><%=h material_item.usedup %></td>
+    <td><%=h boolean_to_yesno(material_item.usedup) %></td>
     <td><%= link_to 'Show', material_item %></td>
     <td><%= link_to 'Edit', edit_material_item_path(material_item) %></td>
     <td><%= link_to 'Destroy', material_item, :confirm => 'Are you sure?', :method => :delete %></td>

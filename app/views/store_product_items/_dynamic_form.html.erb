@@ -6,6 +6,10 @@
     <%= f.collection_select :store_product_id, @store_products, :id, :title %>
   </p>
   <p>
+    <%= f.label :produced_at %><br />
+    <%= f.date_select :produced_at %>
+  </p>
+  <p>
     <%= f.label :quantity %><br />
     <%= f.text_field :quantity, :size => 1 %>
   </p>
