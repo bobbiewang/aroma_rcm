@@ -1,0 +1,22 @@
+<h1>Listing used_material_items</h1>
+
+<table>
+  <tr>
+    <th>Material item</th>
+    <th>Amount</th>
+  </tr>
+
+<% for used_material_item in @used_material_items %>
+  <tr>
+    <td><%=h used_material_item.material_item_id %></td>
+    <td><%=h used_material_item.amount %></td>
+    <td><%= link_to 'Show', used_material_item %></td>
+    <td><%= link_to 'Edit', edit_used_material_item_path(used_material_item) %></td>
+    <td><%= link_to 'Destroy', used_material_item, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New used_material_item', new_used_material_item_path %>

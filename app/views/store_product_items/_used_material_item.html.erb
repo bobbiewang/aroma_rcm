@@ -1,0 +1,14 @@
+<div class="used_material_item">
+  <% new_or_existing = used_material_item.new_record? ? 'new' : 'existing' %>
+  <% prefix = "store_product_item[#{new_or_existing}_used_material_item_attributes][]" %>
+  <% fields_for prefix, used_material_item do |used_material_item_form| -%>
+
+    <p>
+      <%= used_material_item_form.collection_select :material_item_id, material_items, :id, :title  %>
+      <%= used_material_item_form.label :quantity, "Quantity" %>
+      <%= used_material_item_form.text_field :quantity, :size => "1" %>
+      <%= link_to_function "remove" , "$(this).up('.used_material_item').remove()" %>
+    </p>
+
+  <% end -%>
+</div>

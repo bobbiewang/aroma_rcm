@@ -1,0 +1,13 @@
+<p>
+  <b>Material item:</b>
+  <%=h @used_material_item.material_item_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%=h @used_material_item.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_used_material_item_path(@used_material_item) %> |
+<%= link_to 'Back', used_material_items_path %>

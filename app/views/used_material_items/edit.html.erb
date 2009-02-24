@@ -1,0 +1,20 @@
+<h1>Editing used_material_item</h1>
+
+<% form_for(@used_material_item) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :material_item_id %><br />
+    <%= f.text_field :material_item_id %>
+  </p>
+  <p>
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @used_material_item %> |
+<%= link_to 'Back', used_material_items_path %>

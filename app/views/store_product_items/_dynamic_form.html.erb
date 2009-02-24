@@ -1,0 +1,29 @@
+<% form_for(@store_product_item) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :store_product_id %><br />
+    <%= f.collection_select :store_product_id, @store_products, :id, :title %>
+  </p>
+  <p>
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </p>
+
+  <fieldset>
+  <legend>Materials</legend>
+
+  <div id="used_material_items">
+    <%= render :partial => "used_material_item",
+               :collection => @store_product_item.used_material_items,
+               :locals => { :material_items => @material_items } %>
+  </div>
+  <p>
+    <%= add_used_material_item_link "Add material", @material_items %>
+  </p>
+  </fieldset>
+
+  <p>
+    <%= f.submit "Submit" %>
+  </p>
+<% end %>
