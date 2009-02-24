@@ -57,14 +57,8 @@ class PurchaseOrderTest < ActiveSupport::TestCase
 
     # 确认现在的 item 还没有 cost
     assert_nil items[0].unit_cost
-    assert_nil items[0].ml_cost
-    assert_nil items[0].drop_cost
     assert_nil items[1].unit_cost
-    assert_nil items[1].ml_cost
-    assert_nil items[1].drop_cost
     assert_nil items[2].unit_cost
-    assert_nil items[2].ml_cost
-    assert_nil items[2].drop_cost
 
     # 设置 total_cost，会自动计算 items 的 cost
     po.postage = 200
@@ -73,14 +67,8 @@ class PurchaseOrderTest < ActiveSupport::TestCase
 
     # 确认 item 的 cost 已经计算出
     assert_equal 30.0,  items[0].unit_cost
-    assert_equal 3.0,   items[0].ml_cost
-    assert_equal 0.15,  items[0].drop_cost
     assert_equal 120.0, items[1].unit_cost
-    assert_equal 2.4,   items[1].ml_cost
-    assert_equal 0.12 , items[1].drop_cost
     assert_equal 12.0,  items[2].unit_cost
-    assert_nil          items[2].ml_cost
-    assert_nil          items[2].drop_cost
 
     # 确认 purchase_order_items 对应的 sale_order_items 的 cost 也更新了
     assert_equal 30.0, items[0].sale_order_items[0].unit_cost
@@ -101,14 +89,8 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     po.save
 
     assert_equal 0.0, items[0].unit_cost
-    assert_equal 0.0, items[0].ml_cost
-    assert_equal 0.0, items[0].drop_cost
     assert_equal 0.0, items[1].unit_cost
-    assert_equal 0.0, items[1].ml_cost
-    assert_equal 0.0, items[1].drop_cost
     assert_equal 0.0, items[2].unit_cost
-    assert_nil        items[2].ml_cost
-    assert_nil        items[2].drop_cost
   end
 
   def test_should_not_update_item_cost_without_price
@@ -125,8 +107,6 @@ class PurchaseOrderTest < ActiveSupport::TestCase
 
     # 确认现在的 item 还没有 cost
     assert_nil items[0].unit_cost
-    assert_nil items[0].ml_cost
-    assert_nil items[0].drop_cost
 
     # 设置 total_cost，对于没有 price 的 item，不计算 cost
     po.postage = 20
@@ -135,7 +115,5 @@ class PurchaseOrderTest < ActiveSupport::TestCase
 
     # 确认 item 还是没有 cost
     assert_nil items[0].unit_cost
-    assert_nil items[0].ml_cost
-    assert_nil items[0].drop_cost
   end
 end

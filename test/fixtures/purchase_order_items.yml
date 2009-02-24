@@ -5,9 +5,7 @@ purchase_4_ppa_oil:
   purchase_order_id: 1
   vendor_product_id: 1
   unit_price: 5.0
-  unit_cost:
-  ml_cost:
-  drop_cost:
+  unit_cost: 99.99
   quantity: 4
 
 purchase_3_ppa_hydrolat:
@@ -15,9 +13,7 @@ purchase_3_ppa_hydrolat:
   purchase_order_id: 1
   vendor_product_id: 2
   unit_price: 10.0
-  unit_cost:
-  ml_cost:
-  drop_cost:
+  unit_cost: 99.99
   quantity: 3
 
 purchase_10_ppa_box:
@@ -25,9 +21,7 @@ purchase_10_ppa_box:
   purchase_order_id: 1
   vendor_product_id: 3
   unit_price: 5.0
-  unit_cost:
-  ml_cost:
-  drop_cost:
+  unit_cost: 99.99
   quantity: 10
 
 purchase_cream:
@@ -35,7 +29,5 @@ purchase_cream:
   purchase_order_id: 2
   vendor_product_id: 4
   unit_price:
-  unit_cost:
-  ml_cost:
-  drop_cost:
+  unit_cost: 99.99
   quantity: -1

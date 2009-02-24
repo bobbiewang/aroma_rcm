@@ -9,9 +9,8 @@
     <th>Vendor</th>
     <th>Purchased Date</th>
     <th>Title</th>
+    <th>Item Cost</th>
     <th>Unit Cost</th>
-    <th>ML Cost</th>
-    <th>Drop Cost</th>
     <th>#AVL</th>
   </tr>
 
@@ -22,9 +21,10 @@
     <td><%=h item.vendor_product.vendor.abbr_name %></td>
     <td><%= link_to item.purchase_order.purchased_at, item.purchase_order %></td>
     <td><%=h item.vendor_product.title %></td>
-    <td><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
-    <td><%=h number_to_currency(item.ml_cost, :unit => "￥") %></td>
-    <td><%=h number_to_currency(item.drop_cost, :unit => "￥") %></td>
+    <td><%=h number_to_cny(item.unit_cost) %></td>
+    <td><%=h number_to_cny(item.unit_cost / item.vendor_product.material_amount)
+           %>/<%=h item.vendor_product.measuring_unit.abbr_name %>
+    </td>
     <td>
       <%=h number_to_quantity(item.avail_quantity) %><span class="remark">/<%=h number_to_quantity(item.quantity) %></span>
     </td>
