@@ -17,4 +17,8 @@ module ApplicationHelper
       number
     end
   end
+
+  def boolean_to_yesno(bool)
+    bool ? 'YES' : 'NO'
+  end
 end

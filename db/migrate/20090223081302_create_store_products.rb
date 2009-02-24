@@ -3,6 +3,7 @@ class CreateStoreProducts < ActiveRecord::Migration
     create_table :store_products do |t|
       t.string :title, :null => false
       t.integer :capacity
+      t.integer :measuring_unit_id
       t.decimal :price, :precision => 10, :scale => 4
       t.boolean :active, :null => false, :default => true
       t.text :description

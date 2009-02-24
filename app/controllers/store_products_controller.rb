@@ -25,6 +25,7 @@ class StoreProductsController < ApplicationController
   # GET /store_products/new.xml
   def new
     @store_product = StoreProduct.new
+    @measuring_units = MeasuringUnit.find(:all)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +36,7 @@ class StoreProductsController < ApplicationController
   # GET /store_products/1/edit
   def edit
     @store_product = StoreProduct.find(params[:id])
+    @measuring_units = MeasuringUnit.find(:all)
   end
 
   # POST /store_products

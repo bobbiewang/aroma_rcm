@@ -4,6 +4,7 @@ cream:
   id: 1
   title: DIY Cream
   capacity: 60
+  measuring_unit_id: 2
   price: 9.99
   active: true
   description: MyText
@@ -12,6 +13,7 @@ lotion:
   id: 2
   title: DIY Lotion
   capacity: 80
+  measuring_unit_id: 2
   price: 9.99
   active: true
   description: MyText
