@@ -1,9 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one_cream:
+  id: 1
   store_product_id: 1
   quantity: 1
 
 two_lotion:
+  id: 2
   store_product_id: 2
   quantity: 2
