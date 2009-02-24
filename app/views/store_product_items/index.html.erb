@@ -1,14 +1,15 @@
-<h1>Listing store_product_items</h1>
+<h1>Listing Store Product Items</h1>
 
 <table>
   <tr>
     <th>Store product</th>
     <th>Quantity</th>
+    <th colspan=3>Operations</th>
   </tr>
 
 <% for store_product_item in @store_product_items %>
   <tr>
-    <td><%=h store_product_item.store_product_id %></td>
+    <td><%=h store_product_item.store_product.title %></td>
     <td><%=h store_product_item.quantity %></td>
     <td><%= link_to 'Show', store_product_item %></td>
     <td><%= link_to 'Edit', edit_store_product_item_path(store_product_item) %></td>

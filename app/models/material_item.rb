@@ -7,6 +7,10 @@ class MaterialItem < ActiveRecord::Base
   belongs_to :purchase_order
   belongs_to :vendor_product
 
+  def title
+    vendor_product.title
+  end
+
   def total_price
     item_price * quantity
   end

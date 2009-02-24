@@ -24,7 +24,10 @@ class StoreProductItemsController < ApplicationController
   # GET /store_product_items/new
   # GET /store_product_items/new.xml
   def new
-    @store_product_item = StoreProductItem.new
+    @store_product_item = StoreProductItem.new(:quantity => 1)
+
+    @store_products = StoreProduct.find(:all)
+    @material_items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +38,9 @@ class StoreProductItemsController < ApplicationController
   # GET /store_product_items/1/edit
   def edit
     @store_product_item = StoreProductItem.find(params[:id])
+
+    @store_products = StoreProduct.find(:all)
+    @material_items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
   end
 
   # POST /store_product_items

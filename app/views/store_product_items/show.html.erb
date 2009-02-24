@@ -1,6 +1,6 @@
 <p>
   <b>Store product:</b>
-  <%=h @store_product_item.store_product_id %>
+  <%=h @store_product_item.store_product.title %>
 </p>
 
 <p>
@@ -8,6 +8,21 @@
   <%=h @store_product_item.quantity %>
 </p>
 
+<div class="store_product_item">
+<fieldset>
+  <legend>Materials</legend>
+  <table>
+    <% for used_material in @store_product_item.used_material_items %>
+    <tr>
+      <td><%=h used_material.material_item.vendor_product.title %></td>
+      <td>
+        <%=h used_material.amount %>
+        <%=h used_material.material_item.vendor_product.measuring_unit.abbr_name %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</fieldset>
 
 <%= link_to 'Edit', edit_store_product_item_path(@store_product_item) %> |
 <%= link_to 'Back', store_product_items_path %>

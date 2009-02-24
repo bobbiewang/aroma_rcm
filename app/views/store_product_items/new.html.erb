@@ -1,19 +1,5 @@
-<h1>New store_product_item</h1>
+<h1>New Store Product Item</h1>
 
-<% form_for(@store_product_item) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :store_product_id %><br />
-    <%= f.text_field :store_product_id %>
-  </p>
-  <p>
-    <%= f.label :quantity %><br />
-    <%= f.text_field :quantity %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
+<%= render :partial => 'dynamic_form' %>
 
 <%= link_to 'Back', store_product_items_path %>

@@ -19,6 +19,7 @@ class UsedMaterialItemsControllerTest < ActionController::TestCase
   def test_should_create_used_material_item
     assert_difference('UsedMaterialItem.count') do
       post :create, :used_material_item => { :material_item_id => 1,
+                                             :store_product_item_id => 1,
                                              :amount => 1 }
     end
 
