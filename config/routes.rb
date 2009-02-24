@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :store_product_items
+
   map.resources :store_products
 
   map.resources :measuring_units

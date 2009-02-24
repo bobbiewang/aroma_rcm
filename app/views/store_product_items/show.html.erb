@@ -1,0 +1,13 @@
+<p>
+  <b>Store product:</b>
+  <%=h @store_product_item.store_product_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%=h @store_product_item.quantity %>
+</p>
+
+
+<%= link_to 'Edit', edit_store_product_item_path(@store_product_item) %> |
+<%= link_to 'Back', store_product_items_path %>

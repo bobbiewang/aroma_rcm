@@ -1,0 +1,22 @@
+<h1>Listing store_product_items</h1>
+
+<table>
+  <tr>
+    <th>Store product</th>
+    <th>Quantity</th>
+  </tr>
+
+<% for store_product_item in @store_product_items %>
+  <tr>
+    <td><%=h store_product_item.store_product_id %></td>
+    <td><%=h store_product_item.quantity %></td>
+    <td><%= link_to 'Show', store_product_item %></td>
+    <td><%= link_to 'Edit', edit_store_product_item_path(store_product_item) %></td>
+    <td><%= link_to 'Destroy', store_product_item, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New store_product_item', new_store_product_item_path %>

@@ -1,0 +1,20 @@
+<h1>Editing store_product_item</h1>
+
+<% form_for(@store_product_item) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :store_product_id %><br />
+    <%= f.text_field :store_product_id %>
+  </p>
+  <p>
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @store_product_item %> |
+<%= link_to 'Back', store_product_items_path %>

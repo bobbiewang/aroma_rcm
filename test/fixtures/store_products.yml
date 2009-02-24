@@ -1,15 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 cream:
-  title: DIY cream
-  capacity: 30
+  title: DIY Cream
+  capacity: 60
   price: 9.99
   active: true
   description: MyText
 
-two:
-  title: MyString
-  capacity: 1
+lotion:
+  title: DIY Lotion
+  capacity: 80
   price: 9.99
-  active: false
+  active: true
   description: MyText

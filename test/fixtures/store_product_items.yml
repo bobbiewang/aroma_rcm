@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one_cream:
+  store_product_id: 1
+  quantity: 1
+
+two_lotion:
+  store_product_id: 2
+  quantity: 2
