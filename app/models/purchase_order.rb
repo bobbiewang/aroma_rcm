@@ -31,7 +31,7 @@ class PurchaseOrder < ActiveRecord::Base
     items = material_items.select { |item| item.item_price }
 
     if items.empty?
-      # 如果所有 purchase_order_items 的 price 都没有，返回 0.0
+      # 如果所有 material_items 的 price 都没有，返回 0.0
       return 0.0
     else
       # 只要 material_items 中有 price，就求和
@@ -84,6 +84,24 @@ class PurchaseOrder < ActiveRecord::Base
     end
   end
 
+  def new_material_item_attributes=(material_item_attributes)
+    material_item_attributes.each do |attributes|
+      attributes[:purchase_order_id] = 0
+      material_items.build(attributes)
+    end
+  end
+
+  def existing_material_item_attributes=(material_item_attributes)
+    material_items.reject(&:new_record?).each do |material_item|
+      attributes = material_item_attributes[material_item.id.to_s]
+      if attributes
+        material_item.attributes = attributes
+      else
+        material_items.delete(material_item)
+      end
+    end
+  end
+
   protected
 
   def purchase_order_items_must_be_valid
@@ -99,6 +117,7 @@ class PurchaseOrder < ActiveRecord::Base
   def calculate_purchase_order_item_costs
     return if total_cost.nil? or purchase_order_items.size == 0 or total_price.nil?
 
+    # 更新成品的价格
     purchase_order_items.each do |item|
       # 没有 price 就没有 cost
       next if item.unit_price.nil?
@@ -114,14 +133,17 @@ class PurchaseOrder < ActiveRecord::Base
         item.unit_cost = (item.unit_price + postage *  item.unit_weight / total_weight) *
           total_cost / total_price_with_postage
       end
+      item.save
+    end
 
-      # 根据 unit_cost 计算 ml_cost 和 drop_cost
-      if item.vendor_product.capacity.nil?
-        item.ml_cost = nil
-        item.drop_cost = nil
+    # 更新原料的价格
+    material_items.each do |item|
+      next if item.item_price.nil?
+      if total_price_with_postage == 0.0
+        item.item_cost = 0.0
       else
-        item.ml_cost = item.unit_cost / item.vendor_product.capacity
-        item.drop_cost = item.ml_cost / 20.0
+        item.item_cost = (item.item_price + postage *  item.item_weight / total_weight) *
+          total_cost / total_price_with_postage
       end
       item.save
     end

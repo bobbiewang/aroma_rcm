@@ -1,0 +1,16 @@
+<div class="material_item">
+  <% new_or_existing = material_item.new_record? ? 'new' : 'existing' %>
+  <% prefix = "purchase_order[#{new_or_existing}_material_item_attributes][]" %>
+  <% fields_for prefix, material_item do |material_item_form| -%>
+
+    <p>
+      <%= material_item_form.collection_select :vendor_product_id, vendor_products, :id, :title  %>
+      <%= material_item_form.label :item_price, "Price" %>
+      <%= material_item_form.text_field :item_price, :size => "4" %>
+      <%= material_item_form.label :quantity, "Quantity" %>
+      <%= material_item_form.text_field :quantity, :size => "1" %>
+      <%= link_to_function "remove" , "$(this).up('.material_item').remove()" %>
+    </p>
+
+  <% end -%>
+</div>

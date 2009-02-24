@@ -23,18 +23,29 @@
   </p>
 
   <fieldset>
-  <legend>Products</legend>
+    <legend>Products</legend>
+    <div id="purchase_order_items">
+      <%= render :partial => "purchase_order_item",
+          :collection => @purchase_order.purchase_order_items,
+          :locals => { :vendor_products => @vendor_products } %>
+    </div>
+    <p>
+      <%= add_store_item_link "Add a product", @vendor_products %>
+    </p>
+  </fieldset>
 
-  <div id="purchase_order_items">
-    <%= render :partial => "purchase_order_item",
-               :collection => @purchase_order.purchase_order_items,
-               :locals => { :vendor_products => @vendor_products } %>
-  </div>
+  <br />
 
-  <p>
-    <%= add_store_item_link "Add a product", @vendor_products %>
-  </p>
-
+  <fieldset>
+    <legend>Materials</legend>
+    <div id="material_items">
+      <%= render :partial => "material_item",
+          :collection => @purchase_order.material_items,
+          :locals => { :vendor_products => @vendor_products } %>
+    </div>
+    <p>
+      <%= add_material_item_link "Add material", @vendor_products %>
+    </p>
   </fieldset>
 
   <p>
