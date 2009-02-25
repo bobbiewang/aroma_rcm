@@ -1,0 +1,28 @@
+<p>
+  <b>Sale order:</b>
+  <%=h @saled_store_product_item.sale_order_id %>
+</p>
+
+<p>
+  <b>Store product item:</b>
+  <%=h @saled_store_product_item.store_product_item_id %>
+</p>
+
+<p>
+  <b>Item cost:</b>
+  <%=h @saled_store_product_item.item_cost %>
+</p>
+
+<p>
+  <b>Item price:</b>
+  <%=h @saled_store_product_item.item_price %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%=h @saled_store_product_item.quantity %>
+</p>
+
+
+<%= link_to 'Edit', edit_saled_store_product_item_path(@saled_store_product_item) %> |
+<%= link_to 'Back', saled_store_product_items_path %>
