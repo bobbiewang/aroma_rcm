@@ -12,6 +12,10 @@ class SaleOrderItem < ActiveRecord::Base
     end
   end
 
+  def unit_cost
+    purchase_order_item.unit_cost
+  end
+
   def total_cost
     quantity * unit_cost
   end

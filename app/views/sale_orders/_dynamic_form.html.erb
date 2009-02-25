@@ -1,0 +1,50 @@
+<% form_for(@sale_order) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :customer_id %><br />
+    <%= f.collection_select :customer_id, @customers, :id, :name %>
+  </p>
+  <p>
+    <%= f.label :saled_at %><br />
+    <%= f.date_select :saled_at %>
+  </p>
+  <p>
+    <%= f.label :postage %><br />
+    <%= f.text_field :postage %>
+  </p>
+
+  <fieldset>
+    <legend>Vendor Products</legend>
+    <div id="vendor_product_items">
+      <%= render :partial => "vendor_product_item",
+          :collection => @sale_order.sale_order_items,
+          :locals => { :vendor_product_items => @vendor_product_items } %>
+    </div>
+    <p>
+      <%= add_vendor_product_item_link "Add a vendor product", @vendor_product_items %>
+    </p>
+  </fieldset>
+
+  <br />
+
+  <fieldset>
+    <legend>Store Products</legend>
+    <div id="store_product_items">
+      <%= render :partial => "store_product_item",
+          :collection => @sale_order.saled_store_product_items,
+          :locals => { :store_product_items => @store_product_items } %>
+    </div>
+    <p>
+      <%= add_store_product_item_link "Add a store product", @store_product_items %>
+    </p>
+  </fieldset>
+
+  <p>
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  <p>
+    <%= f.submit "Submit" %>
+  </p>
+
+<% end %>

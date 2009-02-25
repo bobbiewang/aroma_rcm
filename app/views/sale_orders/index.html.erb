@@ -11,7 +11,7 @@
 
 <% for sale_order in @sale_orders %>
   <tr>
-    <td><%=h sale_order.customer_id %></td>
+    <td><%=h sale_order.customer.name %></td>
     <td><%=h sale_order.saled_at %></td>
     <td><%=h sale_order.postage %></td>
     <td><%=h sale_order.comments %></td>

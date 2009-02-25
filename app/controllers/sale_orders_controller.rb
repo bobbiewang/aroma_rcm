@@ -26,9 +26,11 @@ class SaleOrdersController < ApplicationController
   def new
     if request.post?
       @customers = Customer.find(:all)
+      @vendor_product_items = PurchaseOrderItem.avail_items
+      @store_product_items = StoreProductItem.avail_items
 
       @sale_order = SaleOrder.new
-      purchase_order_items =params[:purchase_order_items] || { }
+      purchase_order_items = params[:purchase_order_items] || { }
       purchase_order_items.each_key do |id|
         poi = PurchaseOrderItem.find(id)
         @sale_order.sale_order_items <<
@@ -53,6 +55,8 @@ class SaleOrdersController < ApplicationController
   def edit
     @customers = Customer.find(:all)
     @sale_order = SaleOrder.find(params[:id])
+    @vendor_product_items = PurchaseOrderItem.avail_items
+    @store_product_items = StoreProductItem.avail_items
   end
 
   # POST /sale_orders
@@ -62,12 +66,13 @@ class SaleOrdersController < ApplicationController
     @customers = Customer.find(:all)
 
     respond_to do |format|
-      if @sale_order.save
-        flash[:notice] = 'SaleOrder was successfully created.'
+      if @sale_order.save!
+        flash[:notice] = 'Sale Order was successfully created.'
         format.html { redirect_to(@sale_order) }
         format.xml  { render :xml => @sale_order, :status => :created, :location => @sale_order }
       else
-        format.html { render :action => "new" }
+        flash[:notice] = 'Failed to create the Sale Order.'
+        format.html { redirect_to :controller => 'store', :action => 'sale' }
         format.xml  { render :xml => @sale_order.errors, :status => :unprocessable_entity }
       end
     end

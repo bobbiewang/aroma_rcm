@@ -1,0 +1,17 @@
+<div class="store_product_item">
+  <% new_or_existing = store_product_item.new_record? ? 'new' : 'existing' %>
+  <% prefix = "sale_order[#{new_or_existing}_store_product_item_attributes][]" %>
+  <% fields_for prefix, store_product_item do |store_product_item_form| -%>
+
+    <p>
+      <%= store_product_item_form.collection_select :store_product_item_id, store_product_items,
+                                                     :id, :title  %>
+      <%= store_product_item_form.label :item_price, "Price" %>
+      <%= store_product_item_form.text_field :item_price, :size => "4" %>
+      <%= store_product_item_form.label :quantity, "Quantity" %>
+      <%= store_product_item_form.text_field :quantity, :size => "1" %>
+      <%= link_to_function "remove" , "$(this).up('.store_product_item').remove()" %>
+    </p>
+
+  <% end -%>
+</div>
