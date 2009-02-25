@@ -5,7 +5,7 @@ class RemoveMlDropCostFromPurchaseOrderItem < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :purchase_order_items, :ml_cost, :precision => 10, :scale => 4
-    add_column :purchase_order_items, :drop_cost, :precision => 10, :scale => 4
+    add_column :purchase_order_items, :ml_cost, :decimal, :precision => 10, :scale => 4
+    add_column :purchase_order_items, :drop_cost, :decimal, :precision => 10, :scale => 4
   end
 end
