@@ -5,8 +5,8 @@ purchase_from_ppa:
   vendor_id: 1
   purchased_at: 2009-02-03
   arrived_at: 2009-02-03
-  postage: 10.0
-  total_cost:
+  postage: 420.0
+  total_cost: 1140
 
 purchase_from_qing:
   id: 2

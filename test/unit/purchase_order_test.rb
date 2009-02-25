@@ -4,74 +4,62 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PurchaseOrderTest < ActiveSupport::TestCase
   def test_total_price
     po = purchase_orders(:purchase_from_ppa)
-    assert_equal 100.0, po.total_price
-
-    po = purchase_orders(:purchase_from_qing)
-    assert_equal 0.0, po.total_price
+    assert_equal 150.0, po.total_price
   end
 
   def test_postage_percentage
     po = purchase_orders(:purchase_from_ppa)
 
-    po.postage = 50.0
+    po.postage = 75.0
     assert_equal 0.5, po.postage_percentage
   end
 
   def test_cost_price_rate
     po = purchase_orders(:purchase_from_ppa)
-    po.postage = 100.0
 
-    po.total_cost = 1000.0
-    assert_equal 5, po.cost_price_rate
+    assert_equal 2, po.cost_price_rate
+
+    po.total_cost = 2280
+    assert_equal 4, po.cost_price_rate
 
     po.total_cost = nil
     assert_equal 0.0, po.cost_price_rate
   end
 
-  def test_total_weight
+  def test_item_total_weight
     po = purchase_orders(:purchase_from_ppa)
 
-    # 4 oil, 3 hydrolat, 10 box
-    assert_equal 200, po.total_weight
+    assert_equal 200,  po.total_product_weight
+    assert_equal 10,   po.material_items[0].item_weight
+    assert_equal 2,    po.material_items[0].quantity
+    assert_equal 50,   po.material_items[1].item_weight
+    assert_equal 4,    po.material_items[1].quantity
+    assert_equal 220,  po.total_material_weight
+    assert_equal 420,  po.total_weight
   end
 
   def test_calculate_cost_of_items
+    # 计算 cost
     po = purchase_orders(:purchase_from_ppa)
     po.save
-    items = po.purchase_order_items
 
-    # 查看 Order 信息
-    assert_equal 3,    items.size
-    # oil, 10ml
-    assert_equal 5.0,  purchase_order_items(:purchase_4_ppa_oil).unit_price
-    assert_equal 4,    items[0].quantity
-    assert_equal 10,   items[0].vendor_product.capacity
-    # hydrolat, 50ml
-    assert_equal 10.0, items[1].unit_price
-    assert_equal 3,    items[1].quantity
-    assert_equal 50,   items[1].vendor_product.capacity
-    # box，虚拟为 1ml
-    assert_equal 5,    items[2].unit_price
-    assert_equal 10,   items[2].quantity
-    assert_nil         items[2].vendor_product.capacity
+    # 该 purchase order 的一些信息
+    assert_equal 1140, po.total_cost
+    assert_equal 420,  po.postage
+    assert_equal 150,  po.total_price
+    assert_equal 570,  po.total_price_with_postage
+    assert_equal 420,  po.total_weight
 
-    # 确认现在的 item 还没有 cost
-    assert_nil items[0].unit_cost
-    assert_nil items[1].unit_cost
-    assert_nil items[2].unit_cost
+    # 成品的成本
+    assert_equal 30.0, purchase_order_items(:purchase_4_ppa_oil).unit_cost
+    assert_equal 120,  purchase_order_items(:purchase_3_ppa_hydrolat).unit_cost
+    assert_equal 12,   purchase_order_items(:purchase_10_ppa_box).unit_cost
 
-    # 设置 total_cost，会自动计算 items 的 cost
-    po.postage = 200
-    po.total_cost = 600
-    po.save
-
-    # 确认 item 的 cost 已经计算出
-    assert_equal 30.0,  items[0].unit_cost
-    assert_equal 120.0, items[1].unit_cost
-    assert_equal 12.0,  items[2].unit_cost
-
-    # 确认 purchase_order_items 对应的 sale_order_items 的 cost 也更新了
-    assert_equal 30.0, items[0].sale_order_items[0].unit_cost
+    # 原料的成本
+    assert_equal 30.0,  material_items(:purchase_2_ppa_oil).item_cost
+    assert_equal 0.15,  material_items(:purchase_2_ppa_oil).unit_cost
+    assert_equal 120.0, material_items(:purchase_4_ppa_hydrolat).item_cost
+    assert_equal 2.4,   material_items(:purchase_4_ppa_hydrolat).unit_cost
   end
 
   def test_should_set_item_cost_to_0_whose_price_is_0
@@ -91,29 +79,5 @@ class PurchaseOrderTest < ActiveSupport::TestCase
     assert_equal 0.0, items[0].unit_cost
     assert_equal 0.0, items[1].unit_cost
     assert_equal 0.0, items[2].unit_cost
-  end
-
-  def test_should_not_update_item_cost_without_price
-    po = purchase_orders(:purchase_from_qing)
-    po.save
-    items = po.purchase_order_items
-
-    # 查看 Order 信息
-    assert_equal 1,  items.size
-    # cream
-    assert_nil       items[0].unit_price
-    assert_equal -1, items[0].quantity
-    assert_equal 30, items[0].vendor_product.capacity
-
-    # 确认现在的 item 还没有 cost
-    assert_nil items[0].unit_cost
-
-    # 设置 total_cost，对于没有 price 的 item，不计算 cost
-    po.postage = 20
-    po.total_cost = 300
-    po.save
-
-    # 确认 item 还是没有 cost
-    assert_nil items[0].unit_cost
   end
 end

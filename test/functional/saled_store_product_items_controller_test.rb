@@ -20,7 +20,6 @@ class SaledStoreProductItemsControllerTest < ActionController::TestCase
     assert_difference('SaledStoreProductItem.count') do
       post :create, :saled_store_product_item => { :sale_order_id => 1,
                                                    :store_product_item_id => 1,
-                                                   :item_cost => 9.9,
                                                    :item_price => 9.9,
                                                    :quantity => 1 }
     end

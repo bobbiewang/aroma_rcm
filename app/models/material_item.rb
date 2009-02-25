@@ -28,20 +28,10 @@ class MaterialItem < ActiveRecord::Base
   end
 
   def item_weight
-    # 目前产品没有重量的概念，用容量模拟重量。没有容量的产品算 1ml（贵重物品算 500ml）
-    # 因为 weight 是用于分担运费计算 cost，所以如果某个产品没有
-    # item_price，那么 weight 也算 0，从而不分担运费
-    return 0 if item_price.nil?
+    vendor_product.postage_weight
+  end
 
-    capacity = vendor_product.capacity
-    if capacity.nil?
-      if item_price > 10
-        500
-      else
-        1
-      end
-    else
-      capacity
-    end
+  def total_weight
+    quantity * item_weight
   end
 end

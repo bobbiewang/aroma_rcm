@@ -10,8 +10,16 @@ class PurchaseOrder < ActiveRecord::Base
   after_create :calculate_purchase_order_item_costs
   after_update :calculate_purchase_order_item_costs
 
-  def total_weight
+  def total_product_weight
     purchase_order_items.inject(0.0) { |sum, item| sum += item.total_weight }
+  end
+
+  def total_material_weight
+    material_items.inject(0.0) { |sum, item| sum += item.total_weight }
+  end
+
+  def total_weight
+    total_product_weight + total_material_weight
   end
 
   def total_product_price

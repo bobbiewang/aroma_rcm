@@ -30,23 +30,23 @@ class MaterialItemsControllerTest < ActionController::TestCase
   end
 
   def test_should_show_material_items
-    get :show, :id => material_items(:one).id
+    get :show, :id => material_items(:purchase_2_ppa_oil).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => material_items(:one).id
+    get :edit, :id => material_items(:purchase_2_ppa_oil).id
     assert_response :success
   end
 
   def test_should_update_material_items
-    put :update, :id => material_items(:one).id, :material_items => { }
+    put :update, :id => material_items(:purchase_2_ppa_oil).id, :material_items => { }
     assert_redirected_to material_item_path(assigns(:material_item))
   end
 
   def test_should_destroy_material_items
     assert_difference('MaterialItem.count', -1) do
-      delete :destroy, :id => material_items(:one).id
+      delete :destroy, :id => material_items(:purchase_2_ppa_oil).id
     end
 
     assert_redirected_to material_items_path

@@ -13,8 +13,6 @@ class PurchaseOrderItem < ActiveRecord::Base
   belongs_to :vendor_product
   has_many :sale_order_items
 
-  after_update :update_sale_order_item_costs
-
   def self.total_on_sale_cost
     PurchaseOrderItem.find(:all).inject(0.0) { |sum, item| sum += item.on_sale_cost }
   end
@@ -43,21 +41,7 @@ class PurchaseOrderItem < ActiveRecord::Base
   end
 
   def unit_weight
-    # 目前产品没有重量的概念，用容量模拟重量。没有容量的产品算 1ml（贵重物品算 500ml）
-    # 因为 weight 是用于分担运费计算 cost，所以如果某个产品没有
-    # unit_price，那么 weight 也算 0，从而不分担运费
-    return 0 if unit_price.nil?
-
-    capacity = vendor_product.capacity
-    if capacity.nil?
-      if unit_price > 10
-        500
-      else
-        1
-      end
-    else
-      capacity
-    end
+    vendor_product.postage_weight
   end
 
   def total_weight
@@ -114,15 +98,6 @@ class PurchaseOrderItem < ActiveRecord::Base
   def avail_quantity_should_be_positive_or_minus_one
     unless avail_quantity > 0 or avail_quantity == -1
       errors.add_to_base("No enough available items..")
-    end
-  end
-
-  def update_sale_order_item_costs
-    return unless unit_cost
-
-    sale_order_items.each do |item|
-      item.unit_cost = self.unit_cost
-      item.save
     end
   end
 end

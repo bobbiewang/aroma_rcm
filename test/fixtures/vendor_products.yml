@@ -18,7 +18,7 @@ hydrolat:
   capacity: 50
   price: 10.0
   measuring_unit_id: 2
-  material_amount: 500
+  material_amount: 50
   active: true
   description: 橙花油
 

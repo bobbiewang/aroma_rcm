@@ -1,3 +1,4 @@
+# -*- coding: undecided -*-
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
@@ -36,3 +37,29 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+<<EOS
+
+  - Postage:     420 （各 postage weight 之和）
+  - Total Price: 150
+  - Total Price with Postage: 570
+  - Total Cost: 1140
+
+  |----------+-----+-------+-------+---------+---------+------+-------+-------|
+  | Product  | QTY |  Item | Total | Postage |   Total | Item | Saled | Saled |
+  |          |     | Price | Price |  Weight | Pweight | Cost |   QTY | Price |
+  |----------+-----+-------+-------+---------+---------+------+-------+-------|
+  | oil      |   4 |     5 |    20 |      10 |      40 |   30 |     1 |   100 |
+  | hydrolat |   3 |    10 |    30 |      50 |     150 |  120 |     2 |   200 |
+  | box      |  10 |     5 |    50 |       1 |      10 |   12 |       |       |
+  |----------+-----+-------+-------+---------+---------+------+-------+-------|
+
+  |----------+-----+-------+-------+---------+---------+------+--------+------|
+  | Material | QTY |  Item | Totol | Postage |   Total | Item | Amount | Unit |
+  |          |     | Price | Price |  Weight | Pweight | Cost |        | Cost |
+  |----------+-----+-------+-------+---------+---------+------+--------+------|
+  | oil      |   2 |     5 |    10 |      10 |      20 |   30 |    200 | 0.15 |
+  | hydrolat |   4 |    10 |    40 |      50 |     200 |  120 |     50 |  2.4 |
+  |----------+-----+-------+-------+---------+---------+------+--------+------|
+
+EOS
