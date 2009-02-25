@@ -1,8 +1,16 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class StoreProductItemTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_cost
+    purchase_orders(:purchase_from_ppa).save
+
+    spi = store_product_items(:one_cream)
+    assert_equal 72.3, spi.item_cost
+    assert_equal 72.3, spi.total_cost
+
+    spi = store_product_items(:three_lotion)
+    assert_equal 144.15, spi.item_cost
+    assert_equal 3,      spi.quantity
+    assert_in_delta 432.45, spi.total_cost, 0.1
   end
 end

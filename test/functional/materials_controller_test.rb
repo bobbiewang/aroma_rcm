@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + '/../test_helper'
 
 class MaterialsControllerTest < ActionController::TestCase
@@ -37,6 +38,13 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   def test_should_create
+    assert_equal 4, purchase_order_items(:purchase_4_ppa_oil).quantity
+    assert_equal 1, purchase_order_items(:purchase_4_ppa_oil).avail_quantity
+    assert_equal 10, purchase_order_items(:purchase_10_ppa_box).quantity
+    assert_equal 10, purchase_order_items(:purchase_10_ppa_box).avail_quantity
+
+    # 把剩余的 oil 转为原料，该 purchase_order_item 的 quantity 改变
+    # 把剩余的 box 转为原料，该 purchase_order_item 被删除
     assert_difference('MaterialItem.count', 2) do
       assert_difference('PurchaseOrderItem.count', -1) do
         post :create, :item => [
@@ -45,7 +53,7 @@ class MaterialsControllerTest < ActionController::TestCase
                                   "item_price" => "4.44",
                                   "item_cost" => "8.88",
                                   "quantity" =>
-                                  purchase_order_items(:purchase_4_ppa_oil).quantity - 1,
+                                  purchase_order_items(:purchase_4_ppa_oil).avail_quantity,
                                   "purchase_order_item_id" =>
                                   purchase_order_items(:purchase_4_ppa_oil).id },
                                 { "purchase_order_id" => "1",
@@ -53,15 +61,14 @@ class MaterialsControllerTest < ActionController::TestCase
                                   "item_price" => "3.33",
                                   "item_cost" => "7.77",
                                   "quantity" =>
-                                  purchase_order_items(:purchase_10_ppa_box).quantity,
+                                  purchase_order_items(:purchase_10_ppa_box).avail_quantity,
                                   "purchase_order_item_id" =>
                                   purchase_order_items(:purchase_10_ppa_box).id}
                                ]
       end
     end
 
-    # 一个 PurchaseOrderItem 减少了数量， 一个被删除
-    assert_equal 1, PurchaseOrderItem.find(purchase_order_items(:purchase_4_ppa_oil).id).quantity
+    assert_equal 3, PurchaseOrderItem.find(purchase_order_items(:purchase_4_ppa_oil).id).quantity
     assert_raise ActiveRecord::RecordNotFound do
       PurchaseOrderItem.find(purchase_order_items(:purchase_10_ppa_box).id)
     end

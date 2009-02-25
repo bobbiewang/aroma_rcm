@@ -17,3 +17,9 @@ sale_1_cream_to_tom:
   purchase_order_item_id: 4
   unit_price: 200.0
   quantity: 1
+
+sale_2_oil_to_rose:
+  sale_order_id: 3
+  purchase_order_item_id: 1
+  unit_price: 100.0
+  quantity: 2

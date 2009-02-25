@@ -1,13 +1,25 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+oil_for_cream:
   id: 1
   material_item_id: 1
   store_product_item_id: 1
+  amount: 2
+
+hydrolat_for_cream:
+  id: 2
+  material_item_id: 2
+  store_product_item_id: 1
+  amount: 30
+
+oil_for_lotion:
+  id: 3
+  material_item_id: 1
+  store_product_item_id: 2
   amount: 1
 
-two:
-  id: 2
-  material_item_id: 1
-  store_product_item_id: 1
-  amount: 1
+hydrolat_for_lotion:
+  id: 4
+  material_item_id: 2
+  store_product_item_id: 2
+  amount: 60

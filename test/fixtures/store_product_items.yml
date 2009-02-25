@@ -6,8 +6,8 @@ one_cream:
   produced_at: 2009-02-24
   quantity: 1
 
-two_lotion:
+three_lotion:
   id: 2
   store_product_id: 2
   produced_at: 2009-02-24
-  quantity: 2
+  quantity: 3

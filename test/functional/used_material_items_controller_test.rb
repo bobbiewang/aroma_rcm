@@ -27,23 +27,23 @@ class UsedMaterialItemsControllerTest < ActionController::TestCase
   end
 
   def test_should_show_used_material_item
-    get :show, :id => used_material_items(:one).id
+    get :show, :id => used_material_items(:oil_for_cream).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => used_material_items(:one).id
+    get :edit, :id => used_material_items(:oil_for_cream).id
     assert_response :success
   end
 
   def test_should_update_used_material_item
-    put :update, :id => used_material_items(:one).id, :used_material_item => { }
+    put :update, :id => used_material_items(:oil_for_cream).id, :used_material_item => { }
     assert_redirected_to used_material_item_path(assigns(:used_material_item))
   end
 
   def test_should_destroy_used_material_item
     assert_difference('UsedMaterialItem.count', -1) do
-      delete :destroy, :id => used_material_items(:one).id
+      delete :destroy, :id => used_material_items(:oil_for_cream).id
     end
 
     assert_redirected_to used_material_items_path

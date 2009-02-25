@@ -1,13 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  sale_order_id: 1
+sale_1_cream_to_tom:
+  id: 1
+  sale_order_id: 2
   store_product_item_id: 1
-  item_price: 9.99
+  item_price: 50.0
   quantity: 1
 
-two:
-  sale_order_id: 1
-  store_product_item_id: 1
-  item_price: 9.99
-  quantity: 1
+sale_2_lotion_to_rose:
+  id: 2
+  sale_order_id: 3
+  store_product_item_id: 2
+  item_price: 200.0
+  quantity: 2

@@ -3,9 +3,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SaleOrderItemTest < ActiveSupport::TestCase
   def test_sale_order_items_should_not_exceed_available_quantity_on_create
-    assert_equal 3, purchase_order_items(:purchase_4_ppa_oil).avail_quantity
+    assert_equal 1, purchase_order_items(:purchase_4_ppa_oil).avail_quantity
 
-    # 购买 4 个，销售 1 + 999 个，失败
+    # 购买 4 个，销售 3 + 999 个，失败
     soi = SaleOrderItem.new(:sale_order_id => sale_orders(:sale_to_mike).id,
                             :purchase_order_item_id => purchase_order_items(:purchase_4_ppa_oil).id,
                             :unit_price => 9.9,

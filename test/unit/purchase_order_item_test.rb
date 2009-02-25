@@ -38,14 +38,6 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
     assert_equal 1, poi.unit_weight, "Box has no weight.  Default is 1."
   end
 
-  def test_saled_quantity
-    poi = purchase_order_items(:purchase_4_ppa_oil)
-    assert_equal 1, poi.sale_order_items.size
-    assert_equal 1, poi.sale_order_items[0].quantity
-
-    assert_equal 1, poi.saled_quantity
-  end
-
   def test_used_quantity
     # TODO
   end
@@ -54,12 +46,12 @@ class PurchaseOrderItemTest < ActiveSupport::TestCase
     # TODO
   end
 
-  def test_avail_quantity
-    # 购买 4 个，销售 1 个，剩余 3 个
+  def test_saled_avail_quantity
+    # 购买 4 个，销售 3 个，剩余 1 个
     poi = purchase_order_items(:purchase_4_ppa_oil)
     assert_equal 4, poi.quantity
-    assert_equal 1, poi.saled_quantity
-    assert_equal 3, poi.avail_quantity
+    assert_equal 3, poi.saled_quantity
+    assert_equal 1, poi.avail_quantity
 
     # 购买 -1（无穷）个，销售 1 个，剩余 -1（无穷）个
     poi = purchase_order_items(:purchase_cream)

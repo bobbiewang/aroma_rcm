@@ -28,23 +28,23 @@ class SaledStoreProductItemsControllerTest < ActionController::TestCase
   end
 
   def test_should_show_saled_store_product_item
-    get :show, :id => saled_store_product_items(:one).id
+    get :show, :id => saled_store_product_items(:sale_1_cream_to_tom).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => saled_store_product_items(:one).id
+    get :edit, :id => saled_store_product_items(:sale_1_cream_to_tom).id
     assert_response :success
   end
 
   def test_should_update_saled_store_product_item
-    put :update, :id => saled_store_product_items(:one).id, :saled_store_product_item => { }
+    put :update, :id => saled_store_product_items(:sale_1_cream_to_tom).id, :saled_store_product_item => { }
     assert_redirected_to saled_store_product_item_path(assigns(:saled_store_product_item))
   end
 
   def test_should_destroy_saled_store_product_item
     assert_difference('SaledStoreProductItem.count', -1) do
-      delete :destroy, :id => saled_store_product_items(:one).id
+      delete :destroy, :id => saled_store_product_items(:sale_1_cream_to_tom).id
     end
 
     assert_redirected_to saled_store_product_items_path

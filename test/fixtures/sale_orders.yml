@@ -13,3 +13,10 @@ sale_to_tom:
   saled_at: 2009-02-09
   postage: 9.99
   comments: MyText
+
+sale_to_rose:
+  id: 3
+  customer_id: 3
+  saled_at: 2009-02-09
+  postage: 9.99
+  comments: MyText

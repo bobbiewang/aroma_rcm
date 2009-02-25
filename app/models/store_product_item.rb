@@ -40,6 +40,10 @@ class StoreProductItem < ActiveRecord::Base
     end
   end
 
+  def total_cost
+    quantity * item_cost
+  end
+
   def new_used_material_item_attributes=(used_material_item_attributes)
     used_material_item_attributes.each do |attributes|
       attributes[:store_product_item_id] = 0
