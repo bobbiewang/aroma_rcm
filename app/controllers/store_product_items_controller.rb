@@ -27,7 +27,7 @@ class StoreProductItemsController < ApplicationController
     @store_product_item = StoreProductItem.new(:quantity => 1)
 
     @store_products = StoreProduct.find(:all)
-    @material_items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
+    @material_items = MaterialItem.avail_items
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +40,7 @@ class StoreProductItemsController < ApplicationController
     @store_product_item = StoreProductItem.find(params[:id])
 
     @store_products = StoreProduct.find(:all)
-    @material_items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
+    @material_items = MaterialItem.avail_items
   end
 
   # POST /store_product_items

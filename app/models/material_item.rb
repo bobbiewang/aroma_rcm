@@ -1,3 +1,5 @@
+require 'iconv'
+
 class MaterialItem < ActiveRecord::Base
   validates_presence_of :purchase_order_id, :vendor_product_id, :quantity
   validates_numericality_of :purchase_order_id, :vendor_product_id, :quantity
@@ -8,8 +10,22 @@ class MaterialItem < ActiveRecord::Base
   belongs_to :vendor_product
   has_many :used_material_items
 
+  def self.avail_items
+    conv = Iconv.new("GBK", "utf-8")
+
+    items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
+    items.sort do |x, y|
+      conv.iconv(x.title) <=> conv.iconv(y.title)
+    end
+  end
+
   def title
     vendor_product.title
+  end
+
+  def vendor_title_usage
+    "#{vendor_product.vendor.abbr_name} - #{title}  " +
+      "[#{total_avail_material_amount}/#{total_material_amount}]"
   end
 
   def total_price
@@ -30,6 +46,10 @@ class MaterialItem < ActiveRecord::Base
 
   def total_used_material_amount
     used_material_items.inject(0) { |sum, i| sum += i.amount }
+  end
+
+  def total_avail_material_amount
+    total_material_amount - total_used_material_amount
   end
 
   def item_weight

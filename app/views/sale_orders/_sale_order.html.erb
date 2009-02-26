@@ -28,7 +28,8 @@
     <% for item in sale_order.saled_store_product_items %>
       <tr>
         <td><%=h item.quantity %>&times;</td>
-        <td><%=h item.store_product_item.store_product.title %></td>
+        <td><%= link_to item.store_product_item.store_product.title,
+                        item.store_product_item %></td>
         <td class="unit-column"><%=h number_to_currency(item.item_cost, :unit => "￥") %></td>
         <td class="item-price"><%=h number_to_currency(item.total_cost, :unit => "￥") %></td>
         <td class="unit-column"><%=h number_to_currency(item.item_price, :unit => "￥") %></td>
