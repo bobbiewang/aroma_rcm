@@ -6,6 +6,7 @@ class MaterialItem < ActiveRecord::Base
 
   belongs_to :purchase_order
   belongs_to :vendor_product
+  has_many :used_material_items
 
   def title
     vendor_product.title
@@ -25,6 +26,10 @@ class MaterialItem < ActiveRecord::Base
 
   def total_material_amount
     quantity * vendor_product.material_amount
+  end
+
+  def total_used_material_amount
+    used_material_items.inject(0) { |sum, i| sum += i.amount }
   end
 
   def item_weight
