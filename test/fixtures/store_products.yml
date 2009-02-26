@@ -17,3 +17,12 @@ lotion:
   price: 9.99
   active: true
   description: MyText
+
+sample_hydrolat:
+  id: 3
+  title: Sample Hydrolat
+  capacity: 20
+  measuring_unit_id: 2
+  price: 9.99
+  active: true
+  description: MyText

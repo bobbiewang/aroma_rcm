@@ -11,3 +11,9 @@ three_lotion:
   store_product_id: 2
   produced_at: 2009-02-24
   quantity: 3
+
+two_sample_hydrolat:
+  id: 3
+  store_product_id: 3
+  produced_at: 2009-02-24
+  quantity: 2

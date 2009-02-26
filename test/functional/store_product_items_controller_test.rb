@@ -47,4 +47,11 @@ class StoreProductItemsControllerTest < ActionController::TestCase
 
     assert_redirected_to store_product_items_path
   end
+
+  def test_should_get_onsale
+    get :onsale
+    assert_response :success
+    assert_not_nil assigns(:onsale_items)
+    assert_equal 2, assigns(:onsale_items).size
+  end
 end

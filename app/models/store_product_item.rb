@@ -10,7 +10,7 @@ class StoreProductItem < ActiveRecord::Base
 
     items = StoreProductItem.find(:all).select { |item| item.avail? }
     items.sort do |x, y|
-      if x.vendor_product.title != y.vendor_product.title
+      if x.store_product.title != y.store_product.title
         conv.iconv(x.store_product.title) <=> conv.iconv(y.store_product.title)
       else
         x.produced_at <=> y.produced_at
