@@ -18,5 +18,5 @@ sale_to_rose:
   id: 3
   customer_id: 3
   saled_at: 2009-02-09
-  postage: 9.99
+  postage: 10
   comments: MyText

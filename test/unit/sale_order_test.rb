@@ -7,7 +7,7 @@ class SaleOrderTest < ActiveSupport::TestCase
     po = purchase_orders(:purchase_from_ppa)
     po.save
 
-    # 已出售物品的情况和利润
+    # sale_to_mik 的情况和利润
     soi = sale_order_items(:sale_1_oil_to_mike)
     assert_equal 1,     soi.quantity
     assert_equal 100.0, soi.unit_price
@@ -16,6 +16,7 @@ class SaleOrderTest < ActiveSupport::TestCase
     assert_equal 30.0,  soi.total_cost
     assert_equal 70.0,  soi.unit_profit
     assert_equal 70.0,  soi.total_profit
+
     soi = sale_order_items(:sale_2_hydrolat_to_mike)
     assert_equal 2,     soi.quantity
     assert_equal 200.0, soi.unit_price
@@ -24,6 +25,23 @@ class SaleOrderTest < ActiveSupport::TestCase
     assert_equal 240.0, soi.total_cost
     assert_equal 80.0,  soi.unit_profit
     assert_equal 160.0, soi.total_profit
+
+    so = sale_orders(:sale_to_mike)
+    assert_equal 10.0, so.postage
+    assert_equal 220,  so.total_profit
+
+    # sale_to_rose 的情况和利润
+    soi = sale_order_items(:sale_2_oil_to_rose)
+    assert_equal 70, soi.unit_profit
+    assert_equal 140, soi.total_profit
+
+    sspi = saled_store_product_items(:sale_2_lotion_to_rose)
+    assert_equal 200 - 144.15, sspi.item_profit
+    assert_in_delta 111.7, sspi.total_profit, 0.1
+
+    so = sale_orders(:sale_to_rose)
+    assert_equal 10.0, so.postage
+    assert_in_delta 241.7, so.total_profit, 0.1
 
     # 在售物品的情况
   end
