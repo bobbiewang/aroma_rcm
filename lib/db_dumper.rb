@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
 require 'erb'
 
+# 用 rake db:structure:dump 可以 dump 出用于代码的 SQL 语句
+# 然后和 mysqldump istore_development -u root > dump.sql 的结果比较
 module DbDumper
   class ColumnInfo
     attr_accessor :name, :config
@@ -15,14 +18,27 @@ module DbDumper
     def initialize(name, columns)
       @name, @columns = name, columns
     end
+
+    def self.load(sql_text)
+      info = nil
+      sql_text.each do |line|
+        case line.strip
+        when /CREATE TABLE `(.*)`.*/
+          info = new($1, [])
+        when /`(.*)`\s+(.*),/
+          info.columns << ColumnInfo.new($1, $2)
+        end
+      end
+      info
+    end
   end
 
   def self.to_mysql
     dump_header + dump_currencies + dump_customers + dump_material_items +
       dump_measuring_units + dump_purchase_order_items +
       dump_purchase_orders + dump_sale_order_items + dump_sale_orders +
-      dump_saled_product_items + dump_sessions + dump_store_product_items +
-      dump_store_products + dump_used_material_items dump_users +
+      dump_saled_store_product_items + dump_sessions + dump_store_product_items +
+      dump_store_products + dump_used_material_items + dump_users +
       dump_vendor_products + dump_vendors + dump_tailer
   end
 
@@ -88,16 +104,40 @@ END_OF_TEMPLATE
   end
 
   def self.dump_material_items
-    # TODO
-    table_info =
-      TableInfo.new('',
-                    [])
+    table_info = TableInfo.load(<<EOS
+CREATE TABLE `material_items` (
+  `id` int(11) NOT NULL auto_increment,
+  `purchase_order_id` int(11) NOT NULL,
+  `vendor_product_id` int(11) NOT NULL,
+  `item_price` decimal(10,4) default NULL,
+  `item_cost` decimal(10,4) default NULL,
+  `quantity` int(11) NOT NULL,
+  `usedup` tinyint(1) NOT NULL default '0',
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+EOS
+)
 
     dump_table(table_info)
   end
 
   def self.dump_measuring_units
-    # TODO
+    table_info = TableInfo.load(<<EOS
+CREATE TABLE `measuring_units` (
+  `id` int(11) NOT NULL auto_increment,
+  `full_name` varchar(255) default NULL,
+  `abbr_name` varchar(255) default NULL,
+  `precision` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+EOS
+)
+
+    dump_table(table_info)
   end
 
   def self.dump_purchase_order_items
@@ -159,7 +199,22 @@ END_OF_TEMPLATE
     dump_table(table_info)
   end
 
-  def dump_saled_store_product_items
+  def self.dump_saled_store_product_items
+    table_info = TableInfo.load(<<EOS
+CREATE TABLE `saled_store_product_items` (
+  `id` int(11) NOT NULL auto_increment,
+  `sale_order_id` int(11) NOT NULL,
+  `store_product_item_id` int(11) NOT NULL,
+  `item_price` decimal(10,4) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+EOS
+)
+
+    dump_table(table_info)
   end
 
   def self.dump_sessions
@@ -198,15 +253,57 @@ END_OF_TEMPLATE
   end
 
   def self.dump_store_product_items
-    # TODO
+    table_info = TableInfo.load(<<EOS
+CREATE TABLE `store_product_items` (
+  `id` int(11) NOT NULL auto_increment,
+  `store_product_id` int(11) NOT NULL,
+  `produced_at` date default NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+EOS
+)
+
+    dump_table(table_info)
   end
 
   def self.dump_store_products
-    # TODO
+    table_info = TableInfo.load(<<EOS
+CREATE TABLE `store_products` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) NOT NULL,
+  `capacity` int(11) default NULL,
+  `measuring_unit_id` int(11) default NULL,
+  `price` decimal(10,4) default NULL,
+  `active` tinyint(1) NOT NULL default '1',
+  `description` text,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+EOS
+)
+
+    dump_table(table_info)
   end
 
-  def dump_used_material_items
-    # TODO
+  def self.dump_used_material_items
+    table_info = TableInfo.load(<<EOS
+CREATE TABLE `used_material_items` (
+  `id` int(11) NOT NULL auto_increment,
+  `material_item_id` int(11) NOT NULL,
+  `store_product_item_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+EOS
+)
+
+    dump_table(table_info)
   end
 
   def self.dump_users
@@ -223,19 +320,23 @@ END_OF_TEMPLATE
   end
 
   def self.dump_vendor_products
-    table_info =
-      TableInfo.new('vendor_products',
-                    [ColumnInfo.new('id', "int(11) NOT NULL auto_increment"),
-                     ColumnInfo.new('title', "varchar(255) NOT NULL"),
-                     ColumnInfo.new('vendor_id', "int(11) NOT NULL"),
-                     ColumnInfo.new('capacity', "int(11) default NULL"),
-                     ColumnInfo.new('material_amount', "int(11) NOT NULL"),
-                     ColumnInfo.new('measuring_unit_id', "int(11) NOT NULL"),
-                     ColumnInfo.new('price', "decimal(10,4) default NULL"),
-                     ColumnInfo.new('active', "tinyint(1) NOT NULL default '1'"),
-                     ColumnInfo.new('description', "text"),
-                     ColumnInfo.new('created_at', "datetime default NULL"),
-                     ColumnInfo.new('updated_at', "datetime default NULL")])
+    table_info = TableInfo.load(<<EOS
+CREATE TABLE `vendor_products` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) NOT NULL,
+  `vendor_id` int(11) NOT NULL,
+  `capacity` int(11) default NULL,
+  `price` decimal(10,4) default NULL,
+  `active` tinyint(1) NOT NULL default '1',
+  `description` text,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `measuring_unit_id` int(11) NOT NULL,
+  `material_amount` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=utf8;
+EOS
+)
 
     dump_table(table_info)
   end
@@ -292,7 +393,7 @@ CREATE TABLE `<%= table.name %>` (
   `<%= column.name %>` <%= column.config %>,
 <% end %>
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=<%= records.size + 1 %> DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=<%= records.last.id + 1 %> DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 END_OF_TEMPLATE
@@ -327,12 +428,14 @@ END_OF_TEMPLATE
   def self.dump_column_value(record, column_info)
     value = record.send column_info.name
     case column_info.config
-    when /^int/:     value.nil? ? "NULL" : value.to_i
-    when /^decimal/: value.nil? ? "NULL" : "'#{value}'"
-    when /^varchar/: value.nil? ? "NULL" : "'#{value}'"
-    when /^text/:    value.nil? ? "NULL" : value.inspect
-    when /^tinyint/: value.nil? ? "NULL" : value ? 1 : 0
-    when /^date/:    value.nil? ? "NULL" : "'#{value}'"
+    when /^int/:       value.nil? ? "NULL" : value.to_i
+    when /^decimal/:   value.nil? ? "NULL" : "'%.4f'" % value
+    when /^varchar/:   value.nil? ? "NULL" : "'#{value}'"
+    when /^text/:      value.nil? ? "NULL" : value.blank? ? "''" : value.inspect
+    when /^tinyint/:   value.nil? ? "NULL" : value ? 1 : 0
+    when /^date /:     value.nil? ? "NULL" : "'#{value}'"
+    when /^datetime /: value.nil? ? "NULL" : "'#{value}'"
+    else raise RuntimeError, "Unkown column type in #{column_info.config}"
     end
   end
 end
