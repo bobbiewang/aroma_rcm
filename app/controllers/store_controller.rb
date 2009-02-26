@@ -3,8 +3,13 @@ class StoreController < ApplicationController
   def index
     @total_on_sale_cost = PurchaseOrderItem.total_on_sale_cost
     @total_profit = SaleOrder.total_profit
-  rescue
-    flash[:notice] = 'Failed to get statistical data'
+  rescue => ex
+    logger.warn "\n\n========================================================="
+    logger.warn "Expection in /store/index"
+    logger.warn ex.message
+    logger.warn ex.backtrace.inject("") { |msg, line| msg += "#{line}\n" }
+    logger.warn "=========================================================\n\n"
+    flash[:notice] = "Failed to get statistical data: #{ex.message}"
   end
 
   def login
