@@ -2,26 +2,28 @@
 
 <table>
   <tr>
-    <th>Sale Order</th>
-    <th>Store Product Item</th>
-    <th>Item Price</th>
-    <th>Quantity</th>
-    <th colspan="3">Operations</th>
+    <th>Customer</th>
+    <th>Sale Date</th>
+    <th>Title</th>
+    <th>QTY</th>
+    <th>Unit Cost</th>
+    <th>Unit Price</th>
+    <th>Total Price</th>
+    <th>Total Profit</th>
+    <th></th>
   </tr>
 
-<% for saled_store_product_item in @saled_store_product_items %>
+<% for item in @saled_store_product_items %>
   <tr>
-    <td><%=h saled_store_product_item.sale_order_id %></td>
-    <td><%=h saled_store_product_item.store_product_item.store_product.title %></td>
-    <td><%=h number_to_cny(saled_store_product_item.item_price) %></td>
-    <td><%=h saled_store_product_item.quantity %></td>
-    <td><%= link_to 'Show', saled_store_product_item %></td>
-    <td><%= link_to 'Edit', edit_saled_store_product_item_path(saled_store_product_item) %></td>
-    <td><%= link_to 'Destroy', saled_store_product_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h item.sale_order.customer.name %></td>
+    <td><%= link_to item.sale_order.saled_at, item.sale_order %></td>
+    <td><%= link_to item.store_product_item.store_product.title, item.store_product_item %></td>
+    <td><%=h item.quantity %></td>
+    <td><%=h number_to_cny(item.item_cost) %></td>
+    <td><%=h number_to_cny(item.item_price) %></td>
+    <td><%=h number_to_cny(item.total_price) %></td>
+    <td><%=h number_to_cny(item.total_profit) %></td>
+    <td><%= link_to 'details...', item %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New saled_store_product_item', new_saled_store_product_item_path %>
