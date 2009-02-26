@@ -10,11 +10,24 @@
   <b>Quantity:</b>
   <%=h @store_product_item.quantity %>
 </p>
+<p>
+  <b>Unit Cost:</b>
+  <%=h number_to_cny(@store_product_item.item_cost) %>
+</p>
+<p>
+  <b>Total Cost:</b>
+  <%=h number_to_cny(@store_product_item.total_cost) %>
+</p>
 
 <div class="store_product_item">
 <fieldset>
   <legend>Materials</legend>
   <table>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th colspan="2">Cost</th>
+    </tr>
     <% for used_material in @store_product_item.used_material_items %>
     <tr>
       <td><%=h used_material.material_item.vendor_product.title %></td>
@@ -22,10 +35,14 @@
         <%=h used_material.amount %>
         <%=h used_material.material_item.vendor_product.measuring_unit.abbr_name %>
       </td>
+      <td><%=h number_to_cny(used_material.unit_cost) %></td>
+      <td><%=h number_to_cny(used_material.total_cost) %></td>
     </tr>
     <% end %>
   </table>
 </fieldset>
 
+<br />
+
 <%= link_to 'Edit', edit_store_product_item_path(@store_product_item) %> |
-<%= link_to 'Back', store_product_items_path %>
+<%= link_to 'All Store Product Items', store_product_items_path %>

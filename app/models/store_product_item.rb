@@ -35,13 +35,13 @@ class StoreProductItem < ActiveRecord::Base
   end
 
   def item_cost
-    used_material_items.inject(0.0) do |sum, item|
-      sum += item.amount * item.material_item.unit_cost
-    end
+    total_cost / quantity
   end
 
   def total_cost
-    quantity * item_cost
+    used_material_items.inject(0.0) do |sum, item|
+      sum += item.amount * item.material_item.unit_cost
+    end
   end
 
   def new_used_material_item_attributes=(used_material_item_attributes)

@@ -4,4 +4,12 @@ class UsedMaterialItem < ActiveRecord::Base
 
   belongs_to :material_item
   belongs_to :store_product_item
+
+  def unit_cost
+    material_item.unit_cost
+  end
+
+  def total_cost
+    amount * unit_cost
+  end
 end

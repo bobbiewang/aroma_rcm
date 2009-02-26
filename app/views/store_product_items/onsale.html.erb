@@ -1,0 +1,24 @@
+<h1>On Sale Store Product Items</h1>
+
+<table>
+  <tr>
+    <th rowspan="2">Produce Date</th>
+    <th rowspan="2">Store Product</th>
+    <th colspan="2">Quantity</th>
+  </tr>
+  <tr>
+    <th>On Sale</th>
+    <th>Total</th>
+  <tr>
+
+<% for item in @onsale_items %>
+  <tr>
+    <td><%=h item.produced_at %></td>
+    <td><%= link_to item.store_product.title, item %></td>
+    <td><%=h item.avail_quantity %></td>
+    <td><%=h item.quantity %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

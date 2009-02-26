@@ -1,9 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :saled_store_product_items
+  map.resources :saled_store_product_items, :collection => { :raw => :get }
 
   map.resources :used_material_items
 
-  map.resources :store_product_items
+  map.resources :store_product_items, :collection => { :onsale => :get }
 
   map.resources :store_products
 

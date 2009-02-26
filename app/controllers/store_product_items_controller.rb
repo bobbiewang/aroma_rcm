@@ -88,4 +88,8 @@ class StoreProductItemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def onsale
+    @onsale_items = StoreProductItem.avail_items
+  end
 end

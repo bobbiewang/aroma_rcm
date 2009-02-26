@@ -1,18 +1,19 @@
-<h1>Listing saled_store_product_items</h1>
+<h1>Listing Saled Store Product Items</h1>
 
 <table>
   <tr>
-    <th>Sale order</th>
-    <th>Store product item</th>
-    <th>Item price</th>
+    <th>Sale Order</th>
+    <th>Store Product Item</th>
+    <th>Item Price</th>
     <th>Quantity</th>
+    <th colspan="3">Operations</th>
   </tr>
 
 <% for saled_store_product_item in @saled_store_product_items %>
   <tr>
     <td><%=h saled_store_product_item.sale_order_id %></td>
-    <td><%=h saled_store_product_item.store_product_item_id %></td>
-    <td><%=h saled_store_product_item.item_price %></td>
+    <td><%=h saled_store_product_item.store_product_item.store_product.title %></td>
+    <td><%=h number_to_cny(saled_store_product_item.item_price) %></td>
     <td><%=h saled_store_product_item.quantity %></td>
     <td><%= link_to 'Show', saled_store_product_item %></td>
     <td><%= link_to 'Edit', edit_saled_store_product_item_path(saled_store_product_item) %></td>
