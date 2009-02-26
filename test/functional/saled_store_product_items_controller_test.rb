@@ -49,4 +49,10 @@ class SaledStoreProductItemsControllerTest < ActionController::TestCase
 
     assert_redirected_to saled_store_product_items_path
   end
+
+  def test_should_get_raw
+    get :raw
+    assert_response :success
+    assert_not_nil assigns(:saled_store_product_items)
+  end
 end
