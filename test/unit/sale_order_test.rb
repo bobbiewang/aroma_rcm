@@ -36,12 +36,14 @@ class SaleOrderTest < ActiveSupport::TestCase
     assert_equal 140, soi.total_profit
 
     sspi = saled_store_product_items(:sale_2_lotion_to_rose)
-    assert_equal 200 - 144.15, sspi.item_profit
-    assert_in_delta 111.7, sspi.total_profit, 0.1
+    assert_equal 200,      sspi.item_price
+    assert_in_delta 48.05, sspi.item_cost, 0.1
+    assert_equal 151.95,   sspi.item_profit
+    assert_in_delta 303.9, sspi.total_profit, 0.1
 
     so = sale_orders(:sale_to_rose)
     assert_equal 10.0, so.postage
-    assert_in_delta 241.7, so.total_profit, 0.1
+    assert_in_delta 433.9, so.total_profit, 0.1
 
     # 在售物品的情况
   end
