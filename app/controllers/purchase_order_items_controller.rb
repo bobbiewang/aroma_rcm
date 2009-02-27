@@ -82,4 +82,8 @@ class PurchaseOrderItemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def raw
+    @purchase_order_items = PurchaseOrderItem.find(:all)
+  end
 end

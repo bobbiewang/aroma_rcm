@@ -1,0 +1,44 @@
+<h1>Listing Purchase Order Items</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Purchase Order</th>
+    <th>Vendor</th>
+    <th>Product</th>
+    <th>Unit Price</th>
+    <th>QTY</th>
+    <th>Item Cost</th>
+    <th colspan="3">Operations</th>
+  </tr>
+
+<% for purchase_order_item in @purchase_order_items %>
+  <tr>
+    <td>#<%=h purchase_order_item.id %></td>
+    <td>
+      #<%=h purchase_order_item.purchase_order_id %>
+      <%= link_to purchase_order_item.purchase_order.purchased_at, purchase_order_item.purchase_order %>
+    </td>
+    <td>
+      #<%=h purchase_order_item.purchase_order.vendor_id %>
+      <%=h purchase_order_item.purchase_order.vendor.abbr_name %>
+    </td>
+    <td>
+      #<%=h purchase_order_item.vendor_product_id %>
+      <%= link_to purchase_order_item.vendor_product.title, purchase_order_item.vendor_product %>
+    </td>
+    <td><%=h number_to_currency(purchase_order_item.unit_price,
+                                :unit => purchase_order_item.purchase_order.vendor.currency.symbol) %>
+    </td>
+    <td><%=h purchase_order_item.quantity %></td>
+    <td><%=h number_to_currency(purchase_order_item.unit_cost, :unit => "￥") %></td>
+    <td><%= link_to 'Show', purchase_order_item %></td>
+    <td><%= link_to 'Edit', edit_purchase_order_item_path(purchase_order_item) %></td>
+    <td><%= link_to 'Destroy', purchase_order_item, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New purchase_order_item', new_purchase_order_item_path %>

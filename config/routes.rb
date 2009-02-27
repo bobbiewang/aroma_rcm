@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :customers
 
-  map.resources :purchase_order_items
+  map.resources :purchase_order_items, :collection => { :raw => :get }
 
   map.resources :purchase_orders
 

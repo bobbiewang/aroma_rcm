@@ -48,4 +48,10 @@ class PurchaseOrderItemsControllerTest < ActionController::TestCase
 
     assert_redirected_to purchase_order_items_path
   end
+
+  def test_should_get_raw
+    get :raw
+    assert_response :success
+    assert_not_nil assigns(:purchase_order_items)
+  end
 end
