@@ -54,8 +54,12 @@ class SaleOrdersController < ApplicationController
   def edit
     @customers = Customer.find(:all)
     @sale_order = SaleOrder.find(params[:id])
-    @vendor_product_items = PurchaseOrderItem.avail_items
-    @store_product_items = StoreProductItem.avail_items
+
+    saled_vendor_product_items = @sale_order.sale_order_items.map { |i| i.purchase_order_item }
+    @vendor_product_items = PurchaseOrderItem.avail_items | saled_vendor_product_items
+
+    saled_store_product_items = @sale_order.saled_store_product_items.map { |i| i.store_product_item }
+    @store_product_items = StoreProductItem.avail_items | saled_store_product_items
   end
 
   # POST /sale_orders

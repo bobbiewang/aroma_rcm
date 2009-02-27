@@ -5,6 +5,8 @@ class StoreProductItem < ActiveRecord::Base
   belongs_to :store_product
   has_many :saled_store_product_items
 
+  after_update :save_used_material_items
+
   def self.avail_items
     conv = Iconv.new("GBK", "utf-8")
 
@@ -60,5 +62,9 @@ class StoreProductItem < ActiveRecord::Base
         used_material_items.delete(used_material_item)
       end
     end
+  end
+
+  def save_used_material_items
+    used_material_items.each { |item| item.save(false) }
   end
 end

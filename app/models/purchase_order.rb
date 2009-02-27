@@ -6,7 +6,7 @@ class PurchaseOrder < ActiveRecord::Base
   has_many :purchase_order_items
   has_many :material_items
 
-  after_update :save_purchase_order_items
+  after_update :save_purchase_order_items_and_material_items
   after_create :calculate_purchase_order_item_costs
   after_update :calculate_purchase_order_item_costs
 
@@ -118,8 +118,9 @@ class PurchaseOrder < ActiveRecord::Base
     end
   end
 
-  def save_purchase_order_items
+  def save_purchase_order_items_and_material_items
     purchase_order_items.each { |item| item.save(false) }
+    material_items.each { |item| item.save(false) }
   end
 
   def calculate_purchase_order_item_costs

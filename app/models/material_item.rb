@@ -1,3 +1,4 @@
+# -*- coding: undecided -*-
 require 'iconv'
 
 class MaterialItem < ActiveRecord::Base
@@ -25,7 +26,7 @@ class MaterialItem < ActiveRecord::Base
 
   def vendor_title_usage
     "#{vendor_product.vendor.abbr_name} - #{title}  " +
-      "[#{total_avail_material_amount}/#{total_material_amount}]"
+      "【#{total_avail_material_amount}/#{total_material_amount}】"
   end
 
   def total_price

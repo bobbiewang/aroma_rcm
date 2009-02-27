@@ -5,7 +5,7 @@ class SaleOrder < ActiveRecord::Base
   has_many :saled_store_product_items, :dependent => :destroy
   belongs_to :customer
 
-  after_update :save_sale_order_items
+  after_update :save_sale_order_items_and_saled_store_product_items
 
   def self.total_profit
     SaleOrder.find(:all).inject(0.0) { |sum, item| sum += item.total_profit }
@@ -93,7 +93,8 @@ class SaleOrder < ActiveRecord::Base
     end
   end
 
-  def save_sale_order_items
+  def save_sale_order_items_and_saled_store_product_items
     sale_order_items.each { |item| item.save(false) }
+    saled_store_product_items.each { |item| item.save(false) }
   end
 end
