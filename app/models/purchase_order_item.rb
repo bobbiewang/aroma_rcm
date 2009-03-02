@@ -90,7 +90,7 @@ class PurchaseOrderItem < ActiveRecord::Base
 
   protected
   def quantity_should_be_positive_or_minus_one
-    unless quantity > 0 or quantity == -1
+    unless quantity.nil? or quantity > 0 or quantity == -1
       errors.add(:quantity, "should be positive number or -1.")
     end
   end
