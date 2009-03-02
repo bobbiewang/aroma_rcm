@@ -7,11 +7,20 @@ class PurchaseOrderItem < ActiveRecord::Base
   validates_numericality_of :purchase_order_id, :vendor_product_id
   validates_numericality_of :unit_price, :allow_nil => true
 
+  before_destroy :validates_no_dependents
+
   validate :quantity_should_be_positive_or_minus_one
 
   belongs_to :purchase_order
   belongs_to :vendor_product
   has_many :sale_order_items
+
+  def validates_no_dependents
+    unless sale_order_items.count == 0
+      errors.add_to_base "Cannot delete this purchase order, as part of it were saled."
+      false
+    end
+  end
 
   def self.total_on_sale_cost
     PurchaseOrderItem.find(:all).inject(0.0) { |sum, item| sum += item.on_sale_cost }

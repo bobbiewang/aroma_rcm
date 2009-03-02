@@ -75,7 +75,10 @@ class MaterialItemsController < ApplicationController
   # DELETE /material_item/1.xml
   def destroy
     @material_item = MaterialItem.find(params[:id])
-    @material_item.destroy
+
+    unless @material_item.destroy
+      flash[:notice] = @material_item.errors.full_messages
+    end
 
     respond_to do |format|
       format.html { redirect_to(material_items_url) }
