@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class MaterialsController < ApplicationController
   def index
     @material_items = MaterialItem.find(:all)
