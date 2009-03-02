@@ -6,8 +6,8 @@ class PurchaseOrder < ActiveRecord::Base
   before_destroy :validates_no_dependents
 
   belongs_to :vendor
-  has_many :purchase_order_items
-  has_many :material_items
+  has_many :purchase_order_items, :dependent => :destroy
+  has_many :material_items, :dependent => :destroy
 
   after_update :save_purchase_order_items_and_material_items
   after_create :calculate_purchase_order_item_costs
