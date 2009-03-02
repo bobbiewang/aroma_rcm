@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 class PurchaseOrder < ActiveRecord::Base
-  validate :purchase_order_items_must_be_valid
+  validates_associated :purchase_order_items
+  validates_associated :material_items
 
   belongs_to :vendor
-  has_many :purchase_order_items
-  has_many :material_items
+  has_many :purchase_order_items, :dependent => :destroy
+  has_many :material_items, :dependent => :destroy
 
   after_update :save_purchase_order_items_and_material_items
   after_create :calculate_purchase_order_item_costs
@@ -111,12 +112,6 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   protected
-
-  def purchase_order_items_must_be_valid
-    purchase_order_items.each do |item|
-      errors.add(:purchase_order_items, item.errors.full_messages) unless item.valid?
-    end
-  end
 
   def save_purchase_order_items_and_material_items
     purchase_order_items.each { |item| item.save(false) }
