@@ -45,8 +45,9 @@ class PurchaseOrderItem < ActiveRecord::Base
     end
   end
 
-  def vendor_and_title
-    "#{vendor_product.vendor.abbr_name} - #{vendor_product.title}"
+  def date_vendor_title_usage
+    "#{purchase_order.purchased_at} #{vendor_product.vendor.abbr_name} - " +
+      "#{vendor_product.title} 【#{avail_quantity}/#{quantity}】"
   end
 
   def unit_weight

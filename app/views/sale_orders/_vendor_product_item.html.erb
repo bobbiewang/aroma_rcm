@@ -5,7 +5,7 @@
 
     <p>
       <%= vendor_product_item_form.collection_select :purchase_order_item_id, vendor_product_items,
-                                                     :id, :vendor_and_title  %>
+                                                     :id, :date_vendor_title_usage  %>
       <%= vendor_product_item_form.label :unit_price, "Price" %>
       <%= vendor_product_item_form.text_field :unit_price, :size => "4" %>
       <%= vendor_product_item_form.label :quantity, "Quantity" %>
