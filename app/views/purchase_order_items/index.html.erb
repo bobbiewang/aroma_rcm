@@ -16,7 +16,7 @@
   <tr>
     <td><%= link_to purchase_order_item.purchase_order.purchased_at, purchase_order_item.purchase_order %></td>
     <td><%=h purchase_order_item.purchase_order.vendor.abbr_name %></td>
-    <td><%= link_to purchase_order_item.vendor_product.title, purchase_order_item.vendor_product %></td>
+    <td><%= link_to purchase_order_item.vendor_product.title, purchase_order_item %></td>
     <td><%=h number_to_currency(purchase_order_item.unit_price,
                                 :unit => purchase_order_item.purchase_order.vendor.currency.symbol) %>
     </td>

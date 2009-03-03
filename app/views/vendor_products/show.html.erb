@@ -1,4 +1,4 @@
-<p>
+ <p>
   <b>Title:</b>
   <%=h @vendor_product.title %>
 </p>
@@ -41,6 +41,42 @@
   <b>Description:</b>
   <%=h @vendor_product.description %>
 </p>
+
+<p>
+  <b>Log:</b>
+  <table>
+    <tr>
+      <th>Purchase Date</th>
+      <th>Unit Cost</th>
+      <th>Sale Date</th>
+      <th>Customer</th>
+      <th>Unit Price</th>
+    </tr>
+  <% @vendor_product.purchase_order_items.each do |p_item| %>
+    <tr>
+      <td><%=h p_item.purchase_order.purchased_at %></td>
+      <td><%=h number_to_cny(p_item.unit_cost) %></td>
+    <% saled_items = p_item.sale_order_items %>
+    <% if saled_items.size == 0 %>
+      <td></td><td></td><td></td>
+    <% else %>
+      <td><%=h saled_items.first.sale_order.saled_at %></td>
+      <td><%=h saled_items.first.sale_order.customer.name %></td>
+      <td><%=h number_to_cny(saled_items.first.unit_price) %></td>
+    </tr>
+      <% saled_items[1..-1].each do |s_item| %>
+      <tr>
+        <td></td><td></td>
+        <td><%=h s_item.sale_order.saled_at %></td>
+        <td><%=h s_item.sale_order.customer.name %></td>
+        <td><%=h number_to_cny(s_item.unit_price) %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+  </table>
+
+<br />
 
 <%= link_to 'Edit', edit_vendor_product_path(@vendor_product) %> |
 <%= link_to 'Back', vendor_products_path %>
