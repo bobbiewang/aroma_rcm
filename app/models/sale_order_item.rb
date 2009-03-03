@@ -5,6 +5,10 @@ class SaleOrderItem < ActiveRecord::Base
 
   validate_on_create :should_not_exceed_available_quantity_on_create
 
+  def self.total_saled_price
+    SaleOrderItem.find(:all).inject(0) { |sum,i| sum += i.total_price }
+  end
+
   def should_not_exceed_available_quantity_on_create
     return if purchase_order_item.avail_quantity == -1
 

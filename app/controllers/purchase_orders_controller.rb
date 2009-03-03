@@ -68,7 +68,7 @@ class PurchaseOrdersController < ApplicationController
         format.html { redirect_to(@purchase_order) }
         format.xml  { render :xml => @purchase_order, :status => :created, :location => @purchase_order }
       else
-        flash[:notice] = "Failed to generate the purchase order."
+        flash[:notice] = "Failed to generate the purchase order: #{@purchase_order.errors.full_messages.uniq.join(';')}."
         format.html { redirect_to :controller => "store", :action => "purchase" }
         format.xml  { render :xml => @purchase_order.errors, :status => :unprocessable_entity }
       end
@@ -96,7 +96,10 @@ class PurchaseOrdersController < ApplicationController
   # DELETE /purchase_orders/1.xml
   def destroy
     @purchase_order = PurchaseOrder.find(params[:id])
-    @purchase_order.destroy
+
+    unless @purchase_order.destroy
+      flash[:notice] = @purchase_order.errors.full_messages
+    end
 
     respond_to do |format|
       format.html { redirect_to(purchase_orders_url) }

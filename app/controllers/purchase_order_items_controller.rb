@@ -75,7 +75,10 @@ class PurchaseOrderItemsController < ApplicationController
   # DELETE /purchase_order_items/1.xml
   def destroy
     @purchase_order_item = PurchaseOrderItem.find(params[:id])
-    @purchase_order_item.destroy
+
+    unless @purchase_order_item.destroy
+      flash[:notice] = @purchase_order_item.errors.full_messages
+    end
 
     respond_to do |format|
       format.html { redirect_to(purchase_order_items_url) }

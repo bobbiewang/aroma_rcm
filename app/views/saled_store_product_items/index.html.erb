@@ -4,7 +4,7 @@
   <tr>
     <th>Customer</th>
     <th>Sale Date</th>
-    <th>Title</th>
+    <th>Product</th>
     <th>QTY</th>
     <th>Unit Cost</th>
     <th>Unit Price</th>
@@ -15,7 +15,7 @@
 
 <% for item in @saled_store_product_items %>
   <tr>
-    <td><%=h item.sale_order.customer.name %></td>
+    <td><%= link_to item.sale_order.customer.name, item.sale_order.customer %></td>
     <td><%= link_to item.sale_order.saled_at, item.sale_order %></td>
     <td><%= link_to item.store_product_item.store_product.title, item.store_product_item %></td>
     <td><%=h item.quantity %></td>

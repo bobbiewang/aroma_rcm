@@ -5,6 +5,10 @@ class UsedMaterialItem < ActiveRecord::Base
   belongs_to :material_item
   belongs_to :store_product_item
 
+  def self.total_used_cost
+    UsedMaterialItem.find(:all).inject(0) { |sum,i| sum += i.total_cost }
+  end
+
   def unit_cost
     material_item.unit_cost
   end

@@ -41,8 +41,17 @@ class PurchaseOrderItemsControllerTest < ActionController::TestCase
     assert_redirected_to purchase_order_item_path(assigns(:purchase_order_item))
   end
 
+  def test_should_not_destroy_purchase_order_item_with_saled_items
+    assert_difference('PurchaseOrderItem.count', 0) do
+      delete :destroy, :id => purchase_order_items(:purchase_4_ppa_oil).id
+    end
+
+    assert_redirected_to purchase_order_items_path
+  end
+
   def test_should_destroy_purchase_order_item
     assert_difference('PurchaseOrderItem.count', -1) do
+      purchase_order_items(:purchase_4_ppa_oil).sale_order_items.destroy_all
       delete :destroy, :id => purchase_order_items(:purchase_4_ppa_oil).id
     end
 

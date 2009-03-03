@@ -1,9 +1,21 @@
 <fieldset>
   <legend>Overview</legend>
-  <p>
-    Profit: <%= number_to_currency(@total_profit, :unit => "￥") %>
-  </p>
-  <p>
-    On sale: <%= number_to_currency(@total_on_sale_cost, :unit => "￥") %>
-  </p>
+  <table>
+    <tr>
+      <td>Profit:</td>
+      <td><%= number_to_cny(@total_profit) %></td>
+    </tr>
+    <tr>
+      <td>On Sale:</td>
+      <td><%= number_to_cny(@total_on_sale_cost) %></td>
+    </tr>
+    <tr>
+      <td>Saled:</td>
+      <td><%= number_to_cny(@total_saled_price) %></td>
+    </tr>
+    <tr>
+      <td>Used:</td>
+      <td><%= number_to_cny(@total_used_cost) %></td>
+    </tr>
+  </table>
 </fieldset>

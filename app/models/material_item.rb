@@ -1,4 +1,4 @@
-# -*- coding: undecided -*-
+# -*- coding: utf-8 -*-
 require 'iconv'
 
 class MaterialItem < ActiveRecord::Base
@@ -7,9 +7,18 @@ class MaterialItem < ActiveRecord::Base
   validates_numericality_of :item_price, :allow_nil => true
   validates_numericality_of :item_cost, :allow_nil => true
 
+  before_destroy :validates_no_dependents
+
   belongs_to :purchase_order
   belongs_to :vendor_product
   has_many :used_material_items
+
+  def validates_no_dependents
+    unless used_material_items.count == 0
+      errors.add_to_base "Cannot delete this material item, as it is in use."
+      false
+    end
+  end
 
   def self.avail_items
     conv = Iconv.new("GBK", "utf-8")
@@ -18,6 +27,11 @@ class MaterialItem < ActiveRecord::Base
     items.sort do |x, y|
       conv.iconv(x.title) <=> conv.iconv(y.title)
     end
+  end
+
+  def self.total_in_use_cost
+    items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
+    items.inject(0) { |sum, i| sum += i.total_cost }
   end
 
   def title

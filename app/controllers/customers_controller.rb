@@ -82,4 +82,13 @@ class CustomersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def raw
+    @customers = Customer.find(:all)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @customers }
+    end
+  end
 end
