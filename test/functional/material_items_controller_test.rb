@@ -44,8 +44,17 @@ class MaterialItemsControllerTest < ActionController::TestCase
     assert_redirected_to material_item_path(assigns(:material_item))
   end
 
-  def test_should_destroy_material_items
+  def test_should_not_destroy_material_items_that_used
+    assert_difference('MaterialItem.count', 0) do
+      delete :destroy, :id => material_items(:purchase_2_ppa_oil).id
+    end
+
+    assert_redirected_to material_items_path
+  end
+
+  def test_should_destroy_material_items_that_not_used
     assert_difference('MaterialItem.count', -1) do
+      material_items(:purchase_2_ppa_oil).used_material_items.destroy_all
       delete :destroy, :id => material_items(:purchase_2_ppa_oil).id
     end
 
