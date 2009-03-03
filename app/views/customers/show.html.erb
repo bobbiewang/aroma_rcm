@@ -58,6 +58,12 @@
   <%=h @customer.details %>
 </p>
 
+<% if @sale_orders.size > 0 %>
+  <p>
+    <b>Purchase History</b><br />
+    <%= render(:partial => "/sale_orders/sale_order" , :collection => @sale_orders) %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Customer List', customers_path %>

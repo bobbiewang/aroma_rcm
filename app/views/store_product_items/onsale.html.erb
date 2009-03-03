@@ -4,6 +4,7 @@
   <tr>
     <th rowspan="2">Produce Date</th>
     <th rowspan="2">Store Product</th>
+    <th rowspan="2">Unit Cost</th>
     <th colspan="2">Quantity</th>
   </tr>
   <tr>
@@ -15,6 +16,7 @@
   <tr>
     <td><%=h item.produced_at %></td>
     <td><%= link_to item.store_product.title, item %></td>
+    <td><%=h number_to_cny(item.item_cost) %></td>
     <td><%=h item.avail_quantity %></td>
     <td><%=h item.quantity %></td>
   </tr>

@@ -1,6 +1,6 @@
 <p>
   <b>Store product:</b>
-  <%=h @store_product_item.store_product.title %>
+  <%= link_to @store_product_item.store_product.title, @store_product_item.store_product %>
 </p>
 <p>
   <b>Produce Date:</b>
@@ -24,7 +24,7 @@
   <legend>Materials</legend>
   <table>
     <tr>
-      <th>Name</th>
+      <th>Material Name</th>
       <th>Amount</th>
       <th colspan="2">Cost</th>
     </tr>
@@ -41,6 +41,19 @@
     <% end %>
   </table>
 </fieldset>
+
+<br />
+
+<b>Sale Log:</b>
+<ul>
+  <% @saled_store_product_items.each do |item| %>
+    <li><%=h item.sale_order.customer.name %> bought
+        <%=h item.quantity %> on
+        <%=h item.sale_order.saled_at %> at
+        <%=h number_to_cny(item.item_price) %>
+     </li>
+  <% end %>
+</ul>
 
 <br />
 

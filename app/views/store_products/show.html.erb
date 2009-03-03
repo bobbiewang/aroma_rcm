@@ -24,6 +24,37 @@
   <%=h @store_product.description %>
 </p>
 
+<p>
+  <b>Log:</b>
+  <table>
+    <tr>
+      <th>Produce Date</th>
+      <th>Unit Cost</th>
+      <th>Sale Date</th>
+      <th>Customer</th>
+      <th>Unit Price</th>
+    </tr>
+    <% @store_product_items.each do |item| %>
+      <tr>
+        <td><%=h item.produced_at %></td>
+        <td><%=h number_to_cny(item.item_cost) %></td>
+          <% saled_items = item.saled_store_product_items %>
+          <% if saled_items.size == 0 %>
+            <td></td>
+          <% else %>
+            <td><%=h saled_items.first.sale_order.saled_at %></td>
+            <td><%=h saled_items.first.sale_order.customer.name %></td>
+            <td><%=h number_to_cny(saled_items.first.item_price) %></td>
+          <% end %>
+          <% saled_items[1..-1].each do |s_item| %>
+            <td></td><td></td>
+            <td><%=h s_item.sale_order.saled_at %></td>
+            <td><%=h s_item.sale_order.customer.name %></td>
+            <td><%=h number_to_cny(s_item.item_price) %></td>
 
+          <% end %>
+      </tr>
+    <% end %>
+  </table>
 <%= link_to 'Edit', edit_store_product_path(@store_product) %> |
-<%= link_to 'Back', store_products_path %>
+<%= link_to 'All Store Products', store_products_path %>

@@ -4,6 +4,7 @@
   <p>
     <%= f.label :customer_id %><br />
     <%= f.collection_select :customer_id, @customers, :id, :name %>
+    <%= link_to 'New Customer', new_customer_url %>
   </p>
   <p>
     <%= f.label :saled_at %><br />

@@ -10,7 +10,10 @@
   <tr>
     <th></th>
     <th>Title</th>
-    <th>Price</th>
+    <th>Purchased</th>
+    <th>Saled</th>
+    <th>Using</th>
+    <th>Left</th>
   </tr>
 
 <% for vendor_product in vendor.vendor_products %>
@@ -18,9 +21,10 @@
   <tr>
     <td><%= check_box_tag "vendor_products[#{vendor_product.id}]" %></td>
     <td><%=h vendor_product.title %></td>
-    <td class="item-price"><%=h number_to_currency(vendor_product.price,
-                                :unit =>vendor_product.vendor.currency.symbol) %>
-    </td>
+    <td><%=h vendor_product.purchased_count %></td>
+    <td><%=h vendor_product.saled_count %></td>
+    <td><%=h vendor_product.using_count %></td>
+    <td><%=h vendor_product.left_count %></td>
   </tr>
 
 <% end %>

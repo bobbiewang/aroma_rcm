@@ -14,6 +14,7 @@ class PurchaseOrderItemsController < ApplicationController
   # GET /purchase_order_items/1.xml
   def show
     @purchase_order_item = PurchaseOrderItem.find(params[:id])
+    @sale_order_items = @purchase_order_item.sale_order_items
 
     respond_to do |format|
       format.html # show.html.erb

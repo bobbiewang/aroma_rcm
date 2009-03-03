@@ -14,6 +14,7 @@ class CustomersController < ApplicationController
   # GET /customers/1.xml
   def show
     @customer = Customer.find(params[:id])
+    @sale_orders = @customer.sale_orders
 
     respond_to do |format|
       format.html # show.html.erb

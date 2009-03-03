@@ -7,7 +7,7 @@
       <%= used_material_item_form.collection_select :material_item_id, material_items,
                                                     :id, :vendor_title_usage  %>
       <%= used_material_item_form.label :amount %>
-      <%= used_material_item_form.text_field :amount, :size => "1" %>
+      <%= used_material_item_form.text_field :amount, :size => 3 %>
       <%= link_to_function "remove" , "$(this).up('.used_material_item').remove()" %>
     </p>
 

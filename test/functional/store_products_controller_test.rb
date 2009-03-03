@@ -46,4 +46,10 @@ class StoreProductsControllerTest < ActionController::TestCase
 
     assert_redirected_to store_products_path
   end
+
+  def test_should_get_raw
+    get :raw
+    assert_response :success
+    assert_not_nil assigns(:store_products)
+  end
 end

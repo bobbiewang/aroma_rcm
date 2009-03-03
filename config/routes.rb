@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :store_product_items, :collection => { :onsale => :get }
 
-  map.resources :store_products
+  map.resources :store_products, :collection => { :raw => :get}
 
   map.resources :measuring_units
 

@@ -4,29 +4,29 @@
   <tr>
     <th>Title</th>
     <th>Capacity</th>
-    <th>Price</th>
-    <th>Active</th>
-    <th>Description</th>
-    <th colspan=3>Operations</th>
+    <th>Count</th>
+    <th>AVG Cost</th>
+    <th>AVG Price</th>
+    <th>AVG Profit</th>
+    <th>Total Profit</th>
   </tr>
 
 <% for store_product in @store_products %>
   <tr>
-    <td><%=h store_product.title %></td>
+    <td><%= link_to store_product.title, store_product %></td>
     <td>
       <%=h store_product.capacity %>
       <%=h store_product.measuring_unit.abbr_name %>
     </td>
-    <td><%=h number_to_cny(store_product.price) %></td>
-    <td><%=h boolean_to_yesno(store_product.active) %></td>
-    <td><%=h store_product.description %></td>
-    <td><%= link_to 'Show', store_product %></td>
-    <td><%= link_to 'Edit', edit_store_product_path(store_product) %></td>
-    <td><%= link_to 'Destroy', store_product, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h store_product.producing_count %></td>
+    <td><%=h number_to_cny(store_product.average_cost) %></td>
+    <td><%=h number_to_cny(store_product.average_price) %></td>
+    <td><%=h number_to_cny(store_product.average_profit) %></td>
+    <td><%=h number_to_cny(store_product.total_profit) %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New store_product', new_store_product_path %>
+<%= link_to 'New Store Product', new_store_product_path %>

@@ -14,6 +14,7 @@ class StoreProductItemsController < ApplicationController
   # GET /store_product_items/1.xml
   def show
     @store_product_item = StoreProductItem.find(params[:id])
+    @saled_store_product_items = @store_product_item.saled_store_product_items
 
     respond_to do |format|
       format.html # show.html.erb

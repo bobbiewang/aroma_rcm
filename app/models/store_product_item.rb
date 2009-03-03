@@ -48,6 +48,14 @@ class StoreProductItem < ActiveRecord::Base
     0.0
   end
 
+  def total_price
+    saled_store_product_items.inject(0) { |sum,i| sum += i.item_price }
+  end
+
+  def total_profit
+    total_price - total_cost
+  end
+
   def new_used_material_item_attributes=(used_material_item_attributes)
     used_material_item_attributes.each do |attributes|
       attributes[:store_product_item_id] = 0
