@@ -13,7 +13,7 @@
 <% for sale_order in @sale_orders %>
   <tr>
     <td><%=h sale_order.saled_at %></td>
-    <td><%=h sale_order.customer.name %></td>
+    <td><%= link_to sale_order.customer.name, sale_order.customer %></td>
     <td class="item-price"><%=h number_to_cny(sale_order.total_price) %></td>
     <td class="item-price"><%=h number_to_cny(sale_order.total_cost) %></td>
     <td class="item-price"><%=h number_to_cny(sale_order.total_profit) %>

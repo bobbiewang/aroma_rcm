@@ -11,6 +11,7 @@
     <th>Unit Cost</th>
     <th>Usage</th>
     <th>Used Up?</th>
+    <th></th>
   </tr>
 <% for item in @material_items %>
   <tr>
@@ -28,6 +29,7 @@
       <%=h item.vendor_product.measuring_unit.abbr_name %>
     </td>
     <td><%=h boolean_to_yesno(item.usedup) %></td>
+    <td><%= link_to 'details...', item %></td>
   </tr>
 <% end %>
 </table>

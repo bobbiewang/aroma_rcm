@@ -13,7 +13,7 @@
 <% for purchase_order in @purchase_orders %>
   <tr>
     <td><%=h purchase_order.purchased_at %></td>
-    <td><%=h purchase_order.vendor.full_name %></td>
+    <td><%= link_to purchase_order.vendor.full_name, purchase_order.vendor %></td>
     <td class="item-price">
       <%=h number_to_currency(purchase_order.total_price,
                               :unit => purchase_order.vendor.currency.symbol) %>
