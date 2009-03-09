@@ -8,12 +8,10 @@ class StoreProductItem < ActiveRecord::Base
   after_update :save_used_material_items
 
   def self.avail_items
-    conv = Iconv.new("GBK", "utf-8")
-
     items = StoreProductItem.find(:all).select { |item| item.avail? }
     items.sort do |x, y|
       if x.store_product.title != y.store_product.title
-        conv.iconv(x.store_product.title) <=> conv.iconv(y.store_product.title)
+        utf8_2_gbk(x.store_product.title) <=> utf8_2_gbk(y.store_product.title)
       else
         x.produced_at <=> y.produced_at
       end

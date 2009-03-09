@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'iconv'
 
 class MaterialItem < ActiveRecord::Base
   validates_presence_of :purchase_order_id, :vendor_product_id, :quantity
@@ -21,11 +20,9 @@ class MaterialItem < ActiveRecord::Base
   end
 
   def self.avail_items
-    conv = Iconv.new("GBK", "utf-8")
-
     items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
     items.sort do |x, y|
-      conv.iconv(x.title) <=> conv.iconv(y.title)
+      utf8_2_gbk(x.title) <=> utf8_2_gbk(y.title)
     end
   end
 

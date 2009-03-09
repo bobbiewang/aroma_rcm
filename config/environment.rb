@@ -65,3 +65,8 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 end
+
+$conv = Iconv.new("GBK", "utf-8")
+def utf8_2_gbk(str)
+  $conv.iconv(str)
+end

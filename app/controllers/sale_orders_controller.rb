@@ -25,7 +25,7 @@ class SaleOrdersController < ApplicationController
   # GET /sale_orders/new.xml
   def new
     if request.post?
-      @customers = Customer.find(:all)
+      @customers = Customer.find(:all).sort
       @vendor_product_items = PurchaseOrderItem.avail_items
       @store_product_items = StoreProductItem.avail_items
 
@@ -52,7 +52,7 @@ class SaleOrdersController < ApplicationController
 
   # GET /sale_orders/1/edit
   def edit
-    @customers = Customer.find(:all)
+    @customers = Customer.find(:all).sort
     @sale_order = SaleOrder.find(params[:id])
 
     saled_vendor_product_items = @sale_order.sale_order_items.map { |i| i.purchase_order_item }
@@ -66,7 +66,7 @@ class SaleOrdersController < ApplicationController
   # POST /sale_orders.xml
   def create
     @sale_order = SaleOrder.new(params[:sale_order])
-    @customers = Customer.find(:all)
+    @customers = Customer.find(:all).sort
 
     respond_to do |format|
       if @sale_order.save!
