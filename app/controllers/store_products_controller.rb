@@ -85,4 +85,8 @@ class StoreProductsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def raw
+    @store_products = StoreProduct.find(:all)
+  end
 end
