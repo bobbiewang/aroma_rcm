@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class StoreProductsControllerTest < ActionController::TestCase
   def setup
-    get :index, { }, { :user_id => users(:admin).id }
+    get :edit, { :id => store_products(:cream) }, { :user_id => users(:admin).id }
   end
 
   def test_should_get_index
