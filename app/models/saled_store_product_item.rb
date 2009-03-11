@@ -4,6 +4,10 @@ class SaledStoreProductItem < ActiveRecord::Base
   belongs_to :sale_order
   belongs_to :store_product_item
 
+  def self.total_saled_price
+    SaledStoreProductItem.find(:all).inject(0) { |sum,i| sum += i.total_price }
+  end
+
   def item_cost
     store_product_item.item_cost
   end
