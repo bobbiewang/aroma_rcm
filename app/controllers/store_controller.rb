@@ -4,7 +4,7 @@ class StoreController < ApplicationController
     @total_profit = SaleOrder.total_profit
     @total_on_sale_cost = PurchaseOrderItem.total_on_sale_cost
     @total_in_use_cost = MaterialItem.total_in_use_cost
-    @total_saled_price = SaleOrderItem.total_saled_price
+    @total_saled_price = SaleOrderItem.total_saled_price + SaledStoreProductItem.total_saled_price
     @total_used_cost = UsedMaterialItem.total_used_cost
   rescue => ex
     logger.warn "\n\n========================================================="
