@@ -1,14 +1,33 @@
-<h1>Listing used_material_items</h1>
+<h1>Listing Used Materialitems</h1>
 
 <table>
   <tr>
     <th>Material item</th>
+    <th>Store Product Item</th>
     <th>Amount</th>
+    <th colspan="3">Operations</th>
   </tr>
 
 <% for used_material_item in @used_material_items %>
   <tr>
-    <td><%=h used_material_item.material_item_id %></td>
+    <td>
+      <% if used_material_item.material_item.nil? %>
+        nil
+      <% else %>
+        #<%= used_material_item.material_item.id %>
+        <%= link_to used_material_item.material_item.vendor_product.title,
+                    used_material_item.material_item %>
+      <% end %>
+    </td>
+    <td>
+      <% if used_material_item.store_product_item.nil? %>
+        nil
+      <% else %>
+        #<%= used_material_item.store_product_item.id %>
+        <%= link_to used_material_item.store_product_item.store_product.title,
+                    used_material_item.store_product_item %>
+      <% end %>
+    </td>
     <td><%=h used_material_item.amount %></td>
     <td><%= link_to 'Show', used_material_item %></td>
     <td><%= link_to 'Edit', edit_used_material_item_path(used_material_item) %></td>
