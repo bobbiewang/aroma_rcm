@@ -8,7 +8,7 @@
     <th></th>
     <th>Vendor</th>
     <th>Purchased Date</th>
-    <th>Title</th>
+    <th>Product</th>
     <th>Item Cost</th>
     <th>Unit Cost</th>
     <th>#AVL</th>
@@ -20,7 +20,7 @@
     <td><%= check_box_tag "material_items[#{item.id}]" %></td>
     <td><%=h item.vendor_product.vendor.abbr_name %></td>
     <td><%= link_to item.purchase_order.purchased_at, item.purchase_order %></td>
-    <td><%=h item.vendor_product.title %></td>
+    <td><%= link_to item.vendor_product.title, item.vendor_product %></td>
     <td><%=h number_to_cny(item.unit_cost) %></td>
     <td><%=h number_to_cny(item.unit_cost / item.vendor_product.material_amount)
            %>/<%=h item.vendor_product.measuring_unit.abbr_name %>
