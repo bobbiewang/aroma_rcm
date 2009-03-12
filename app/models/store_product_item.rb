@@ -1,7 +1,7 @@
 class StoreProductItem < ActiveRecord::Base
   validates_presence_of :store_product_id, :quantity
 
-  has_many :used_material_items
+  has_many :used_material_items, :dependent => :destroy
   belongs_to :store_product
   has_many :saled_store_product_items
 
