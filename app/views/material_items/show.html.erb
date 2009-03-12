@@ -1,21 +1,22 @@
 <p>
-  <b>Purchase order:</b>
-  <%=h @material_item.purchase_order_id %>
+  <b>Purchase on:</b>
+  <%= link_to @material_item.purchase_order.purchased_at, @material_item.purchase_order %>
 </p>
 
 <p>
-  <b>Vendor product:</b>
-  <%=h @material_item.vendor_product_id %>
+  <b>Vendor Product:</b>
+  <%= link_to @material_item.vendor_product.title, @material_item.vendor_product %>
 </p>
 
 <p>
-  <b>Item price:</b>
-  <%=h @material_item.item_price %>
+  <b>Item Price:</b>
+  <%=h number_to_currency(@material_item.item_price,
+                          :unit => @material_item.vendor_product.vendor.currency.symbol) %>
 </p>
 
 <p>
-  <b>Item cost:</b>
-  <%=h @material_item.item_cost %>
+  <b>Item Cost:</b>
+  <%=h number_to_cny(@material_item.item_cost) %>
 </p>
 
 <p>
@@ -24,10 +25,33 @@
 </p>
 
 <p>
+  <b>Amount:</b>
+  <%=h @material_item.amount %>
+  <%=h @material_item.measuring_unit %>
+</p>
+
+<p>
   <b>Usedup:</b>
   <%=h @material_item.usedup %>
 </p>
 
+<p>
+  <b>Log:</b>
+  <table>
+    <tr>
+      <th>Used Date</th>
+      <th>Store Product</th>
+      <th>Used Amount</th>
+    </tr>
+  <% @material_item.used_material_items.each do |item| %>
+    <tr>
+      <td><%=h item.store_product_item.produced_at %></td>
+      <td><%= link_to item.store_product_item.store_product.title, item.store_product_item %></td>
+      <td><%=h item.amount %> <%=h @material_item.measuring_unit %></td>
+    </tr>
+  <% end %>
+  </table>
+</p>
 
 <%= link_to 'Edit', edit_material_item_path(@material_item) %> |
 <%= link_to 'Back', material_items_path %>

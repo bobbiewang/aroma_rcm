@@ -22,7 +22,22 @@ class MaterialItem < ActiveRecord::Base
   def self.avail_items
     items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
     items.sort do |x, y|
-      utf8_2_gbk(x.title) <=> utf8_2_gbk(y.title)
+      if x.vendor_product.vendor.id != y.vendor_product.vendor.id
+        x.vendor_product.vendor.id <=> y.vendor_product.vendor.id
+      else
+        utf8_2_gbk(x.title) <=> utf8_2_gbk(y.title)
+      end
+    end
+  end
+
+  def self.usedup_items
+    items = MaterialItem.find(:all, :conditions => ["usedup =? ", true])
+    items.sort do |x, y|
+      if x.vendor_product.vendor.id != y.vendor_product.vendor.id
+        x.vendor_product.vendor.id <=> y.vendor_product.vendor.id
+      else
+        utf8_2_gbk(x.title) <=> utf8_2_gbk(y.title)
+      end
     end
   end
 
@@ -35,6 +50,13 @@ class MaterialItem < ActiveRecord::Base
     vendor_product.title
   end
 
+  def amount
+    quantity * vendor_product.material_amount
+  end
+
+  def measuring_unit
+    vendor_product.measuring_unit.abbr_name
+  end
   def vendor_title_usage
     "#{vendor_product.vendor.abbr_name} - #{title}  " +
       "【#{total_avail_material_amount}/#{total_material_amount}】"

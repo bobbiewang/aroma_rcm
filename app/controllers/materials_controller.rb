@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 class MaterialsController < ApplicationController
   def index
-    @material_items = MaterialItem.find(:all)
+    @material_items = MaterialItem.avail_items
+  end
+
+  def usedup
+    @material_items = MaterialItem.usedup_items
+    render :action => :index
   end
 
   def order
