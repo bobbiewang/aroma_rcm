@@ -12,6 +12,12 @@ class MaterialsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:material_items)
   end
 
+  def test_should_get_usedup
+    get :usedup
+    assert_response :success
+    assert_not_nil assigns(:material_items)
+  end
+
   def test_should_get_order
     get :order
     assert_response :success
