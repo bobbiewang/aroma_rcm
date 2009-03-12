@@ -28,7 +28,8 @@
                     used_material_item.store_product_item %>
       <% end %>
     </td>
-    <td><%=h used_material_item.amount %></td>
+    <td><%=h used_material_item.amount %>
+      <%=h used_material_item.material_item.vendor_product.measuring_unit.abbr_name %></td>
     <td><%= link_to 'Show', used_material_item %></td>
     <td><%= link_to 'Edit', edit_used_material_item_path(used_material_item) %></td>
     <td><%= link_to 'Destroy', used_material_item, :confirm => 'Are you sure?', :method => :delete %></td>
