@@ -6,7 +6,7 @@
     <p>
       <%= material_item_form.collection_select :vendor_product_id, vendor_products, :id, :title  %>
       <%= material_item_form.label :item_price, "Price" %>
-      <%= material_item_form.text_field :item_price, :size => "4" %>
+      <%= material_item_form.text_field :item_price, :size => "6" %>
       <%= material_item_form.label :quantity, "Quantity" %>
       <%= material_item_form.text_field :quantity, :size => "1" %>
       <%= link_to_function "remove" , "$(this).up('.material_item').remove()" %>

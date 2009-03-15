@@ -20,7 +20,7 @@
 
   <tr>
     <td><%= check_box_tag "vendor_products[#{vendor_product.id}]" %></td>
-    <td><%=h vendor_product.title %></td>
+    <td><%= link_to vendor_product.title, vendor_product %></td>
     <td><%=h vendor_product.purchased_count %></td>
     <td><%=h vendor_product.saled_count %></td>
     <td><%=h vendor_product.using_count %></td>
