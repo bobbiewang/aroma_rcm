@@ -41,6 +41,10 @@ class MaterialItem < ActiveRecord::Base
     end
   end
 
+  def self.total_cost
+    MaterialItem.find(:all).inject(0.0) { |sum, i| sum += i.total_cost }
+  end
+
   def self.total_in_use_cost
     items = MaterialItem.find(:all, :conditions => ["usedup =? ", false])
     items.inject(0) { |sum, i| sum += i.total_cost }
