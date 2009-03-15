@@ -1,10 +1,23 @@
 # -*- coding: utf-8 -*-
 class StoreController < ApplicationController
   def index
-    @total_profit = SaleOrder.total_profit
+    @total_purchases = PurchaseOrder.total_cost
+    of_orders = PurchaseOrder.find(:all,
+                                   :conditions => ["vendor_id = ?", 1])
+    @total_of_purchases = of_orders.inject(0.0) do |sum, i|
+      sum += i.total_cost
+    end
+    @total_spa_ppa_purchases = @total_purchases - @total_of_purchases
+
+    @total_sales = SaleOrder.total_price
+    @total_vendor_product_sales = SaleOrderItem.total_saled_price
+    @total_store_product_sales  = SaledStoreProductItem.total_saled_price
+
+    @total_materials = MaterialItem.total_cost
+
     @total_on_sale_cost = PurchaseOrderItem.total_on_sale_cost
-    @total_in_use_cost = MaterialItem.total_in_use_cost
-    @total_saled_price = SaleOrderItem.total_saled_price + SaledStoreProductItem.total_saled_price
+
+    @total_profit = SaleOrder.total_profit
     @total_used_cost = UsedMaterialItem.total_used_cost
   rescue => ex
     logger.warn "\n\n========================================================="

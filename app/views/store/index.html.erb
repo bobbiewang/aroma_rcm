@@ -2,19 +2,35 @@
   <legend>Overview</legend>
   <table>
     <tr>
-      <td>Saled Revenue:</td>
-      <td><%= number_to_cny(@total_saled_price) %></td>
+      <td>Total Purchases:</td>
+      <td><%= number_to_cny(@total_purchases) %></td>
+      <td>From 欧芳:</td>
+      <td><%= number_to_cny(@total_of_purchases) %></td>
     </tr>
     <tr>
-      <td>Used Material:</td>
-      <td><%= number_to_cny(@total_used_cost) %></td>
+      <td></td>
+      <td></td>
+      <td>From SPA, PPA</td>
+      <td><%= number_to_cny(@total_spa_ppa_purchases) %></td>
     </tr>
     <tr>
-      <td>Profit:</td>
-      <td><%= number_to_cny(@total_profit) %></td>
+      <td>Total Sales:</td>
+      <td><%= number_to_cny(@total_sales) %></td>
+      <td>Saled End Products:</td>
+      <td><%= number_to_cny(@total_vendor_product_sales) %></td>
     </tr>
     <tr>
-      <td>On Sale:</td>
+      <td></td>
+      <td></td>
+      <td>Saled Store Products:</td>
+      <td><%= number_to_cny(@total_store_product_sales) %></td>
+    </tr>
+    <tr>
+      <td>Materials:</td>
+      <td><%= number_to_cny(@total_materials) %></td>
+    </tr>
+    <tr>
+      <td>Remaining Products:</td>
       <td><%= number_to_cny(@total_on_sale_cost) %></td>
     </tr>
   </table>
