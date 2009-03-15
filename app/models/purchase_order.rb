@@ -13,6 +13,10 @@ class PurchaseOrder < ActiveRecord::Base
   after_create :calculate_purchase_order_item_costs
   after_update :calculate_purchase_order_item_costs
 
+  def self.total_cost
+    PurchaseOrder.find(:all).inject(0) { |sum, i| sum += i.total_cost }
+  end
+
   def validates_no_dependents
     saled_count = purchase_order_items.inject(0) { |sum, i| sum += i.sale_order_items.size }
     used_count =  material_items.inject(0) { |sum, i| sum += i.used_material_items.size }
