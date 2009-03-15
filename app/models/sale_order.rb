@@ -7,6 +7,10 @@ class SaleOrder < ActiveRecord::Base
 
   after_update :save_sale_order_items_and_saled_store_product_items
 
+  def self.total_price
+    SaleOrder.find(:all).inject(0.0) { |sum, item| sum += item.total_price }
+  end
+
   def self.total_profit
     SaleOrder.find(:all).inject(0.0) { |sum, item| sum += item.total_profit }
   end
