@@ -1,22 +1,15 @@
 # -*- coding: undecided -*-
 class ReportsController < ApplicationController
   def monthly
-    year = Time.now.year
-    month = Time.now.month
+    date = Time.mktime(2008, 10)
+    end_date = Time.now.end_of_month
 
-    arr_data = (1..month).map do |m|
-      start_date = Time.mktime(year, m)
-      end_date = Time.mktime(year, m + 1)
-      purchased_orders = PurchaseOrder.find(:all,
-                                            :conditions => ['purchased_at >= ? and purchased_at <= ?',
-                                                            start_date, end_date])
-      sale_orders = SaleOrder.find(:all,
-                                   :conditions => ['saled_at >= ? and saled_at <= ?',
-                                                   start_date, end_date])
-
-      [start_date.strftime("%b"),
-       purchased_orders.inject(0) { |sum, o| sum += o.total_cost },
-       sale_orders.inject(0) { |sum, o| sum += o.total_price }]
+    arr_data = []
+    while date < end_date
+      arr_data << [ date.strftime("%Y %b"),
+                    PurchaseOrder.monthly_cost(date),
+                    SaleOrder.monthly_price(date) ]
+      date = date.months_since(1)
     end
 
     @str_xml = ms_array_data(arr_data, 'Monthly Spending/Income')
