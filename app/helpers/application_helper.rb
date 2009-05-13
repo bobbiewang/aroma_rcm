@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  require "fusioncharts_helper"
+  include FusionChartsHelper
+
   def number_to_cny(number)
     number_to_currency(number, :unit => "￥")
   end
