@@ -15,6 +15,14 @@ class SaleOrder < ActiveRecord::Base
     SaleOrder.find(:all).inject(0.0) { |sum, item| sum += item.total_profit }
   end
 
+  def self.monthly_price(date)
+    start_date = date.beginning_of_month
+    end_date = date.end_of_month
+    orders = SaleOrder.find(:all, :conditions => ['saled_at >= ? and saled_at <= ?',
+                                                  start_date, end_date])
+    orders.inject(0) { |sum, o| sum += o.total_price }
+  end
+
   def new_vendor_product_item_attributes=(vendor_product_item_attributes)
     vendor_product_item_attributes.each do |attributes|
       attributes[:sale_order_id] = 0
