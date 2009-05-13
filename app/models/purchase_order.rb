@@ -17,6 +17,13 @@ class PurchaseOrder < ActiveRecord::Base
     PurchaseOrder.find(:all).inject(0) { |sum, i| sum += i.total_cost }
   end
 
+  def self.monthly_cost(date)
+    start_date = date.beginning_of_month
+    end_date = date.end_of_month
+    PurchaseOrder.sum(:total_cost, :conditions => ['purchased_at >= ? and purchased_at <= ?',
+                                                   start_date, end_date])
+  end
+
   def validates_no_dependents
     saled_count = purchase_order_items.inject(0) { |sum, i| sum += i.sale_order_items.size }
     used_count =  material_items.inject(0) { |sum, i| sum += i.used_material_items.size }
