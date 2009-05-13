@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
     year = Time.now.year
     month = Time.now.month
 
-    arr_data = 1.upto(month).map do |m|
+    arr_data = (1..month).map do |m|
       start_date = Time.mktime(year, m)
       end_date = Time.mktime(year, m + 1)
       purchased_orders = PurchaseOrder.find(:all,
