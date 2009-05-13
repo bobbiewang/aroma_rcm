@@ -12,10 +12,29 @@ class ReportsController < ApplicationController
       date = date.months_since(1)
     end
 
-    @str_xml = ms_array_data(arr_data, 'Monthly Spending/Income')
+    @si_xml = ms_array_data(arr_data, 'Monthly Spending/Income')
+
+    total_spending, total_income = 0, 0
+    arr_data = arr_data.map do |items|
+      total_spending += items[1]
+      total_income   += items[2]
+      [items.first, total_income - total_spending]
+    end
+
+    @tp_xml = ss_array_data(arr_data, 'Total Profit')
   end
 
   private
+
+  def ss_array_data(arr_data, caption)
+    xml = Builder::XmlMarkup.new
+    xml.graph(:caption => caption, :numberPrefix => '', :formatNumberScale => '2',
+              :decimalPrecision => '0') do
+      for item in arr_data
+        xml.set(:name=>item[0], :value=>item[1])
+        end
+    end
+  end
 
   def ms_array_data(arr_data, caption)
     str_xml = ''
@@ -30,14 +49,14 @@ class ReportsController < ApplicationController
         end
       end
 
-      # Iterate through the array to create the <set> tags within dataset for series 'Current Year'
+      # Iterate through the array to create the <set> tags within dataset for 1st series
       xml.dataset(:seriesName => 'Spending',:color => 'AFD8F8') do
         for item in arr_data
           xml.set(:value => item[1])
         end
       end
 
-      # Iterate through the array to create the <set> tags within dataset for series 'Previous Year'
+      # Iterate through the array to create the <set> tags within dataset for 2nd series
       xml.dataset(:seriesName => 'Income',:color => 'F6BD0F') do
         for item in arr_data
           xml.set(:value => item[2])
