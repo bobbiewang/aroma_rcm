@@ -18,10 +18,11 @@ class ReportsController < ApplicationController
     arr_data = arr_data.map do |items|
       total_spending += items[1]
       total_income   += items[2]
-      [items.first, total_income - total_spending]
+      total_profit    = total_income - total_spending
+      [items.first, total_profit, total_profit - 21680.0]
     end
 
-    @tp_xml = ss_array_data(arr_data, 'Total Profit')
+    @tp_xml = ms_array_data(arr_data, 'Total Profit')
   end
 
   private
