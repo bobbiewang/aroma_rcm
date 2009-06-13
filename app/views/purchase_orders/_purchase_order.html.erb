@@ -21,7 +21,8 @@
       <tr>
         <td><%= "<b>Products</b>" if idx == 0 %></td>
         <td><%=h number_to_quantity(item.quantity) %>&times;</td>
-        <td><%=h item.vendor_product.title %></td>
+        <td><%= link_to item.vendor_product.title,
+                item.vendor_product %></td>
         <td class="unit-column"><%=h number_to_currency(item.unit_price, :unit => price_symbol) %></td>
         <td class="item-price"><%=h number_to_currency(item.total_price, :unit => price_symbol) %></td>
         <td class="unit-column"><%=h number_to_currency(item.unit_cost, :unit => "￥") %></td>
@@ -33,7 +34,8 @@
       <tr>
         <td><%= "<b>Materials</b>" if idx == 0 %></td>
         <td><%=h number_to_quantity(item.quantity) %>&times;</td>
-        <td><%=h item.vendor_product.title %></td>
+        <td><%= link_to item.vendor_product.title,
+                item.vendor_product %></td>
         <td class="unit-column"><%=h number_to_currency(item.item_price, :unit => price_symbol) %></td>
         <td class="item-price"><%=h number_to_currency(item.total_price, :unit => price_symbol) %></td>
         <td class="unit-column"><%=h number_to_cny(item.item_cost) %></td>
