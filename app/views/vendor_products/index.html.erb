@@ -2,7 +2,7 @@
 
 <% for vendor in @vendors %>
 
-<h2><%= vendor.full_name %></h2>
+<h2><%= vendor.full_name %></h2><i><%=h vendor.vendor_products.size %></i>
 <table>
   <tr>
     <th>Title</th>
