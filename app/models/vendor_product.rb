@@ -15,21 +15,17 @@ class VendorProduct < ActiveRecord::Base
   belongs_to :measuring_unit
 
   def postage_weight
-    # 目前产品没有重量的概念，用容量模拟重量。没有容量的产品算 1ml（贵重物品算 500ml）
-    # 因为 weight 是用于分担运费计算 cost，所以如果某个产品没有
-    # unit_price，那么 weight 也算 0，从而不分担运费
-    return 0 if price.nil?
-
+    # 产品定义时只定义了容量属性，没有定义邮费比重。但是容量在后期开发
+    # 中一直没有用到，改为表示邮费比重
     if capacity.nil?
       if price > 10
-        500
+        100
       else
-        1
+        10
       end
     else
       capacity
     end
-
   end
 
   def purchased_count
