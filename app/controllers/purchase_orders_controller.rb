@@ -92,6 +92,22 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
+  def update_all
+
+    purchase_orders = PurchaseOrder.find(:all)
+    updated = 0
+    begin
+      purchase_orders.each do |order|
+        order.save
+        updated += 1
+      end
+    rescue => ex
+      logger.warn "Failed to update purchase orders."
+    ensure
+      render :text => "Updated #{updated}/#{purchase_orders.size} purchase orders!"
+    end
+  end
+
   # DELETE /purchase_orders/1
   # DELETE /purchase_orders/1.xml
   def destroy

@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :purchase_order_items, :collection => { :raw => :get }
 
-  map.resources :purchase_orders
+  map.resources :purchase_orders, :collection => { :update_all => :get }
 
   map.resources :vendor_products
 
