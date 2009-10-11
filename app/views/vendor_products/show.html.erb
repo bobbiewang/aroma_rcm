@@ -9,11 +9,11 @@
 </p>
 
 <p>
-  <b>Capacity:</b>
+  <b>Weight:</b>
   <% if @vendor_product.capacity.nil? %>
     <%=h "NA" %>
   <% else %>
-    <%=h "#{@vendor_product.capacity} ml" %>
+    <%=h "#{@vendor_product.capacity}" %>
   <% end %>
 </p>
 
