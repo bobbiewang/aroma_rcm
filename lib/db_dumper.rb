@@ -259,6 +259,7 @@ CREATE TABLE `store_product_items` (
   `store_product_id` int(11) NOT NULL,
   `produced_at` date default NULL,
   `quantity` int(11) NOT NULL,
+  `comments` text,
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
