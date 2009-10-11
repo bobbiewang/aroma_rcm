@@ -70,6 +70,17 @@ class PurchaseOrdersController < ApplicationController
   # POST /purchase_orders
   # POST /purchase_orders.xml
   def create
+    # 根据用户最近输入的进货价格，修改相应 vendor product 的进价
+    ordered_items = params[:purchase_order][:new_purchase_order_item_attributes]
+    ordered_items.each do |item|
+      vendor_product_id = item[:vendor_product_id].to_i
+      vendor_product = VendorProduct.find(vendor_product_id)
+      unit_price = item[:unit_price].to_f
+      if unit_price > 0.0 and vendor_product.price != unit_price
+        vendor_product.update_attribute(:price, unit_price)
+      end
+    end
+
     @purchase_order = PurchaseOrder.new(params[:purchase_order])
     # 检查本单货物是否都卖给一个顾客
     saled = params[:order_status][:saled] == "yes" ? true : false
