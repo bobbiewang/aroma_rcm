@@ -25,18 +25,23 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/new.xml
   def new
     if request.post?
+      # 从参数提取用户选择的 vendor id 和 vendor product id
       @vendor = Vendor.find(params[:vendor_id])
-      @vendor_products = @vendor.vendor_products
-
-      @purchase_order = PurchaseOrder.new(:vendor_id => @vendor.id)
       vendor_product_ids = params[:vendor_products] || { }
-      vendor_product_ids.each_key do |id|
-        vendor_product = VendorProduct.find(id)
+      selected_vendor_products = vendor_product_ids.map { |key, val| VendorProduct.find(key) }
+      selected_vendor_products.sort! { |x, y| x.title <=> y.title}
+
+      # 创建 purchase order，并创建其中的 item
+      @purchase_order = PurchaseOrder.new(:vendor_id => @vendor.id)
+      selected_vendor_products.each do |vendor_product|
         @purchase_order.purchase_order_items <<
-          PurchaseOrderItem.new(:vendor_product_id => id,
+          PurchaseOrderItem.new(:vendor_product_id => vendor_product.id,
                                 :unit_price => vendor_product.price,
                                 :quantity => 1)
       end
+
+      # 提取 当前 vendor 的 product 供 View 的下拉列表使用
+      @vendor_products = @vendor.vendor_products
 
       respond_to do |format|
         format.html # new.html.erb
