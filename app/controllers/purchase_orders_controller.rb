@@ -14,6 +14,8 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/1.xml
   def show
     @purchase_order = PurchaseOrder.find(params[:id])
+    @purchase_order_items = @purchase_order.purchase_order_items
+    @purchase_order_items.sort! { |x,y| x.vendor_product.title <=> y.vendor_product.title }
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,8 +42,11 @@ class PurchaseOrdersController < ApplicationController
                                 :quantity => 1)
       end
 
-      # 提取 当前 vendor 的 product 供 View 的下拉列表使用
+      # 提取当前 vendor 的 product 供 View 的下拉列表使用
       @vendor_products = @vendor.vendor_products
+
+      # 提取 customer 列表供 View 的下拉列表使用
+      @customers = Customer.find(:all).sort
 
       respond_to do |format|
         format.html # new.html.erb
@@ -66,16 +71,48 @@ class PurchaseOrdersController < ApplicationController
   # POST /purchase_orders.xml
   def create
     @purchase_order = PurchaseOrder.new(params[:purchase_order])
+    # 检查本单货物是否都卖给一个顾客
+    saled = params[:order_status][:saled] == "yes" ? true : false
+    customer_id = params[:sale_order][:customer_id]
 
-    respond_to do |format|
-      if @purchase_order.save
-        flash[:notice] = 'The purchase order was successfully created.'
-        format.html { redirect_to(@purchase_order) }
-        format.xml  { render :xml => @purchase_order, :status => :created, :location => @purchase_order }
-      else
-        flash[:notice] = "Failed to generate the purchase order: #{@purchase_order.errors.full_messages.uniq.join(';')}."
+    begin
+      PurchaseOrder.transaction do
+        # 先保存进货单，save! 方法在验证失败时会扔出 exeption
+        @purchase_order.save!
+
+        # 如果本单货物都卖给一个客户，创建并保存销售单
+        if saled
+          @sale_order = SaleOrder.new
+          @sale_order.customer_id = customer_id
+          @sale_order.saled_at = @purchase_order.arrived_at
+          @sale_order.postage = 0.0
+          @purchase_order.purchase_order_items.each do |purchase_order_item|
+            @sale_order.sale_order_items <<
+              SaleOrderItem.new(:purchase_order_item_id => purchase_order_item.id,
+                                :unit_price => purchase_order_item.unit_cost,
+                                :quantity => purchase_order_item.quantity)
+          end
+          @sale_order.save!
+        end
+      end
+    rescue
+      respond_to do |format|
+        flash[:notice] = "Failed to generate the purchase order: " +
+          "#{@purchase_order.errors.full_messages.uniq.join(';')}. " +
+          "Exception: #{$!.message}"
         format.html { redirect_to :controller => "store", :action => "purchase" }
         format.xml  { render :xml => @purchase_order.errors, :status => :unprocessable_entity }
+      end
+    else
+      respond_to do |format|
+        flash[:notice] = 'The purchase order was successfully created.'
+        if saled
+          format.html { redirect_to(edit_sale_order_path(@sale_order)) }
+        else
+          format.html { redirect_to(@purchase_order) }
+        end
+        format.xml  { render :xml => @purchase_order, :status => :created,
+          :location => @purchase_order }
       end
     end
   end

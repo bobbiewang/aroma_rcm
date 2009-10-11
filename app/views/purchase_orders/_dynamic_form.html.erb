@@ -49,6 +49,13 @@
   </fieldset>
 
   <p>
+    <%= check_box :order_status, :saled, {} , "yes", "no" %>
+    All items are saled to
+    <%= collection_select :sale_order, :customer_id, @customers, :id, :name %>.
+    (<%= link_to 'New Customer', new_customer_url %>)
+  </p>
+
+  <p>
     <%= f.label :comments %><br />
     <%= f.text_area :comments %>
   <p>

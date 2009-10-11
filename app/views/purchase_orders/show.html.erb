@@ -1,4 +1,5 @@
-<%= render :partial => "purchase_order" %>
+<%= render :partial => "purchase_order",
+    :locals => { :purchase_order_items => @purchase_order_items } %>
 
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
 <%= link_to 'Back', :controller => "store", :action => "purchase_history" %>
