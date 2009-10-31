@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.xml
   def index
-    @customers = Customer.find(:all)
+    @customers = Customer.find(:all).sort { |x,y| y.total_expense <=> x.total_expense }
 
     respond_to do |format|
       format.html # index.html.erb
