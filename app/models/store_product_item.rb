@@ -22,6 +22,10 @@ class StoreProductItem < ActiveRecord::Base
     store_product.title
   end
 
+  def date_title
+    "#{produced_at} #{store_product.title}"
+  end
+
   def saled_quantity
     saled_store_product_items.inject(0) { |sum, item| sum += item.quantity }
   end

@@ -5,7 +5,7 @@
 
     <p>
       <%= store_product_item_form.collection_select :store_product_item_id, store_product_items,
-                                                     :id, :title  %>
+                                                     :id, :date_title  %>
       <%= store_product_item_form.label :item_price, "Price" %>
       <%= store_product_item_form.text_field :item_price, :size => "4" %>
       <%= store_product_item_form.label :quantity, "Quantity" %>
