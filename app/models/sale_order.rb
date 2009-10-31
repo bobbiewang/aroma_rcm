@@ -93,7 +93,7 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def profit_rate
-    total_profit / total_cost_with_postage
+    total_profit / total_price
   end
 
   protected
