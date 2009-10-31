@@ -65,6 +65,9 @@ class PurchaseOrdersController < ApplicationController
     @purchase_order = PurchaseOrder.find(params[:id])
     @vendor = @purchase_order.vendor
     @vendor_products = @vendor.vendor_products
+
+    # 编辑时不允许修改销售对象
+    @customers = []
   end
 
   # POST /purchase_orders
